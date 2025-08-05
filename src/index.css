@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+/* Custom Font Faces */
+@font-face {
+  font-family: 'Erstoria';
+  src: url('/fonts/Erstoria.otf') format('opentype'),
+       url('/fonts/Erstoria.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Erstoria';
+  src: url('/fonts/Erstoria.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* MACOSX files are typically system-generated metadata files and not needed for web fonts */
+/* However, if you have actual font files with _MACOSX prefix, uncomment and adjust paths below */
+/*
+@font-face {
+  font-family: 'Erstoria';
+  src: url('./fonts/_MACOSX/_Erstoria.otf') format('opentype'),
+       url('./fonts/_MACOSX/_Erstoria.ttf') format('truetype'),
+       url('./fonts/_MACOSX/_Erstoria.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+*/
+
+/* Tailwind CSS Custom Utilities for Erstoria Font */
+@layer utilities {
+  .font-erstoria {
+    font-family: 'Erstoria', sans-serif;
+  }
+}
+
+/* Usage Examples:
+ * Basic usage:
+ * <h1 className="font-erstoria">Your Heading</h1>
+ * 
+ * Combined with Tailwind classes:
+ * <h1 className="font-erstoria text-4xl font-bold text-gray-800">Portfolio Title</h1>
+ * <p className="font-erstoria text-lg text-gray-600">Subtitle text</p>
+ * <div className="font-erstoria text-2xl tracking-wide">Special Text</div>
+ * 
+ * With responsive design:
+ * <h1 className="font-erstoria text-2xl md:text-4xl lg:text-6xl">Responsive Heading</h1>
+ * 
+ * You can also extend your tailwind.config.js to include this font:
+ * module.exports = {
+ *   theme: {
+ *     extend: {
+ *       fontFamily: {
+ *         'erstoria': ['Erstoria', 'sans-serif'],
+ *       }
+ *     }
+ *   }
+ * }
+ * 
+ * Then use it as: className="font-erstoria"
+ */
