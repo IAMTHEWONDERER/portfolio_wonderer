@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useNavbarTransition } from '../../utils/useNavbarTransition';
 
 // Utility function for className merging
@@ -7,8 +8,10 @@ const cn = (...classes) => {
   return classes.filter(Boolean).join(' ');
 };
 
-// Enhanced Navbar Component with integrated language functionality
-export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
+// Enhanced Navbar Component with React Router integration
+export const EnhancedNavbar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const { startNavbarTransition } = useNavbarTransition();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClosingForTransition, setIsClosingForTransition] = useState(false);
@@ -21,10 +24,10 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
       name: 'FR',
       displayName: 'Français',
       nav: {
+        home: 'Accueil',
         about: 'A Propos',
         contact: 'Contact',
-        products: 'Produits & Services',
-        gallery: 'Galerie'
+        portfolio: 'Portfolio'
       }
     },
     en: {
@@ -32,10 +35,10 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
       name: 'EN',
       displayName: 'English',
       nav: {
+        home: 'Home',
         about: 'About',
         contact: 'Contact',
-        products: 'Products & Services',
-        gallery: 'Gallery'
+        portfolio: 'Portfolio'
       }
     },
   };
@@ -47,10 +50,10 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
   const t = languages[currentLanguage];
 
   const navItems = [
+    { label: t.nav.home, href: '/' },
     { label: t.nav.about, href: '/about' },
     { label: t.nav.contact, href: '/contact' },
-    { label: t.nav.products, href: '/products' },
-    { label: t.nav.gallery, href: '/gallery' }
+    { label: t.nav.portfolio, href: '/portfolio' }
   ];
 
   // Listen for navbar transition events
@@ -77,14 +80,24 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
   }, []);
 
   const handleNavItemClick = (href) => {
-    if (href === currentPath) {
+    if (href === location.pathname) {
       setIsMobileMenuOpen(false);
       return;
     }
 
     // Use navbar transition for navigation
     startNavbarTransition(href, () => {
-      onNavigate(href);
+      navigate(href);
+    });
+  };
+
+  const handleHomeClick = () => {
+    if (location.pathname === '/') {
+      return;
+    }
+    
+    startNavbarTransition('/', () => {
+      navigate('/');
     });
   };
 
@@ -114,7 +127,7 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
             {/* Logo */}
             <div className="flex items-center">
               <button 
-                onClick={() => onNavigate('/')}
+                onClick={handleHomeClick}
                 className="text-2xl font-bold text-[#001b5b]" 
                 style={{ fontFamily: 'Poppins, sans-serif', background: 'none', border: 'none', cursor: 'pointer' }}
               >
@@ -129,8 +142,8 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                 className={cn(
                   "p-3 transition-all duration-300 shadow-sm border border-gray-200 relative z-[10002]",
                   isMobileMenuOpen 
-                    ? "text-white bg-[#002b65] border-[#002b65]" 
-                    : "text-[#002b65] bg-white border-gray-200"
+                    ? "text-white bg-[#e61f00] border-[#e61f00]" 
+                    : "text-[#e61f00] bg-white border-gray-200"
                 )}
               >
                 <div className="relative w-6 h-6">
@@ -164,7 +177,9 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                  background: #002b65;
+                  background: rgba(255, 255, 255, 0.1);
+                  backdrop-filter: blur(10px);
+                  -webkit-backdrop-filter: blur(10px);
                   z-index: 9999;
                   clip-path: circle(0px at calc(100vw - 60px) 60px);
                   transition: clip-path 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
@@ -192,8 +207,8 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                   max-width: 600px;
                 }
                 .mobile-nav-item {
-                  font-family: 'ARGON_HEAVY', sans-serif;
-                  color: #ffffff;
+    font-family: 'Erstoria', sans-serif;
+                  color: #000000;
                   text-decoration: none;
                   opacity: 0;
                   transform: translateX(-200px);
@@ -209,12 +224,13 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                   cursor: pointer;
                   background: none;
                   border: none;
+                  font-weight: 600;
                 }
                 .mobile-nav-item:hover {
-                  color: #00aacd;
+                  color: #e61f00;
                 }
                 .mobile-nav-item.current {
-                  color: #00aacd;
+                  color: #e61f00;
                 }
                 
                 /* Mobile styles */
@@ -255,7 +271,7 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                 .language-selector-custom {
                   margin-top: 0.5rem;
                   padding-top: 0.75rem;
-                  border-top: 1px solid rgba(255, 255, 255, 0.2);
+                  border-top: 1px solid rgba(0, 0, 0, 0.2);
                   width: 100%;
                   max-width: 600px;
                 }
@@ -290,21 +306,23 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
                   transition: all 0.3s ease;
                   cursor: pointer;
                   background: rgba(255, 255, 255, 0.1);
-                  color: #ffffff;
+                  color: #000000;
                   border: 2px solid transparent;
                   font-family: 'Roboto', sans-serif;
                   min-height: 50px;
                   text-align: center;
+                  font-weight: 900;
                 }
                 
                 .language-button:hover {
                   background: rgba(255, 255, 255, 0.2);
+                  color: #e61f00;
                 }
                 
                 .language-button.active {
-                  background: #ffffff;
-                  color: #002b65;
-                  border-color: #ffffff;
+                  background: rgba(255, 255, 255, 0.9);
+                  color: #e61f00;
+                  border-color: #e61f00;
                 }
                 
                 .language-button span:first-child {
@@ -315,12 +333,12 @@ export const EnhancedNavbar = ({ currentPath, onNavigate }) => {
               
               <div className="mobile-menu-content">
                 {/* Menu Items Container */}
-                <div className="menu-items-container">
+                <div className="menu-items-container font-black">
                   {navItems.map((item, index) => (
                     <button
                       key={item.label}
                       onClick={() => handleNavItemClick(item.href)}
-                      className={`mobile-nav-item ${currentPath === item.href ? 'current' : ''}`}
+                      className={`mobile-nav-item ${location.pathname === item.href ? 'current' : ''}`}
                       style={{ transitionDelay: `${index * 0.1}s` }}
                     >
                       {item.label}

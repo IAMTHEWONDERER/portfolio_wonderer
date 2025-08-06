@@ -1,42 +1,49 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { EnhancedNavbar } from '../components/common/Navbar';
+import { PageTransitionLayout } from './PageTransitionLayout';
 import { 
   HomePage, 
   AboutPage, 
   ContactPage, 
-  ProductsPage, 
-  GalleryPage 
+  PortfolioPage 
 } from './pages';
 
+// Main App Router Component with Dual Transitions
 const AppRouter = () => {
-  const [currentPath, setCurrentPath] = useState('/');
-
-  const navigate = (path) => {
-    setCurrentPath(path);
-  };
-
-  const renderPage = () => {
-    switch (currentPath) {
-      case '/':
-        return <HomePage />;
-      case '/about':
-        return <AboutPage />;
-      case '/contact':
-        return <ContactPage />;
-      case '/products':
-        return <ProductsPage />;
-      case '/gallery':
-        return <GalleryPage />;
-      default:
-        return <HomePage />;
-    }
-  };
-
   return (
-    <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
-      <EnhancedNavbar currentPath={currentPath} onNavigate={navigate} />
-      {renderPage()}
-    </div>
+    <Router>
+      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+        <EnhancedNavbar />
+        <Routes>
+          <Route path="/" element={
+            <PageTransitionLayout backgroundColor="#f7fafc">
+              <HomePage />
+            </PageTransitionLayout>
+          } />
+          <Route path="/about" element={
+            <PageTransitionLayout backgroundColor="#f0f8ff">
+              <AboutPage />
+            </PageTransitionLayout>
+          } />
+          <Route path="/contact" element={
+            <PageTransitionLayout backgroundColor="#f0fff4">
+              <ContactPage />
+            </PageTransitionLayout>
+          } />
+          <Route path="/portfolio" element={
+            <PageTransitionLayout backgroundColor="#fef5e7">
+              <PortfolioPage />
+            </PageTransitionLayout>
+          } />
+          <Route path="*" element={
+            <PageTransitionLayout backgroundColor="#f7fafc">
+              <HomePage />
+            </PageTransitionLayout>
+          } />
+        </Routes>
+      </div>
+    </Router>
   );
 };
 

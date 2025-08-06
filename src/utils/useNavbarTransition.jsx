@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-// Enhanced Page Transition Hook for Navbar
+// Enhanced Page Transition Hook for both Navbar and Regular transitions
 export const useNavbarTransition = () => {
   const [isNavbarTransitioning, setIsNavbarTransitioning] = useState(false);
   const [pendingPath, setPendingPath] = useState(null);
@@ -26,4 +26,31 @@ export const useNavbarTransition = () => {
   };
 
   return { startNavbarTransition, isNavbarTransitioning, pendingPath };
+};
+
+// Regular Page Transition Hook for buttons/direct navigation
+export const usePageTransition = () => {
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const startTransition = (callback) => {
+    if (isTransitioning) return;
+    
+    setIsTransitioning(true);
+    
+    // Dispatch regular transition start event
+    window.dispatchEvent(new CustomEvent('pageTransitionStart'));
+    
+    // Wait for exit animation to complete, then call callback
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('pageTransitionWaiting'));
+      callback();
+      
+      // Wait for enter animation to complete
+      setTimeout(() => {
+        setIsTransitioning(false);
+      }, 200 + 600); // EXIT_DELAY + enter animation duration
+    }, 600); // Exit duration: 400ms + 200ms for all column stagger
+  };
+
+  return { startTransition, isTransitioning };
 };
