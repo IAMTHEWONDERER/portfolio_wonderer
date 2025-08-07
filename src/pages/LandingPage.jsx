@@ -3,6 +3,8 @@ import { ArrowRight, ChevronDown, Star, Award, Users, Clock, Sparkles, Zap, Targ
 import HeroLanding from '../components/landingpage/HeroLanding';
 import AboutLanding from '../components/landingpage/AboutLanding';
 import TechStackLanding from '../components/landingpage/TechStackLanding';
+import ServiceLanding from '../components/landingpage/ServiceLanding';
+import PortfolioLanding from '../components/landingpage/PorftolioLanding';
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -35,97 +37,11 @@ const LandingPage = () => {
       {/* Tech Stack Section */}
       <TechStackLanding />
 
-      {/* Services Section with Creative Cards */}
-      <section className="py-32 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <div className="inline-flex items-center gap-3 px-6 py-3 bg-[#e61f00]/5 text-[#e61f00] rounded-full mb-8">
-              <Target className="w-5 h-5" />
-              <span className="text-sm font-semibold tracking-wider uppercase" style={{ fontFamily: 'Poppins, sans-serif' }}>Services</span>
-            </div>
-            <h2 className="text-5xl md:text-6xl font-black text-[#001b5b] mb-8" style={{ fontFamily: 'Poppins, sans-serif' }}>
-              What I Offer
-            </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
-              Comprehensive web development and design services tailored to your unique needs
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="group bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4">
-              <div className="w-16 h-16 bg-[#001b5b]/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
-                <Users className="w-8 h-8 text-[#001b5b]" />
-              </div>
-              <h3 className="text-2xl font-bold text-[#001b5b] mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>Web Development</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Custom web applications built with modern technologies and best practices
-              </p>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  React & Next.js Development
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  Full-Stack Solutions
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  API Integration
-                </li>
-              </ul>
-            </div>
+      {/* Services Section - Now using our custom component */}
+      <ServiceLanding />
 
-            <div className="group bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4">
-              <div className="w-16 h-16 bg-[#e61f00]/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
-                <Star className="w-8 h-8 text-[#e61f00]" />
-              </div>
-              <h3 className="text-2xl font-bold text-[#001b5b] mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>UI/UX Design</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Beautiful, intuitive interfaces that enhance user experience and engagement
-              </p>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  User Interface Design
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  User Experience Optimization
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  Prototyping & Wireframing
-                </li>
-              </ul>
-            </div>
-
-            <div className="group bg-white rounded-3xl p-10 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4">
-              <div className="w-16 h-16 bg-[#001b5b]/10 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-300">
-                <Clock className="w-8 h-8 text-[#001b5b]" />
-              </div>
-              <h3 className="text-2xl font-bold text-[#001b5b] mb-6" style={{ fontFamily: 'Poppins, sans-serif' }}>Performance</h3>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Optimized websites that load fast and provide exceptional user experience
-              </p>
-              <ul className="space-y-3 text-gray-600">
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  Speed Optimization
-                </li>
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  SEO Best Practices
-                </li> 
-                <li className="flex items-center gap-3">
-                  <div className="w-2 h-2 bg-[#e61f00] rounded-full"></div>
-                  Mobile Optimization
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Portfolio Section */}
+      <PortfolioLanding />
 
       {/* Creative CTA Section */}
       <section className="py-32 bg-[#001b5b] relative overflow-hidden">
