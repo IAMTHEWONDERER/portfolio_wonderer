@@ -37,6 +37,7 @@ const LandingPage = () => {
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
+    
       {/* Hero Section */}
       <HeroLanding />
       
