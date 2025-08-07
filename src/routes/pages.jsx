@@ -1,27 +1,8 @@
 import React from 'react';
+import LandingPage from '../pages/LandingPage';
 
-// Home Page Component
-export const HomePage = () => (
-  <div style={{ padding: '2rem', paddingTop: '8rem', minHeight: '100vh' }}>
-    <h1 style={{ fontSize: '3rem', marginBottom: '1rem', color: '#333' }}>Home Page</h1>
-    <p style={{ fontSize: '1.2rem', color: '#666', lineHeight: '1.6' }}>
-      Welcome to the home page with real URL routing! The navbar transition creates a smooth reveal effect when navigating between pages.
-    </p>
-    <div style={{ marginTop: '2rem', padding: '1rem', backgroundColor: 'rgba(255, 255, 255, 0.5)', borderRadius: '8px' }}>
-      <h3>Real URL Routing:</h3>
-      <ul>
-        <li><strong>Home:</strong> <code>/</code></li>
-        <li><strong>About:</strong> <code>/about</code></li>
-        <li><strong>Contact:</strong> <code>/contact</code></li>
-        <li><strong>Products:</strong> <code>/products</code></li>
-        <li><strong>Gallery:</strong> <code>/gallery</code></li>
-      </ul>
-      <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>
-        Each page has its own URL that you can bookmark, share, or navigate to directly!
-      </p>
-    </div>
-  </div>
-);
+// Home Page Component - Now displays the full landing page
+export const HomePage = () => <LandingPage />;
 
 // About Page Component
 export const AboutPage = () => (
