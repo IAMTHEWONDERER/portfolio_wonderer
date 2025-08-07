@@ -87,7 +87,7 @@ const AboutLanding = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
     >
       {/* Background Grid */}
-      <div className="absolute inset-0 opacity-[0.015]">
+     <div className="absolute inset-0 opacity-[0.02]">
         <div 
           className="absolute inset-0"
           style={{
@@ -95,7 +95,7 @@ const AboutLanding = () => {
               linear-gradient(to right, #0a0100 1px, transparent 1px),
               linear-gradient(to bottom, #0a0100 1px, transparent 1px)
             `,
-            backgroundSize: '120px 120px',
+            backgroundSize: '80px 80px',
           }}
         />
       </div>

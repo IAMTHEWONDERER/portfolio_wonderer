@@ -182,18 +182,18 @@ const TechStackLanding = () => {
         id="tech-stack" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
       >
-        <div className="absolute inset-0 opacity-[0.015]">
-          <div 
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, #0a0100 1px, transparent 1px),
-                linear-gradient(to bottom, #0a0100 1px, transparent 1px)
-              `,
-              backgroundSize: '120px 120px',
-            }}
-          />
-        </div>
+        <div className="absolute inset-0 opacity-[0.02]">
+        <div 
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, #0a0100 1px, transparent 1px),
+              linear-gradient(to bottom, #0a0100 1px, transparent 1px)
+            `,
+            backgroundSize: '80px 80px',
+          }}
+        />
+      </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
           <div className="text-center">

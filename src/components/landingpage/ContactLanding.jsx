@@ -70,7 +70,7 @@ const ContactLanding = () => {
       className="relative min-h-screen py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
     >
       {/* Background Grid */}
-      <div className="absolute inset-0 opacity-[0.015]">
+    <div className="absolute inset-0 opacity-[0.02]">
         <div 
           className="absolute inset-0"
           style={{
@@ -78,7 +78,7 @@ const ContactLanding = () => {
               linear-gradient(to right, #0a0100 1px, transparent 1px),
               linear-gradient(to bottom, #0a0100 1px, transparent 1px)
             `,
-            backgroundSize: '120px 120px',
+            backgroundSize: '80px 80px',
           }}
         />
       </div>
