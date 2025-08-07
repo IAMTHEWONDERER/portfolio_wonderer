@@ -15,45 +15,49 @@ export const EnhancedNavbar = () => {
   const { startNavbarTransition } = useNavbarTransition();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClosingForTransition, setIsClosingForTransition] = useState(false);
-  const [currentLanguage, setCurrentLanguage] = useState('fr');
+  
+  // Commented out language switching functionality
+  // const [currentLanguage, setCurrentLanguage] = useState('fr');
 
-  // Language definitions
-  const languages = {
-    fr: {
-      code: 'fr',
-      name: 'FR',
-      displayName: 'Français',
-      nav: {
-        home: 'Accueil',
-        about: 'A Propos',
-        contact: 'Contact',
-        portfolio: 'Portfolio'
-      }
-    },
-    en: {
-      code: 'en',
-      name: 'EN',
-      displayName: 'English',
-      nav: {
-        home: 'Home',
-        about: 'About',
-        contact: 'Contact',
-        portfolio: 'Portfolio'
-      }
-    },
-  };
+  // Commented out language definitions
+  // const languages = {
+  //   fr: {
+  //     code: 'fr',
+  //     name: 'FR',
+  //     displayName: 'Français',
+  //     nav: {
+  //       home: 'Accueil',
+  //       about: 'A Propos',
+  //       contact: 'Contact',
+  //       portfolio: 'Portfolio'
+  //     }
+  //   },
+  //   en: {
+  //     code: 'en',
+  //     name: 'EN',
+  //     displayName: 'English',
+  //     nav: {
+  //       home: 'Home',
+  //       about: 'About',
+  //       contact: 'Contact',
+  //       portfolio: 'Portfolio'
+  //     }
+  //   },
+  // };
 
-  const changeLanguage = (langCode) => {
-    setCurrentLanguage(langCode);
-  };
+  // Commented out language change function
+  // const changeLanguage = (langCode) => {
+  //   setCurrentLanguage(langCode);
+  // };
 
-  const t = languages[currentLanguage];
+  // Commented out translation function
+  // const t = languages[currentLanguage];
 
+  // Simplified navigation items - only 3 items
   const navItems = [
-    { label: t.nav.home, href: '/' },
-    { label: t.nav.about, href: '/about' },
-    { label: t.nav.contact, href: '/contact' },
-    { label: t.nav.portfolio, href: '/portfolio' }
+    { label: 'Home', href: '/' },
+    { label: 'Contact', href: '/contact' },
+    { label: 'Portfolio', href: '/portfolio' }
   ];
 
   // Listen for navbar transition events
@@ -205,7 +209,7 @@ export const EnhancedNavbar = () => {
                   max-width: 600px;
                 }
                 .mobile-nav-item {
-    font-family: 'Erstoria', sans-serif;
+                  font-family: 'Erstoria', sans-serif;
                   color: #000000;
                   text-decoration: none;
                   opacity: 0;
@@ -266,24 +270,14 @@ export const EnhancedNavbar = () => {
                   transform: translateX(0);
                 }
                 
+                /* Commented out language selector styles */
+                /*
                 .language-selector-custom {
                   margin-top: 0.5rem;
                   padding-top: 0.75rem;
                   border-top: 1px solid rgba(0, 0, 0, 0.2);
                   width: 100%;
                   max-width: 600px;
-                }
-                
-                /* Desktop language selector adjustments */
-                @media (min-width: 769px) {
-                  .language-selector-custom {
-                    margin-top: 0.75rem;
-                    padding-top: 1rem;
-                    max-width: 600px;
-                  }
-                  .language-button span:first-child {
-                    font-size: 1.3rem !important;
-                  }
                 }
                 
                 .language-buttons {
@@ -327,10 +321,11 @@ export const EnhancedNavbar = () => {
                   font-size: 1.1rem;
                   font-weight: 600;
                 }
+                */
               `}</style>
               
               <div className="mobile-menu-content">
-                {/* Menu Items Container */}
+                {/* Menu Items Container - Now only 3 items */}
                 <div className="menu-items-container font-black">
                   {navItems.map((item, index) => (
                     <button
@@ -344,7 +339,8 @@ export const EnhancedNavbar = () => {
                   ))}
                 </div>
                 
-                {/* Language Selector */}
+                {/* Commented out Language Selector */}
+                {/*
                 <div className="language-selector-custom">
                   <div className="language-buttons">
                     {Object.values(languages).map((lang) => (
@@ -358,6 +354,7 @@ export const EnhancedNavbar = () => {
                     ))}
                   </div>
                 </div>
+                */}
               </div>
             </div>
           </div>

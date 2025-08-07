@@ -46,13 +46,29 @@ const HeroLanding = () => {
       {/* Main Content */}
       <div className="flex-1 flex items-center justify-center px-6 md:px-12 lg:px-24 pt-16">
         <div className="w-full max-w-6xl text-center">
-          {/* Header Text - Shrunk */}
+          {/* Name Introduction */}
+          <div className="mb-6 overflow-hidden">
+            <div 
+              className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm"
+              style={{
+                animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <div className="w-12 h-px bg-[#0a0100]/30" />
+              <span className="font-erstoria">Oussama Alouche</span>
+              <div className="w-12 h-px bg-[#0a0100]/30" />
+            </div>
+          </div>
+
+          {/* Header Text */}
           <div className="mb-12 md:mb-16">
             <div className="overflow-hidden">
               <h1 
                 className="font-erstoria text-5xl md:text-7xl lg:text-8xl xl:text-9xl leading-[0.9] tracking-tight text-[#0a0100] font-normal"
                 style={{
-                  animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards' : 'none',
+                  animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
                   transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
                 }}
               >
@@ -98,11 +114,11 @@ const HeroLanding = () => {
             </div>
           </div>
 
-          {/* Description - Shrunk */}
+          {/* Description */}
           <div 
             className="mb-12 overflow-hidden"
             style={{
-              animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
+              animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
               transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
               opacity: isLoaded ? 1 : 0,
             }}
@@ -117,7 +133,7 @@ const HeroLanding = () => {
           <div 
             className="flex flex-col sm:flex-row gap-6 justify-center items-center overflow-hidden"
             style={{
-              animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
+              animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
               transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
               opacity: isLoaded ? 1 : 0,
             }}

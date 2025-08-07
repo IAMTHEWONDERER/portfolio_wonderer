@@ -197,7 +197,7 @@ const AboutLanding = () => {
             <div className="grid md:grid-cols-2 gap-12 text-left max-w-4xl mx-auto">
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  I'm a passionate designer and developer based in Morocco, dedicated to creating 
+                  My name is Oussama Alouche, 24 Years old, a passionate designer and developer based in Morocco, dedicated to creating 
                   meaningful digital experiences that bridge the gap between aesthetics and functionality.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
