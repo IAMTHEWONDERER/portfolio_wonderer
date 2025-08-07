@@ -1,16 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-import HeroLanding from '../components/landingpage/HeroLanding';
-
-const LandingPage = () => {
-  return (
-    <div className="w-full">
-      {/* Hero Section */}
-      <HeroLanding />
-      
-      {/* Additional sections can be added here */}
-      {/* Example: About preview, featured work, etc. */}
-=======
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronDown, Star, Award, Users, Clock, Sparkles, Zap, Target } from 'lucide-react';
 import HeroLanding from '../components/landingpage/HeroLanding';
@@ -249,13 +236,8 @@ const LandingPage = () => {
           </div>
         </div>
       </footer>
->>>>>>> 0ed51352f7218f8211e247310880d76ed311749f
     </div>
   );
 };
 
-<<<<<<< HEAD
-export default LandingPage;
-=======
 export default LandingPage; 
->>>>>>> 0ed51352f7218f8211e247310880d76ed311749f
