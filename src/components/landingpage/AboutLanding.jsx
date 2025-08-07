@@ -11,7 +11,7 @@ const AboutLanding = () => {
   const artisticImages = [
     {
       id: 1,
-      src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=800&fit=crop&crop=faces',
+      src: '/imgs/im2.jpeg',
       alt: 'Creative Process',
       title: 'Creative Process',
       position: 'top-8 left-12',
@@ -20,7 +20,7 @@ const AboutLanding = () => {
     },
     {
       id: 2,
-      src: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=550&h=750&fit=crop&crop=center',
+      src: '/imgs/im3.jpeg',
       alt: 'Design Inspiration',
       title: 'Design Inspiration',
       position: 'top-32 right-16',
@@ -29,10 +29,10 @@ const AboutLanding = () => {
     },
     {
       id: 3,
-      src: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=520&h=720&fit=crop&crop=center',
+      src: '/imgs/im1.jpeg',
       alt: 'Artistic Vision',
       title: 'Artistic Vision',
-      position: 'bottom-12 left-6', // Changed from left-20 to left-6 (closer to edge, away from text)
+      position: 'bottom-12 left-6', 
       size: 'w-68 h-84',
       delay: '1.5s'
     }
@@ -197,7 +197,7 @@ const AboutLanding = () => {
             <div className="grid md:grid-cols-2 gap-12 text-left max-w-4xl mx-auto">
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  I'm a passionate designer and developer based in Morocco, dedicated to creating 
+                  My name is Oussama Alouche, 24 Years old, a passionate designer and developer based in Morocco, dedicated to creating 
                   meaningful digital experiences that bridge the gap between aesthetics and functionality.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
