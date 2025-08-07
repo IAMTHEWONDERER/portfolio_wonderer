@@ -29,7 +29,7 @@ const AboutLanding = () => {
     },
     {
       id: 3,
-      src: '/imgs/im1.jpeg',
+      src: '/imgs/im5.jpg',
       alt: 'Artistic Vision',
       title: 'Artistic Vision',
       position: 'bottom-12 left-6', 
