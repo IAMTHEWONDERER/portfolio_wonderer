@@ -8,7 +8,7 @@ const TechStackLanding = () => {
   const [activeCategory, setActiveCategory] = useState(null);
   const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [showCV, setShowCV] = useState(false);
-  const [cvLanguage, setCvLanguage] = useState('english'); // 'english' or 'french'
+  const [cvLanguage, setCvLanguage] = useState('english'); 
 
   const techLogos = [
     { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
@@ -124,19 +124,16 @@ const TechStackLanding = () => {
   useEffect(() => {
     setIsLoaded(true);
     
-    // Auto-rotate logo carousel
     const interval = setInterval(() => {
       setCurrentLogoIndex((prev) => (prev + 1) % techLogos.length);
     }, 2000);
 
-    // Listen for navbar menu open/close events
     const handleNavbarMenuOpen = () => {
       if (showCV) {
         setShowCV(false);
       }
     };
 
-    // Listen for hamburger menu state changes
     window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
 
     return () => {
@@ -167,7 +164,6 @@ const TechStackLanding = () => {
     }
   };
 
-  // Get visible logos for smooth carousel
   const getVisibleLogos = () => {
     const visibleLogos = [];
     for (let i = 0; i < 5; i++) {
@@ -186,7 +182,6 @@ const TechStackLanding = () => {
         id="tech-stack" 
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
       >
-        {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.015]">
           <div 
             className="absolute inset-0"
@@ -200,10 +195,8 @@ const TechStackLanding = () => {
           />
         </div>
 
-        {/* Main Content */}
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
           <div className="text-center">
-            {/* Section Label */}
             <div 
               className="overflow-hidden mb-8"
               style={{
@@ -219,7 +212,6 @@ const TechStackLanding = () => {
               </div>
             </div>
 
-            {/* Main Heading */}
             <div className="overflow-hidden mb-12">
               <h2 
                 className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
@@ -234,7 +226,6 @@ const TechStackLanding = () => {
               </h2>
             </div>
 
-            {/* Description */}
             <div 
               className="overflow-hidden mb-12"
               style={{
@@ -249,7 +240,6 @@ const TechStackLanding = () => {
               </p>
             </div>
 
-            {/* Technology Logos Carousel - Smoother Transition Version */}
             <div 
               className="overflow-hidden mb-16"
               style={{
@@ -286,7 +276,6 @@ const TechStackLanding = () => {
               </div>
             </div>
 
-            {/* Tech Categories Grid */}
             <div 
               className="overflow-hidden"
               style={{
@@ -306,7 +295,6 @@ const TechStackLanding = () => {
                       className="group border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer"
                       onClick={() => setActiveCategory(isActive ? null : index)}
                     >
-                      {/* Category Header */}
                       <div className="p-6">
                         <div className="flex items-center justify-between mb-4">
                           <div className="flex items-center gap-4">
@@ -341,7 +329,6 @@ const TechStackLanding = () => {
                         </div>
                       </div>
 
-                      {/* Expandable Technologies List */}
                       <div className={`overflow-hidden transition-all duration-500 ${
                         isActive ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
                       }`}>
@@ -371,7 +358,6 @@ const TechStackLanding = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div 
               className="overflow-hidden mt-16"
               style={{
@@ -406,37 +392,36 @@ const TechStackLanding = () => {
         `}</style>
       </section>
 
-      {/* CV Modal */}
       <AnimatePresence>
         {showCV && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-4"
+            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-2 sm:p-4"
             onClick={() => setShowCV(false)}
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#f5f5f0] shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden"
+              className="bg-[#f5f5f0] shadow-2xl w-full max-w-5xl h-full sm:h-[95vh] sm:max-h-[95vh] overflow-hidden flex flex-col"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header - Minimal */}
-              <div className="bg-[#f5f5f0] p-6 border-b border-[#0a0100]/10">
-                <div className="flex items-center gap-4">
-                  <h2 className="font-erstoria text-2xl tracking-wide text-[#0a0100]">CURRICULUM VITAE</h2>
-                  <div className="w-8 h-px bg-[#e61f00]" />
+              {/* Modal Header - Responsive */}
+              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">CV</h2>
+                  <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
                 </div>
               </div>
 
-              {/* PDF Viewer - Full Height */}
-              <div className="h-[calc(95vh-160px)] bg-[#f5f5f0] p-6 pt-0">
+              {/* PDF Viewer - Responsive Height */}
+              <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
                 <div className="w-full h-full bg-white shadow-inner overflow-auto">
                   <iframe
-                    key={cvLanguage} // Force re-render when language changes
-                    src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1`}
+                    key={cvLanguage}
+                    src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
                     className="w-full h-full border-none"
                     title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
                     onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
@@ -444,52 +429,55 @@ const TechStackLanding = () => {
                 </div>
               </div>
 
-              {/* Modal Footer - Controls at Bottom */}
-              <div className="bg-[#f5f5f0] p-6 border-t border-[#0a0100]/10 flex items-center justify-between">
-                <div className="flex items-center gap-4">
+              {/* Modal Footer - Responsive Controls */}
+              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
+                <div className="flex items-center justify-between gap-2">
                   {/* Language Toggle */}
-                  <div className="flex items-center gap-1 bg-[#0a0100]/10 p-1">
+                  <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
                     <button
                       onClick={() => setCvLanguage('english')}
-                      className={`px-4 py-2 text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 ${
                         cvLanguage === 'english'
-                          ? 'bg-[#e61f00] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/10'
+                          ? 'bg-[#0a0100] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
                       }`}
                     >
-                      ENGLISH
+                      EN
                     </button>
                     <button
                       onClick={() => setCvLanguage('french')}
-                      className={`px-4 py-2 text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 ${
                         cvLanguage === 'french'
-                          ? 'bg-[#e61f00] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/10'
+                          ? 'bg-[#0a0100] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
                       }`}
                     >
-                      FRANÇAIS
+                      FR
                     </button>
                   </div>
                   
-                  {/* Download Button */}
-                  <button
-                    onClick={handleDownloadCV}
-                    className="group flex items-center gap-2 px-4 py-2 bg-[#0a0100]/10 hover:bg-[#e61f00] hover:text-white transition-all duration-300"
-                    title="Download CV"
-                  >
-                    <Download size={16} />
-                    <span className="text-sm font-erstoria tracking-wide">DOWNLOAD</span>
-                  </button>
-                </div>
+                  {/* Action Buttons Group */}
+                  <div className="flex items-center gap-1">
+                    {/* Download Button - Icon only */}
+                    <button
+                      onClick={handleDownloadCV}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
+                      title="Download CV"
+                      aria-label="Download CV"
+                    >
+                      <Download size={16} className="sm:w-5 sm:h-5" />
+                    </button>
 
-                {/* Close Button */}
-                <button
-                  onClick={() => setShowCV(false)}
-                  className="group flex items-center gap-2 px-4 py-2 bg-[#0a0100]/10 hover:bg-[#e61f00] hover:text-white transition-all duration-300"
-                >
-                  <X size={16} />
-                  <span className="text-sm font-erstoria tracking-wide">CLOSE</span>
-                </button>
+                    {/* Close Button */}
+                    <button
+                      onClick={() => setShowCV(false)}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
+                      aria-label="Close CV"
+                    >
+                      <X size={16} className="sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
+                </div>
               </div>
 
               {/* Loading fallback */}
