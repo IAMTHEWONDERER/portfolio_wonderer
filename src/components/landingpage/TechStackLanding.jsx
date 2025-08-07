@@ -1,0 +1,510 @@
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Github, Linkedin, Mail, Download, X, Globe } from 'lucide-react';
+
+const TechStackLanding = () => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
+  const [showCV, setShowCV] = useState(false);
+  const [cvLanguage, setCvLanguage] = useState('english'); // 'english' or 'french'
+
+  const techLogos = [
+    { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
+    { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
+    { name: 'MongoDB', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
+    { name: 'Express', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
+    { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'TypeScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+    { name: 'Python', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
+    { name: 'TensorFlow', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
+    { name: 'Figma', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { name: 'Tailwind', url: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg' },
+    { name: 'PostgreSQL', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
+    { name: 'Redis', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+    { name: 'Docker', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
+    { name: 'AWS', url: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg' },
+    { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
+    { name: 'VS Code', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' }
+  ];
+
+  const techCategories = [
+    {
+      category: "MERN Stack",
+      level: "Expert",
+      description: "Full-stack JavaScript development with modern frameworks",
+      technologies: [
+        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
+        { name: "React.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
+      ],
+      color: "text-[#e61f00]"
+    },
+    {
+      category: "AI Integration",
+      level: "Expert", 
+      description: "Machine learning and AI-powered solutions",
+      technologies: [
+        { name: "OpenAI APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Langchain", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
+      ],
+      color: "text-[#e61f00]"
+    },
+    {
+      category: "UI/UX Design",
+      level: "Expert",
+      description: "User interface and experience design",
+      technologies: [
+        { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
+        { name: "Framer Motion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Design Systems", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" }
+      ],
+      color: "text-[#e61f00]"
+    },
+    {
+      category: "Database & Backend",
+      level: "Intermediate",
+      description: "Data management and server architecture",
+      technologies: [
+        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
+        { name: "Redis", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
+        { name: "REST APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+        { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
+      ],
+      color: "text-[#0a0100]/70"
+    },
+    {
+      category: "Cloud & DevOps",
+      level: "Intermediate",
+      description: "Deployment and infrastructure management",
+      technologies: [
+        { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
+        { name: "Vercel", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name: "GitHub Actions", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
+        { name: "Nginx", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" }
+      ],
+      color: "text-[#0a0100]/70"
+    },
+    {
+      category: "Programming Languages",
+      level: "Varied",
+      description: "Core programming languages and frameworks",
+      technologies: [
+        { name: "JavaScript/TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+        { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" }
+      ],
+      color: "text-[#0a0100]/60"
+    },
+    {
+      category: "Tools & Utilities",
+      level: "Proficient",
+      description: "Development tools and productivity software",
+      technologies: [
+        { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+        { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
+        { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" }
+      ],
+      color: "text-[#0a0100]/60"
+    }
+  ];
+
+  const cvFiles = {
+    english: '/pdfs/Oussama_Alouche.pdf',
+    french: '/pdfs/OussamaAlouche.pdf'
+  };
+
+  useEffect(() => {
+    setIsLoaded(true);
+    
+    // Auto-rotate logo carousel
+    const interval = setInterval(() => {
+      setCurrentLogoIndex((prev) => (prev + 1) % techLogos.length);
+    }, 2000);
+
+    // Listen for navbar menu open/close events
+    const handleNavbarMenuOpen = () => {
+      if (showCV) {
+        setShowCV(false);
+      }
+    };
+
+    // Listen for hamburger menu state changes
+    window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+    };
+  }, [showCV]);
+
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = cvFiles[cvLanguage];
+    link.download = `OussamaAlouche_CV_${cvLanguage.toUpperCase()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const getLevelIndicator = (level) => {
+    switch(level) {
+      case 'Expert':
+        return { dots: 3, color: 'bg-[#e61f00]' };
+      case 'Intermediate':
+        return { dots: 2, color: 'bg-[#e61f00]' };
+      case 'Proficient':
+        return { dots: 2, color: 'bg-[#e61f00]' };
+      default:
+        return { dots: 1, color: 'bg-[#e61f00]' };
+    }
+  };
+
+  // Get visible logos for smooth carousel
+  const getVisibleLogos = () => {
+    const visibleLogos = [];
+    for (let i = 0; i < 5; i++) {
+      const index = (currentLogoIndex + i) % techLogos.length;
+      visibleLogos.push({
+        ...techLogos[index],
+        position: i
+      });
+    }
+    return visibleLogos;
+  };
+
+  return (
+    <>
+      <section 
+        id="tech-stack" 
+        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
+      >
+        {/* Background Grid */}
+        <div className="absolute inset-0 opacity-[0.015]">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
+                linear-gradient(to right, #0a0100 1px, transparent 1px),
+                linear-gradient(to bottom, #0a0100 1px, transparent 1px)
+              `,
+              backgroundSize: '120px 120px',
+            }}
+          />
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
+          <div className="text-center">
+            {/* Section Label */}
+            <div 
+              className="overflow-hidden mb-8"
+              style={{
+                animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
+                <div className="w-12 h-px bg-[#0a0100]/30" />
+                <span className="font-erstoria">Tech Stack</span>
+                <div className="w-12 h-px bg-[#0a0100]/30" />
+              </div>
+            </div>
+
+            {/* Main Heading */}
+            <div className="overflow-hidden mb-12">
+              <h2 
+                className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
+                style={{
+                  animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
+                  transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                  opacity: isLoaded ? 1 : 0,
+                }}
+              >
+                TECHNICAL
+                <span className="block text-[#e61f00]">EXPERTISE</span>
+              </h2>
+            </div>
+
+            {/* Description */}
+            <div 
+              className="overflow-hidden mb-12"
+              style={{
+                animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
+                A comprehensive overview of my technical skills and the technologies I work with 
+                to bring innovative ideas to life.
+              </p>
+            </div>
+
+            {/* Technology Logos Carousel - Smoother Transition Version */}
+            <div 
+              className="overflow-hidden mb-16"
+              style={{
+                animation: isLoaded ? 'slideUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <div className="flex justify-center items-center gap-6 mb-4">
+                <div className="flex items-center gap-6 relative">
+                  {getVisibleLogos().map((tech, index) => (
+                    <div 
+                      key={`${tech.name}-${currentLogoIndex}`}
+                      className="w-12 h-12 flex items-center justify-center transition-all duration-1000 ease-in-out"
+                      style={{
+                        opacity: index === 2 ? 1 : 0.4,
+                        transform: `scale(${index === 2 ? 1.2 : 1})`,
+                        filter: index === 2 ? 'none' : 'grayscale(100%)',
+                      }}
+                    >
+                      <img 
+                        src={tech.url} 
+                        alt={tech.name}
+                        className="w-full h-full object-contain transition-all duration-1000 ease-in-out"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="flex justify-center">
+                <span className="text-sm text-[#0a0100]/50 font-erstoria tracking-widest transition-all duration-1000 ease-in-out">
+                  {getVisibleLogos()[2]?.name}
+                </span>
+              </div>
+            </div>
+
+            {/* Tech Categories Grid */}
+            <div 
+              className="overflow-hidden"
+              style={{
+                animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                {techCategories.map((category, index) => {
+                  const levelInfo = getLevelIndicator(category.level);
+                  const isActive = activeCategory === index;
+                  
+                  return (
+                    <div 
+                      key={index}
+                      className="group border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer"
+                      onClick={() => setActiveCategory(isActive ? null : index)}
+                    >
+                      {/* Category Header */}
+                      <div className="p-6">
+                        <div className="flex items-center justify-between mb-4">
+                          <div className="flex items-center gap-4">
+                            <h3 className="font-erstoria text-xl lg:text-2xl text-[#0a0100] tracking-wide">
+                              {category.category}
+                            </h3>
+                            <div className="flex gap-1">
+                              {Array.from({ length: 3 }, (_, i) => (
+                                <div 
+                                  key={i}
+                                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                    i < levelInfo.dots ? levelInfo.color : 'bg-[#0a0100]/10'
+                                  }`}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <ChevronDown 
+                            className={`w-5 h-5 text-[#0a0100]/60 transition-transform duration-300 ${
+                              isActive ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </div>
+                        
+                        <div className="flex items-center justify-between">
+                          <p className="text-[#0a0100]/60 text-sm leading-relaxed">
+                            {category.description}
+                          </p>
+                          <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria ml-4">
+                            {category.level}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Expandable Technologies List */}
+                      <div className={`overflow-hidden transition-all duration-500 ${
+                        isActive ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
+                      }`}>
+                        <div className="px-6 pb-6 border-t border-[#0a0100]/10">
+                          <div className="pt-4 grid grid-cols-2 gap-3">
+                            {category.technologies.map((tech, techIndex) => (
+                              <div 
+                                key={techIndex}
+                                className="flex items-center gap-3 py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-2"
+                              >
+                                <img 
+                                  src={tech.logo} 
+                                  alt={tech.name}
+                                  className="w-5 h-5 object-contain"
+                                />
+                                <span className="text-sm text-[#0a0100]/70 font-medium">
+                                  {tech.name}
+                                </span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Action Buttons */}
+            <div 
+              className="overflow-hidden mt-16"
+              style={{
+                animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards' : 'none',
+                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
+                opacity: isLoaded ? 1 : 0,
+              }}
+            >
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button 
+                  onClick={() => setShowCV(true)}
+                  className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px]"
+                >
+                  <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
+                  <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                </button>
+                
+               
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style jsx>{`
+          @keyframes slideUp {
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* CV Modal */}
+      <AnimatePresence>
+        {showCV && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-4"
+            onClick={() => setShowCV(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#f5f5f0] shadow-2xl max-w-5xl w-full max-h-[95vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header - Minimal */}
+              <div className="bg-[#f5f5f0] p-6 border-b border-[#0a0100]/10">
+                <div className="flex items-center gap-4">
+                  <h2 className="font-erstoria text-2xl tracking-wide text-[#0a0100]">CURRICULUM VITAE</h2>
+                  <div className="w-8 h-px bg-[#e61f00]" />
+                </div>
+              </div>
+
+              {/* PDF Viewer - Full Height */}
+              <div className="h-[calc(95vh-160px)] bg-[#f5f5f0] p-6 pt-0">
+                <div className="w-full h-full bg-white shadow-inner overflow-auto">
+                  <iframe
+                    key={cvLanguage} // Force re-render when language changes
+                    src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1`}
+                    className="w-full h-full border-none"
+                    title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
+                    onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer - Controls at Bottom */}
+              <div className="bg-[#f5f5f0] p-6 border-t border-[#0a0100]/10 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  {/* Language Toggle */}
+                  <div className="flex items-center gap-1 bg-[#0a0100]/10 p-1">
+                    <button
+                      onClick={() => setCvLanguage('english')}
+                      className={`px-4 py-2 text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                        cvLanguage === 'english'
+                          ? 'bg-[#e61f00] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/10'
+                      }`}
+                    >
+                      ENGLISH
+                    </button>
+                    <button
+                      onClick={() => setCvLanguage('french')}
+                      className={`px-4 py-2 text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                        cvLanguage === 'french'
+                          ? 'bg-[#e61f00] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/10'
+                      }`}
+                    >
+                      FRANÇAIS
+                    </button>
+                  </div>
+                  
+                  {/* Download Button */}
+                  <button
+                    onClick={handleDownloadCV}
+                    className="group flex items-center gap-2 px-4 py-2 bg-[#0a0100]/10 hover:bg-[#e61f00] hover:text-white transition-all duration-300"
+                    title="Download CV"
+                  >
+                    <Download size={16} />
+                    <span className="text-sm font-erstoria tracking-wide">DOWNLOAD</span>
+                  </button>
+                </div>
+
+                {/* Close Button */}
+                <button
+                  onClick={() => setShowCV(false)}
+                  className="group flex items-center gap-2 px-4 py-2 bg-[#0a0100]/10 hover:bg-[#e61f00] hover:text-white transition-all duration-300"
+                >
+                  <X size={16} />
+                  <span className="text-sm font-erstoria tracking-wide">CLOSE</span>
+                </button>
+              </div>
+
+              {/* Loading fallback */}
+              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{display: 'none'}} id="pdf-loading">
+                <div className="text-center">
+                  <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
+export default TechStackLanding;

@@ -7,7 +7,7 @@ import LandingPage from '../pages/LandingPage';
 const AppRouter = () => {
   return (
     <Router>
-      <div style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
+      <div className='bg-[#f5f5f0]' style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
         <EnhancedNavbar />
         <Routes>
           <Route path="/" element={
