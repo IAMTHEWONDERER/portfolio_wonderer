@@ -146,8 +146,8 @@ export const EnhancedNavbar = () => {
                 className={cn(
                   "p-3 transition-all duration-300 shadow-sm border border-gray-200 relative z-[10002]",
                   isMobileMenuOpen 
-                    ? "text-white bg-[#e61f00] border-[#e61f00]" 
-                    : "text-[#000000] bg-white border-gray-200"
+                    ? "text-[#f5f5f0] bg-[#e61f00] border-[#e61f00]" 
+                    : "text-[#000000] bg-[#f5f5f0] border-gray-200"
                 )}
               >
                 <div className="relative w-6 h-6">
