@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+:root{
+  background-color: #f5f5f0;
+}
 /* Custom Font Faces */
 @font-face {
   font-family: 'Erstoria';

@@ -121,17 +121,17 @@ export const EnhancedNavbar = () => {
 
   return (
     <>
-      <nav className="bg-transparent fixed top-0 left-0 w-full z-30">
+      <nav className=" fixed top-0 left-0 w-full z-30">
         <div className="max-w-10xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-26">
             {/* Logo */}
             <div className="flex items-center">
               <button 
                 onClick={handleHomeClick}
-                className="text-2xl font-bold text-[#001b5b]" 
-                style={{ fontFamily: 'Poppins, sans-serif', background: 'none', border: 'none', cursor: 'pointer' }}
+                className="text-2xl font-bold text-[#0a0100]" 
+                style={{ fontFamily: 'Erstoria, sans-serif', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                <img src="/imgs/logotext.png" alt="logo" className='h-24' />
+                WONDERER
               </button>
             </div>
 
@@ -143,7 +143,7 @@ export const EnhancedNavbar = () => {
                   "p-3 transition-all duration-300 shadow-sm border border-gray-200 relative z-[10002]",
                   isMobileMenuOpen 
                     ? "text-white bg-[#e61f00] border-[#e61f00]" 
-                    : "text-[#e61f00] bg-white border-gray-200"
+                    : "text-[#000000] bg-white border-gray-200"
                 )}
               >
                 <div className="relative w-6 h-6">
@@ -177,9 +177,7 @@ export const EnhancedNavbar = () => {
                   display: flex;
                   justify-content: center;
                   align-items: center;
-                  background: rgba(255, 255, 255, 0.1);
-                  backdrop-filter: blur(10px);
-                  -webkit-backdrop-filter: blur(10px);
+                  background: #f5f5f0;
                   z-index: 9999;
                   clip-path: circle(0px at calc(100vw - 60px) 60px);
                   transition: clip-path 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, ChevronDown, Star, Award, Users, Clock, Sparkles, Zap, Target } from 'lucide-react';
 import HeroLanding from '../components/landingpage/HeroLanding';
+import AboutLanding from '../components/landingpage/AboutLanding';
+import TechStackLanding from '../components/landingpage/TechStackLanding';
 
 const LandingPage = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -23,68 +25,15 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
       {/* Hero Section */}
       <HeroLanding />
 
-      {/* About Section with Creative Layout */}
-      <section id="main-content" className="py-32 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <div className="inline-flex items-center gap-3 px-6 py-3 bg-[#001b5b]/5 text-[#001b5b] rounded-full mb-8">
-                <Zap className="w-5 h-5" />
-                <span className="text-sm font-semibold tracking-wider uppercase" style={{ fontFamily: 'Poppins, sans-serif' }}>About Me</span>
-              </div>
-              <h2 className="text-5xl md:text-6xl font-black text-[#001b5b] mb-8 leading-tight" style={{ fontFamily: 'Poppins, sans-serif' }}>
-                Crafting Digital
-                <span className="block text-[#e61f00]">Excellence</span>
-              </h2>
-              <p className="text-xl text-gray-600 mb-12 leading-relaxed font-light">
-                With over 5 years of experience in web development and design, I specialize in creating 
-                stunning, functional, and user-centric digital experiences. Every project is approached 
-                with meticulous attention to detail and a passion for innovation.
-              </p>
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 bg-[#e61f00] rounded-full"></div>
-                  <span className="text-lg text-gray-700 font-medium">Modern Web Technologies</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 bg-[#e61f00] rounded-full"></div>
-                  <span className="text-lg text-gray-700 font-medium">Responsive Design</span>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="w-3 h-3 bg-[#e61f00] rounded-full"></div>
-                  <span className="text-lg text-gray-700 font-medium">Performance Optimization</span>
-                </div>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="bg-gradient-to-br from-gray-50 to-white rounded-3xl p-12 shadow-xl">
-                <div className="grid grid-cols-2 gap-8">
-                  <div className="text-center group">
-                    <div className="text-4xl font-black text-[#001b5b] mb-3 group-hover:scale-110 transition-transform duration-300">50+</div>
-                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wider" style={{ fontFamily: 'Poppins, sans-serif' }}>Projects</div>
-                  </div>
-                  <div className="text-center group">
-                    <div className="text-4xl font-black text-[#001b5b] mb-3 group-hover:scale-110 transition-transform duration-300">5+</div>
-                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wider" style={{ fontFamily: 'Poppins, sans-serif' }}>Years</div>
-                  </div>
-                  <div className="text-center group">
-                    <div className="text-4xl font-black text-[#001b5b] mb-3 group-hover:scale-110 transition-transform duration-300">100%</div>
-                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wider" style={{ fontFamily: 'Poppins, sans-serif' }}>Satisfaction</div>
-                  </div>
-                  <div className="text-center group">
-                    <div className="text-4xl font-black text-[#001b5b] mb-3 group-hover:scale-110 transition-transform duration-300">24/7</div>
-                    <div className="text-sm text-gray-600 font-medium uppercase tracking-wider" style={{ fontFamily: 'Poppins, sans-serif' }}>Support</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* About Section - New Artistic Component */}
+      <AboutLanding />
+
+      {/* Tech Stack Section */}
+      <TechStackLanding />
 
       {/* Services Section with Creative Cards */}
       <section className="py-32 bg-gray-50">
@@ -240,4 +189,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage; 
+export default LandingPage;
