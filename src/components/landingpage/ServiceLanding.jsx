@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, Code, Palette, Globe, Database, Smartphone, MessageCircle } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const ServiceLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeService, setActiveService] = useState(null);
   const sectionRef = useRef(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -183,7 +183,7 @@ const ServiceLanding = () => {
             return (
               <div 
                 key={index}
-                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden"
+                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
                 onClick={() => setActiveService(isActive ? null : index)}
                 style={{
                   animation: isLoaded ? `slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${1 + index * 0.1}s forwards` : 'none',
@@ -267,16 +267,19 @@ const ServiceLanding = () => {
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px]">
-              <span className="font-erstoria text-base tracking-wide">START PROJECT</span>
+            <Link to="/contact">
+            <button className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer">
+              <span className="font-erstoria text-base tracking-wide">START A PROJECT</span>
               <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
-            
-            <button className="group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 min-w-[200px]">
+            </Link>
+            <Link to="/portfolio">
+            <button className="group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer">
               <span className="font-erstoria text-base tracking-wide">VIEW PORTFOLIO</span>
               <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </button>
+            </Link>
           </div>
         </div>
       </div>

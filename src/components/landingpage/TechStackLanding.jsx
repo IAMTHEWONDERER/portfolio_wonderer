@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useTransform, useDragControls } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, X, Globe } from 'lucide-react';
 
 const TechStackLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
-  const [currentLogoIndex, setCurrentLogoIndex] = useState(0);
   const [showCV, setShowCV] = useState(false);
-  const [cvLanguage, setCvLanguage] = useState('english'); 
+  const [cvLanguage, setCvLanguage] = useState('english');
+  const [isDragging, setIsDragging] = useState(false);
+  
+  const carouselRef = useRef(null);
+  const x = useMotionValue(0);
+  const dragControls = useDragControls();
 
   const techLogos = [
     { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
@@ -28,6 +32,9 @@ const TechStackLanding = () => {
     { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
     { name: 'VS Code', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' }
   ];
+
+  // Create duplicated array for seamless loop
+  const duplicatedLogos = [...techLogos, ...techLogos, ...techLogos];
 
   const techCategories = [
     {
@@ -108,7 +115,7 @@ const TechStackLanding = () => {
       description: "Development tools and productivity software",
       technologies: [
         { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-        { name: "VS Code", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" },
+        { name: "VS Code", url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
         { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
         { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" }
       ],
@@ -123,10 +130,6 @@ const TechStackLanding = () => {
 
   useEffect(() => {
     setIsLoaded(true);
-    
-    const interval = setInterval(() => {
-      setCurrentLogoIndex((prev) => (prev + 1) % techLogos.length);
-    }, 2000);
 
     const handleNavbarMenuOpen = () => {
       if (showCV) {
@@ -137,10 +140,41 @@ const TechStackLanding = () => {
     window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
 
     return () => {
-      clearInterval(interval);
       window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
     };
   }, [showCV]);
+
+  // Continuous smooth animation when not dragging
+  useEffect(() => {
+    if (isDragging) return;
+
+    const itemWidth = 120; // 80px icon + 40px gap
+    const totalWidth = techLogos.length * itemWidth;
+    
+    let animationId;
+    
+    const smoothAnimation = () => {
+      const currentX = x.get();
+      const newX = currentX - 0.5; // Continuous smooth movement (0.5px per frame)
+      
+      // Reset position when we've moved one full set
+      if (Math.abs(newX) >= totalWidth) {
+        x.set(0);
+      } else {
+        x.set(newX);
+      }
+      
+      animationId = requestAnimationFrame(smoothAnimation);
+    };
+    
+    animationId = requestAnimationFrame(smoothAnimation);
+    
+    return () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+      }
+    };
+  }, [x, isDragging, techLogos.length]);
 
   const handleDownloadCV = () => {
     const link = document.createElement('a');
@@ -164,16 +198,18 @@ const TechStackLanding = () => {
     }
   };
 
-  const getVisibleLogos = () => {
-    const visibleLogos = [];
-    for (let i = 0; i < 5; i++) {
-      const index = (currentLogoIndex + i) % techLogos.length;
-      visibleLogos.push({
-        ...techLogos[index],
-        position: i
-      });
-    }
-    return visibleLogos;
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    
+    // Snap to nearest position
+    const itemWidth = 120;
+    const currentX = x.get();
+    const nearestPosition = Math.round(currentX / itemWidth) * itemWidth;
+    x.set(nearestPosition);
   };
 
   return (
@@ -240,6 +276,7 @@ const TechStackLanding = () => {
               </p>
             </div>
 
+            {/* Tech Icons Carousel */}
             <div 
               className="overflow-hidden mb-16"
               style={{
@@ -248,30 +285,63 @@ const TechStackLanding = () => {
                 opacity: isLoaded ? 1 : 0,
               }}
             >
-              <div className="flex justify-center items-center gap-6 mb-4">
-                <div className="flex items-center gap-6 relative">
-                  {getVisibleLogos().map((tech, index) => (
-                    <div 
-                      key={`${tech.name}-${currentLogoIndex}`}
-                      className="w-12 h-12 flex items-center justify-center transition-all duration-1000 ease-in-out"
-                      style={{
-                        opacity: index === 2 ? 1 : 0.4,
-                        transform: `scale(${index === 2 ? 1.2 : 1})`,
-                        filter: index === 2 ? 'none' : 'grayscale(100%)',
-                      }}
-                    >
-                      <img 
-                        src={tech.url} 
-                        alt={tech.name}
-                        className="w-full h-full object-contain transition-all duration-1000 ease-in-out"
-                      />
-                    </div>
-                  ))}
+              <div className="relative w-full h-32 flex items-center justify-center mb-6">
+                {/* Carousel Container */}
+                <div className="relative w-full max-w-4xl overflow-hidden">
+                  {/* Gradient Masks */}
+                  <div className="absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-[#f5f5f0] to-transparent z-10 pointer-events-none" />
+                  <div className="absolute right-0 top-0 w-24 h-full bg-gradient-to-l from-[#f5f5f0] to-transparent z-10 pointer-events-none" />
+                  
+                  {/* Scrollable Icons */}
+                  <motion.div
+                    ref={carouselRef}
+                    className="flex items-center gap-10 cursor-grab active:cursor-grabbing"
+                    style={{ x }}
+                    drag="x"
+                    dragControls={dragControls}
+                    dragConstraints={{ left: -techLogos.length * 120, right: 120 }}
+                    dragElastic={0.1}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    whileTap={{ cursor: "grabbing" }}
+                    transition={{ 
+                      type: "tween",
+                      ease: "linear",
+                      duration: 0
+                    }}
+                  >
+                    {duplicatedLogos.map((tech, index) => (
+                      <motion.div
+                        key={`${tech.name}-${index}`}
+                        className="flex-shrink-0 w-20 h-20 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <div className="relative">
+                          <img 
+                            src={tech.url} 
+                            alt={tech.name}
+                            className="w-16 h-16 object-contain transition-all duration-300 group-hover:drop-shadow-lg"
+                            draggable={false}
+                          />
+                          {/* Tooltip */}
+                          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                            <span className="text-xs text-[#0a0100]/60 font-erstoria tracking-wider whitespace-nowrap bg-white/80 backdrop-blur-sm px-2 py-1 rounded shadow-sm">
+                              {tech.name}
+                            </span>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </motion.div>
                 </div>
               </div>
+
+              {/* Instructions */}
               <div className="flex justify-center">
-                <span className="text-sm text-[#0a0100]/50 font-erstoria tracking-widest transition-all duration-1000 ease-in-out">
-                  {getVisibleLogos()[2]?.name}
+                <span className="text-sm text-[#0a0100]/40 font-erstoria tracking-widest">
+                  <span className="hidden md:inline">TECH STACK</span>
+                  <span className="md:hidden">DRAG TO EXPLORE</span>
                 </span>
               </div>
             </div>
@@ -292,7 +362,7 @@ const TechStackLanding = () => {
                   return (
                     <div 
                       key={index}
-                      className="group border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer"
+                      className="group border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer active:scale-[0.98]"
                       onClick={() => setActiveCategory(isActive ? null : index)}
                     >
                       <div className="p-6">
@@ -337,7 +407,7 @@ const TechStackLanding = () => {
                             {category.technologies.map((tech, techIndex) => (
                               <div 
                                 key={techIndex}
-                                className="flex items-center gap-3 py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-2"
+                                className="flex items-center gap-3 py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-2 cursor-pointer"
                               >
                                 <img 
                                   src={tech.logo} 
@@ -369,14 +439,12 @@ const TechStackLanding = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <button 
                   onClick={() => setShowCV(true)}
-                  className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px]"
+                  className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
                 >
                   <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
                   <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 </button>
-                
-               
               </div>
             </div>
           </div>
@@ -436,7 +504,7 @@ const TechStackLanding = () => {
                   <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
                     <button
                       onClick={() => setCvLanguage('english')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
                         cvLanguage === 'english'
                           ? 'bg-[#0a0100] text-white'
                           : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
@@ -446,7 +514,7 @@ const TechStackLanding = () => {
                     </button>
                     <button
                       onClick={() => setCvLanguage('french')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 ${
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
                         cvLanguage === 'french'
                           ? 'bg-[#0a0100] text-white'
                           : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
@@ -461,7 +529,7 @@ const TechStackLanding = () => {
                     {/* Download Button - Icon only */}
                     <button
                       onClick={handleDownloadCV}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
                       title="Download CV"
                       aria-label="Download CV"
                     >
@@ -471,7 +539,7 @@ const TechStackLanding = () => {
                     {/* Close Button */}
                     <button
                       onClick={() => setShowCV(false)}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
                       aria-label="Close CV"
                     >
                       <X size={16} className="sm:w-5 sm:h-5" />
