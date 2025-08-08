@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ExternalLink, Globe } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const PortfolioLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -256,6 +256,7 @@ const PortfolioLanding = () => {
               Each project is a testament to attention to detail, innovative solutions, and exceptional craftsmanship.
             </p>
           </div>
+          <Link to="/portfolio">
           
           <button 
             onClick={handleViewMore}
@@ -265,6 +266,7 @@ const PortfolioLanding = () => {
             <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </button>
+          </Link>
         </div>
       </div>
 

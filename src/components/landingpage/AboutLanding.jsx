@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Quote } from 'lucide-react';
-
+import { Link } from 'react-router-dom';
 const AboutLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredImage, setHoveredImage] = useState(null);
@@ -327,11 +327,13 @@ const AboutLanding = () => {
               opacity: isLoaded ? 1 : 0,
             }}
           >
+            <Link to="/contact">
             <button className="group relative inline-flex items-center justify-center gap-4 px-10 py-5 border-2 border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-500 overflow-hidden active:scale-95 cursor-pointer">
               <span className="font-erstoria text-lg tracking-wide">LET'S COLLABORATE</span>
               <ArrowUpRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </button>
+            </Link>
           </div>
         </div>
       </div>

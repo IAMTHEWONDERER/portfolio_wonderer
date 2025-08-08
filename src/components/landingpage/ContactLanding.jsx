@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, Mail, Phone, Github, Linkedin, MessageCircle } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const ContactLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,10 +59,6 @@ const ContactLanding = () => {
       color: "text-[#0a0100]"
     }
   ];
-
-  const handleContactPageNavigation = () => {
-    navigate('/contact');
-  };
 
   return (
     <section 
@@ -207,8 +203,8 @@ const ContactLanding = () => {
             </p>
           </div>
           
+            <Link to="/contact">
           <button 
-            onClick={handleContactPageNavigation}
             className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px] cursor-pointer active:scale-95"
           >
             <MessageCircle className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -216,6 +212,7 @@ const ContactLanding = () => {
             <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
           </button>
+            </Link>
         </div>
       </div>
 
