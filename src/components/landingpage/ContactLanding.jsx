@@ -149,7 +149,7 @@ const ContactLanding = () => {
                 href={contact.href}
                 target={contact.href.startsWith('http') ? '_blank' : '_self'}
                 rel={contact.href.startsWith('http') ? 'noopener noreferrer' : ''}
-                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden p-8"
+                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden p-8 active:scale-[0.98]"
                 onMouseEnter={() => setHoveredContact(index)}
                 onMouseLeave={() => setHoveredContact(null)}
                 style={{
@@ -209,7 +209,7 @@ const ContactLanding = () => {
           
           <button 
             onClick={handleContactPageNavigation}
-            className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px]"
+            className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px] cursor-pointer active:scale-95"
           >
             <MessageCircle className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
             <span className="font-erstoria text-base tracking-wide">CONTACT PAGE</span>

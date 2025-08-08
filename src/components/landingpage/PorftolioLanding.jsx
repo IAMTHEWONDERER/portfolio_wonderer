@@ -157,7 +157,7 @@ const PortfolioLanding = () => {
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden"
+              className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
               onClick={() => handleProjectClick(project.url)}
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
@@ -259,7 +259,7 @@ const PortfolioLanding = () => {
           
           <button 
             onClick={handleViewMore}
-            className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px]"
+            className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px] cursor-pointer active:scale-95"
           >
             <span className="font-erstoria text-base tracking-wide">VIEW MORE</span>
             <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />

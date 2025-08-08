@@ -255,7 +255,7 @@ const AboutLanding = () => {
                 <div className="flex items-center justify-between">
                   <button
                     onClick={prevImage}
-                    className="group flex items-center gap-2 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100]/70 hover:border-[#e61f00] hover:text-[#e61f00] hover:bg-[#e61f00]/5 transition-all duration-300"
+                    className="group flex items-center gap-2 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100]/70 hover:border-[#e61f00] hover:text-[#e61f00] hover:bg-[#e61f00]/5 transition-all duration-300 active:scale-95 cursor-pointer"
                   >
                     <span className="font-erstoria text-sm uppercase tracking-widest">PREV</span>
                   </button>
@@ -266,7 +266,7 @@ const AboutLanding = () => {
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                        className={`w-3 h-3 rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
                           index === currentImageIndex 
                             ? 'bg-[#e61f00] scale-110' 
                             : 'bg-[#0a0100]/30 hover:bg-[#0a0100]/50'
@@ -277,7 +277,7 @@ const AboutLanding = () => {
 
                   <button
                     onClick={nextImage}
-                    className="group flex items-center gap-2 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100]/70 hover:border-[#e61f00] hover:text-[#e61f00] hover:bg-[#e61f00]/5 transition-all duration-300"
+                    className="group flex items-center gap-2 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100]/70 hover:border-[#e61f00] hover:text-[#e61f00] hover:bg-[#e61f00]/5 transition-all duration-300 active:scale-95 cursor-pointer"
                   >
                     <span className="font-erstoria text-sm uppercase tracking-widest">NEXT</span>
                   </button>
@@ -303,16 +303,16 @@ const AboutLanding = () => {
             }}
           >
             <div className="flex flex-wrap justify-center gap-6 text-sm uppercase tracking-widest text-[#0a0100]/60">
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300">
+              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
                 UI/UX Design
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300">
+              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
                 Frontend Development
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300">
+              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
                 Brand Identity
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300">
+              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
                 Creative Direction
               </span>
             </div>
@@ -327,7 +327,7 @@ const AboutLanding = () => {
               opacity: isLoaded ? 1 : 0,
             }}
           >
-            <button className="group relative inline-flex items-center justify-center gap-4 px-10 py-5 border-2 border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-500 overflow-hidden">
+            <button className="group relative inline-flex items-center justify-center gap-4 px-10 py-5 border-2 border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-500 overflow-hidden active:scale-95 cursor-pointer">
               <span className="font-erstoria text-lg tracking-wide">LET'S COLLABORATE</span>
               <ArrowUpRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
