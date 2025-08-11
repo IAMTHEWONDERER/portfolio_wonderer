@@ -39,6 +39,7 @@ const AboutLanding = () => {
   ];
 
   useEffect(() => {
+    // Load immediately when component mounts
     setIsLoaded(true);
     
     // Check if mobile
@@ -83,7 +84,7 @@ const AboutLanding = () => {
 
   return (
     <section 
-      id="about" 
+      id="about"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
     >
       {/* Background Grid */}
@@ -134,7 +135,7 @@ const AboutLanding = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
+      <div id="main-content" className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
         <div className="text-center">
           {/* Section Label */}
           <div 

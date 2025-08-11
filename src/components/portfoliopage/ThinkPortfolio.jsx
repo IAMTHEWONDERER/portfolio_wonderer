@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Brain, Target, Users, Lightbulb, Code, Palette, Zap, ArrowRight, Circle } from 'lucide-react';
 
 const ThinkPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activePhase, setActivePhase] = useState(0);
-  const sectionRef = useRef(null);
 
   const thinkingPhases = [
     {
@@ -98,24 +97,8 @@ const ThinkPortfolio = () => {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLoaded(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    // Load immediately when component mounts
+    setIsLoaded(true);
   }, []);
 
   // Auto-rotate through phases
@@ -131,8 +114,7 @@ const ThinkPortfolio = () => {
 
   return (
     <section 
-      ref={sectionRef}
-      className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
+      className="relative py-20 md:pt-32 md:pb-12 bg-[#f5f5f0] overflow-hidden"
     >
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.02]">
@@ -451,27 +433,6 @@ const ThinkPortfolio = () => {
                 </button>
               ))}
             </div>
-          </div>
-        </div>
-
-        {/* Philosophy Quote */}
-        <div 
-          className="text-center max-w-4xl mx-auto"
-          style={{
-            animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
-          <div className="bg-[#e61f00]/5 border border-[#e61f00]/20 p-8 md:p-12">
-            <blockquote className="text-xl md:text-2xl font-light text-[#0a0100]/80 leading-relaxed mb-6 italic">
-              "Great design isn't just about making things look beautiful—it's about understanding 
-              people, solving problems, and creating experiences that truly matter."
-            </blockquote>
-            <div className="w-12 h-px bg-[#e61f00] mx-auto mb-4" />
-            <cite className="font-erstoria text-sm uppercase tracking-widest text-[#0a0100]/60">
-              — Oussama Alouche
-            </cite>
           </div>
         </div>
       </div>

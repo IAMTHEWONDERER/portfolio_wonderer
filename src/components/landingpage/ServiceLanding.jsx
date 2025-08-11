@@ -1,30 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, Code, Palette, Globe, Database, Smartphone, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 const ServiceLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeService, setActiveService] = useState(null);
-  const sectionRef = useRef(null);
 
   useEffect(() => { 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLoaded(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    // Load immediately when component mounts
+    setIsLoaded(true);
   }, []);
 
   const services = [
@@ -104,7 +87,6 @@ const ServiceLanding = () => {
 
   return (
     <section 
-      ref={sectionRef}
       className="relative min-h-screen py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
     >
       {/* Background Grid */}

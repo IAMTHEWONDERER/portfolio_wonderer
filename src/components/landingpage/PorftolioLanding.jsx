@@ -1,32 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, ExternalLink, Globe } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const PortfolioLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredProject, setHoveredProject] = useState(null);
-  const sectionRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLoaded(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    // Load immediately when component mounts
+    setIsLoaded(true);
   }, []);
 
   const projects = [
@@ -34,7 +17,6 @@ const PortfolioLanding = () => {
       title: "EJSWCO",
       description: "A modern corporate website showcasing professional services with elegant design and seamless user experience.",
       url: "https://ejswco.vercel.app",
-      image: "https://via.placeholder.com/600x400/f5f5f0/0a0100?text=EJSWCO",
       tech: ["React", "Next.js", "Tailwind CSS"],
       category: "Corporate Website"
     },
@@ -42,7 +24,6 @@ const PortfolioLanding = () => {
       title: "WorkWhile",
       description: "Innovative workspace solution platform with clean interface design and powerful functionality.",
       url: "https://workwhile.vercel.app",
-      image: "https://via.placeholder.com/600x400/f5f5f0/e61f00?text=WorkWhile",
       tech: ["React", "Node.js", "MongoDB"],
       category: "School Project"
     },
@@ -50,24 +31,22 @@ const PortfolioLanding = () => {
       title: "Asanada",
       description: "Beautiful and responsive website delivering exceptional user experience and modern aesthetics.",
       url: "https://asanada-website.vercel.app",
-      image: "https://via.placeholder.com/600x400/f5f5f0/0a0100?text=Asanada",
       tech: ["React", "JavaScript", "Framer Motion"],
       category: "Work Project"
     },
     {
-        title: "Wonderer Portfolio",
-        description: "My personal portfolio showcasing my skills, projects, and creative journey.",
-        url: "https://wondererme.vercel.app",
-        image: "https://via.placeholder.com/600x400/f5f5f0/e61f00?text=Wonderer.me",
-        tech: ["React", "Tailwind CSS", "Vite"],
-        category: "Personal Project"
-    },{
-        title: "Class management",
-        description: "A comprehensive class management system designed to streamline educational processes.",
-        url: "https://class-management-zeta.vercel.app",
-        image: "https://via.placeholder.com/600x400/f5f5f0/0a0100?text=Class+Management",
-        tech: ["React", "Node.js", "Express"],
-        category: "School Project",
+      title: "Wonderer Portfolio",
+      description: "My personal portfolio showcasing my skills, projects, and creative journey.",
+      url: "https://wondererme.vercel.app",
+      tech: ["React", "Tailwind CSS", "Vite"],
+      category: "Personal Project"
+    },
+    {
+      title: "Class Management",
+      description: "A comprehensive class management system designed to streamline educational processes.",
+      url: "https://class-management-zeta.vercel.app",
+      tech: ["React", "Node.js", "Express"],
+      category: "School Project"
     }
   ];
 
@@ -81,7 +60,6 @@ const PortfolioLanding = () => {
 
   return (
     <section 
-      ref={sectionRef}
       className="relative min-h-screen py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
     >
       {/* Background Grid */}
@@ -147,7 +125,7 @@ const PortfolioLanding = () => {
 
         {/* Projects Grid */}
         <div 
-          className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-16"
           style={{
             animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
             transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
@@ -157,7 +135,7 @@ const PortfolioLanding = () => {
           {projects.map((project, index) => (
             <div 
               key={index}
-              className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
+              className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg"
               onClick={() => handleProjectClick(project.url)}
               onMouseEnter={() => setHoveredProject(index)}
               onMouseLeave={() => setHoveredProject(null)}
@@ -165,60 +143,84 @@ const PortfolioLanding = () => {
                 animation: isLoaded ? `slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${1 + index * 0.2}s forwards` : 'none',
                 transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
                 opacity: isLoaded ? 1 : 0,
+                minHeight: '420px',
               }}
             >
-              {/* Project Image/Preview */}
-              <div className="relative h-64 bg-[#f5f5f0] overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#0a0100]/5 to-[#e61f00]/5" />
+              {/* Project Preview - Mobile First */}
+              <div className="relative bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden h-56">
                 
-                {/* Website Preview using iframe */}
-                <div className="relative w-full h-full">
-                  <iframe
-                    src={project.url}
-                    className="w-full h-full scale-50 origin-top-left transform transition-transform duration-700 group-hover:scale-52"
-                    style={{
-                      width: '200%',
-                      height: '200%',
-                      pointerEvents: 'none'
-                    }}
-                    title={`${project.title} Preview`}
-                  />
-                </div>
-
-                {/* Overlay */}
-                <div className="absolute inset-0 bg-[#0a0100]/0 group-hover:bg-[#0a0100]/20 transition-all duration-500 flex items-center justify-center">
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-white font-erstoria tracking-wide">
-                    <Globe className="w-5 h-5" />
-                    <span>VISIT SITE</span>
-                    <ExternalLink className="w-4 h-4" />
+                {/* Universal Project Preview */}
+                <div className="relative w-full h-full flex items-center justify-center p-6">
+                  {/* Mobile & Desktop Compatible Preview */}
+                  <div className="w-full h-full flex flex-col items-center justify-center text-center">
+                    {/* Project Icon */}
+                    <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10">
+                      <Globe className="w-8 h-8 text-[#0a0100]/70" />
+                    </div>
+                    
+                    {/* Project Title */}
+                    <h3 className="font-erstoria text-xl text-[#0a0100] mb-2 tracking-wide">
+                      {project.title}
+                    </h3>
+                    
+                    {/* Category */}
+                    <div className="px-3 py-1 bg-white/60 backdrop-blur-sm border border-[#0a0100]/10 mb-3">
+                      <span className="text-xs font-erstoria tracking-widest text-[#0a0100]/70 uppercase">
+                        {project.category}
+                      </span>
+                    </div>
+                    
+                    {/* Call to Action */}
+                    <div className="flex items-center gap-2 text-[#e61f00] text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                      <span>View Live Site</span>
+                      <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                    </div>
                   </div>
-                </div>
 
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4 px-3 py-1 bg-[#0a0100]/10 backdrop-blur-sm">
-                  <span className="text-xs font-erstoria tracking-widest text-[#0a0100]/70 uppercase">
-                    {project.category}
-                  </span>
+                  {/* Desktop iframe overlay - only visible on hover */}
+                  <div className="hidden lg:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 bg-white overflow-hidden">
+                    <iframe
+                      src={project.url}
+                      className="absolute inset-0 w-full h-full"
+                      style={{
+                        width: '300%',
+                        height: '300%',
+                        transform: 'scale(0.333)',
+                        transformOrigin: 'top left',
+                        pointerEvents: 'none',
+                        border: 'none',
+                      }}
+                      title={`${project.title} Preview`}
+                      loading="lazy"
+                    />
+                    
+                    {/* Hover overlay */}
+                    <div className="absolute inset-0 bg-[#0a0100]/20 flex items-center justify-center">
+                      <div className="text-white font-erstoria tracking-wide text-sm bg-[#0a0100]/80 px-4 py-2">
+                        <span>CLICK TO VISIT</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Project Info */}
-              <div className="p-8">
-                <div className="mb-4">
-                  <h3 className="font-erstoria text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+              <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+                <div className="mb-4 flex-grow">
+                  <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4">
+                  <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Tech Stack */}
-                <div className="flex flex-wrap gap-2 mb-6">
+                <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
                   {project.tech.map((tech, techIndex) => (
                     <span 
                       key={techIndex}
-                      className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium"
+                      className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
                     >
                       {tech}
                     </span>
@@ -226,12 +228,12 @@ const PortfolioLanding = () => {
                 </div>
 
                 {/* View Project Link */}
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between mt-auto">
                   <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
                     View Project
                   </span>
                   <ArrowUpRight 
-                    className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 ${
+                    className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${
                       hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
                     }`}
                   />
@@ -275,6 +277,27 @@ const PortfolioLanding = () => {
           to {
             transform: translateY(0);
             opacity: 1;
+          }
+        }
+        
+        /* Line clamp utility */
+        .line-clamp-3 {
+          display: -webkit-box;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        
+        /* Ensure smooth rendering on all devices */
+        .group {
+          will-change: transform, opacity;
+          backface-visibility: hidden;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+          .group {
+            transform: translateZ(0);
           }
         }
       `}</style>

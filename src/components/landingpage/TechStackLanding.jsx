@@ -129,6 +129,7 @@ const TechStackLanding = () => {
   };
 
   useEffect(() => {
+    // Load immediately when component mounts
     setIsLoaded(true);
 
     const handleNavbarMenuOpen = () => {
@@ -354,7 +355,7 @@ const TechStackLanding = () => {
                 opacity: isLoaded ? 1 : 0,
               }}
             >
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 max-w-[400px] sm:max-w-2xl md:max-w-[650px] lg:max-w-5xl mx-auto px-2 sm:px-4 md:px-0">
                 {techCategories.map((category, index) => {
                   const levelInfo = getLevelIndicator(category.level);
                   const isActive = activeCategory === index;
@@ -362,20 +363,21 @@ const TechStackLanding = () => {
                   return (
                     <div 
                       key={index}
-                      className="group border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer active:scale-[0.98]"
+                      className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer active:scale-[0.99]"
                       onClick={() => setActiveCategory(isActive ? null : index)}
                     >
-                      <div className="p-6">
-                        <div className="flex items-center justify-between mb-4">
-                          <div className="flex items-center gap-4">
-                            <h3 className="font-erstoria text-xl lg:text-2xl text-[#0a0100] tracking-wide">
+                      {/* Card Header */}
+                      <div className="p-3 sm:p-4 md:p-6">
+                        <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
+                          <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
+                            <h3 className="font-erstoria text-sm sm:text-base md:text-lg lg:text-xl text-[#0a0100] tracking-wide truncate">
                               {category.category}
                             </h3>
-                            <div className="flex gap-1">
+                            <div className="flex gap-1 flex-shrink-0">
                               {Array.from({ length: 3 }, (_, i) => (
                                 <div 
                                   key={i}
-                                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                  className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
                                     i < levelInfo.dots ? levelInfo.color : 'bg-[#0a0100]/10'
                                   }`}
                                 />
@@ -383,38 +385,39 @@ const TechStackLanding = () => {
                             </div>
                           </div>
                           <ChevronDown 
-                            className={`w-5 h-5 text-[#0a0100]/60 transition-transform duration-300 ${
+                            className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/60 transition-transform duration-300 flex-shrink-0 ${
                               isActive ? 'rotate-180' : ''
                             }`}
                           />
                         </div>
                         
-                        <div className="flex items-center justify-between">
-                          <p className="text-[#0a0100]/60 text-sm leading-relaxed">
+                        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
+                          <p className="text-[#0a0100]/60 text-xs sm:text-sm leading-relaxed flex-grow">
                             {category.description}
                           </p>
-                          <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria ml-4">
+                          <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria sm:ml-4 flex-shrink-0">
                             {category.level}
                           </span>
                         </div>
                       </div>
 
+                      {/* Expandable Technology List */}
                       <div className={`overflow-hidden transition-all duration-500 ${
-                        isActive ? 'max-h-60 opacity-100' : 'max-h-0 opacity-0'
+                        isActive ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
                       }`}>
-                        <div className="px-6 pb-6 border-t border-[#0a0100]/10">
-                          <div className="pt-4 grid grid-cols-2 gap-3">
+                        <div className="px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 border-t border-[#0a0100]/10">
+                          <div className="pt-2 sm:pt-3 md:pt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                             {category.technologies.map((tech, techIndex) => (
                               <div 
                                 key={techIndex}
-                                className="flex items-center gap-3 py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-2 cursor-pointer"
+                                className="flex items-center gap-2 sm:gap-3 py-1.5 sm:py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-1 sm:px-2 cursor-pointer"
                               >
                                 <img 
                                   src={tech.logo} 
                                   alt={tech.name}
-                                  className="w-5 h-5 object-contain"
+                                  className="w-4 h-4 sm:w-5 sm:h-5 object-contain flex-shrink-0"
                                 />
-                                <span className="text-sm text-[#0a0100]/70 font-medium">
+                                <span className="text-xs sm:text-sm text-[#0a0100]/70 font-medium truncate">
                                   {tech.name}
                                 </span>
                               </div>

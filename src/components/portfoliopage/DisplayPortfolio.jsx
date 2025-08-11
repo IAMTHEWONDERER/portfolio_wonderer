@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ExternalLink, Globe, Monitor, Smartphone, Code, Palette, Figma, Eye, Download, FileText, ExternalLinkIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const SimplifiedPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -11,24 +12,8 @@ const SimplifiedPortfolio = () => {
   const sectionRef = useRef(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsLoaded(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
+    // Load immediately when component mounts
+    setIsLoaded(true);
   }, []);
 
   // Use the same projects from PortfolioLanding
@@ -177,7 +162,8 @@ const SimplifiedPortfolio = () => {
     <>
       <section 
         ref={sectionRef}
-        className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
+        data-section="display-portfolio"
+        className="relative py-20 md:py-12 bg-[#f5f5f0] overflow-hidden"
       >
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.02]">
@@ -198,12 +184,9 @@ const SimplifiedPortfolio = () => {
           {/* Section Header */}
           <div className="text-center mb-16 md:mb-24">
             <div 
-              className="overflow-hidden mb-8"
-              style={{
-                animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`overflow-hidden mb-8 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
             >
               <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
                 <div className="w-12 h-px bg-[#0a0100]/30" />
@@ -212,14 +195,14 @@ const SimplifiedPortfolio = () => {
               </div>
             </div>
 
-            <div className="overflow-hidden mb-12">
+            <div 
+              className={`overflow-hidden mb-12 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.1s' : '0s' }}
+            >
               <h2 
                 className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
-                style={{
-                  animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
-                  transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                  opacity: isLoaded ? 1 : 0,
-                }}
               >
                 FEATURED
                 <span className="block text-[#e61f00]">PROJECTS</span>
@@ -227,12 +210,10 @@ const SimplifiedPortfolio = () => {
             </div>
 
             <div 
-              className="overflow-hidden mb-16"
-              style={{
-                animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`overflow-hidden mb-16 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.2s' : '0s' }}
             >
               <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-4xl mx-auto leading-relaxed">
                 A curated selection of my best web development projects and UI/UX design concepts, 
@@ -242,14 +223,17 @@ const SimplifiedPortfolio = () => {
           </div>
 
           {/* Web Development Section */}
-          <div className="mb-32">
+          <div 
+            className={`mb-32 transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+            }`}
+            style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
+          >
             <div 
-              className="mb-16"
-              style={{
-                animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`mb-16 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
             >
               <div className="flex items-center gap-4 mb-6">
                 <Code className="w-8 h-8 text-[#e61f00]" />
@@ -263,80 +247,102 @@ const SimplifiedPortfolio = () => {
               </p>
             </div>
 
-            {/* Projects Grid - Same as PortfolioLanding */}
+            {/* Projects Grid - Mobile Optimized */}
             <div 
-              className="grid grid-cols-1 lg:grid-cols-3 gap-8"
-              style={{
-                animation: isLoaded ? 'slideUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.4s' : '0s' }}
             >
               {featuredProjects.map((project, index) => (
                 <div 
                   key={index}
-                  className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
+                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg transform ${
+                    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
                   onClick={() => handleProjectClick(project.url)}
                   onMouseEnter={() => setHoveredProject(index)}
                   onMouseLeave={() => setHoveredProject(null)}
                   style={{
-                    animation: isLoaded ? `slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${1 + index * 0.2}s forwards` : 'none',
-                    transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                    opacity: isLoaded ? 1 : 0,
+                    transitionDelay: isLoaded ? `${index * 0.1}s` : '0s',
+                    minHeight: '420px',
                   }}
                 >
-                  {/* Project Preview */}
-                  <div className="relative h-64 bg-[#f5f5f0] overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a0100]/5 to-[#e61f00]/5" />
+                  {/* Project Preview - Mobile First */}
+                  <div className="relative bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden h-56">
                     
-                    {/* Website Preview using iframe */}
-                    <div className="relative w-full h-full">
-                      <iframe
-                        src={project.url}
-                        className="w-full h-full scale-50 origin-top-left transform transition-transform duration-700 group-hover:scale-52"
-                        style={{
-                          width: '200%',
-                          height: '200%',
-                          pointerEvents: 'none'
-                        }}
-                        title={`${project.title} Preview`}
-                      />
-                    </div>
-
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-[#0a0100]/0 group-hover:bg-[#0a0100]/20 transition-all duration-500 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-white font-erstoria tracking-wide">
-                        <Globe className="w-5 h-5" />
-                        <span>VISIT SITE</span>
-                        <ExternalLink className="w-4 h-4" />
+                    {/* Universal Project Preview */}
+                    <div className="relative w-full h-full flex items-center justify-center p-6">
+                      {/* Mobile & Desktop Compatible Preview */}
+                      <div className="w-full h-full flex flex-col items-center justify-center text-center">
+                        {/* Project Icon */}
+                        <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10">
+                          <Globe className="w-8 h-8 text-[#0a0100]/70" />
+                        </div>
+                        
+                        {/* Project Title */}
+                        <h3 className="font-erstoria text-xl text-[#0a0100] mb-2 tracking-wide">
+                          {project.title}
+                        </h3>
+                        
+                        {/* Category */}
+                        <div className="px-3 py-1 bg-white/60 backdrop-blur-sm border border-[#0a0100]/10  mb-3">
+                          <span className="text-xs font-erstoria tracking-widest text-[#0a0100]/70 uppercase">
+                            {project.category}
+                          </span>
+                        </div>
+                        
+                        {/* Call to Action */}
+                        <div className="flex items-center gap-2 text-[#e61f00] text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-300">
+                          <span>View Live Site</span>
+                          <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Category Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-[#0a0100]/10 backdrop-blur-sm">
-                      <span className="text-xs font-erstoria tracking-widest text-[#0a0100]/70 uppercase">
-                        {project.category}
-                      </span>
+                      {/* Desktop iframe overlay - only visible on hover */}
+                      <div className="hidden lg:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 bg-white overflow-hidden">
+                        <iframe
+                          src={project.url}
+                          className="absolute inset-0 w-full h-full"
+                          style={{
+                            width: '300%',
+                            height: '300%',
+                            transform: 'scale(0.333)',
+                            transformOrigin: 'top left',
+                            pointerEvents: 'none',
+                            border: 'none',
+                          }}
+                          title={`${project.title} Preview`}
+                          loading="lazy"
+                        />
+                        
+                        {/* Hover overlay */}
+                        <div className="absolute inset-0 bg-[#0a0100]/20 flex items-center justify-center">
+                          <div className="text-white font-erstoria tracking-wide text-sm bg-[#0a0100]/80 px-4 py-2">
+                            <span>CLICK TO VISIT</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   {/* Project Info */}
-                  <div className="p-8">
-                    <div className="mb-4">
-                      <h3 className="font-erstoria text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                  <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+                    <div className="mb-4 flex-grow">
+                      <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
                         {project.title}
                       </h3>
-                      <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4">
+                      <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
                         {project.description}
                       </p>
                     </div>
 
                     {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
                       {project.tech.map((tech, techIndex) => (
                         <span 
                           key={techIndex}
-                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium"
+                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
                         >
                           {tech}
                         </span>
@@ -344,12 +350,12 @@ const SimplifiedPortfolio = () => {
                     </div>
 
                     {/* View Project Link */}
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between mt-auto">
                       <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
                         View Project
                       </span>
                       <ArrowUpRight 
-                        className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 ${
+                        className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${
                           hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
                         }`}
                       />
@@ -361,14 +367,17 @@ const SimplifiedPortfolio = () => {
           </div>
 
           {/* UI/UX Design Section */}
-          <div className="mb-20">
+          <div 
+            className={`mb-20 transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+            }`}
+            style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
+          >
             <div 
-              className="mb-16"
-              style={{
-                animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`mb-16 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
             >
               <div className="flex items-center gap-4 mb-6">
                 <Palette className="w-8 h-8 text-[#e61f00]" />
@@ -382,26 +391,24 @@ const SimplifiedPortfolio = () => {
               </p>
             </div>
 
-            {/* Design Grid */}
+            {/* Design Grid - Optimized */}
             <div 
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              style={{
-                animation: isLoaded ? 'slideUp 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                opacity: isLoaded ? 1 : 0,
-              }}
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${
+                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: isLoaded ? '0.6s' : '0s' }}
             >
               {designConcepts.map((design, index) => (
                 <div 
                   key={index}
-                  className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-700 cursor-pointer overflow-hidden"
+                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden transform ${
+                    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
                   onClick={() => handleDesignClick(design)}
                   onMouseEnter={() => setHoveredDesign(index)}
                   onMouseLeave={() => setHoveredDesign(null)}
                   style={{
-                    animation: isLoaded ? `slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${1.8 + index * 0.1}s forwards` : 'none',
-                    transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                    opacity: isLoaded ? 1 : 0,
+                    transitionDelay: isLoaded ? `${index * 0.1}s` : '0s',
                   }}
                 >
                   {/* Design Mockup */}
@@ -599,14 +606,12 @@ const SimplifiedPortfolio = () => {
 
           {/* Call to Action */}
           <div 
-            className="text-center"
-            style={{
-              animation: isLoaded ? 'slideUp 2.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 2s forwards' : 'none',
-              transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-              opacity: isLoaded ? 1 : 0,
-            }}
+            className={`text-center transition-all duration-1000 ${
+              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+            }`}
+            style={{ transitionDelay: isLoaded ? '0.7s' : '0s' }}
           >
-            <div className="bg-[#0a0100]/5 border border-[#0a0100]/10 p-8 md:p-12 max-w-4xl mx-auto">
+            <div className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm p-8 md:p-12 max-w-4xl mx-auto">
               <h4 className="font-erstoria text-2xl md:text-3xl text-[#0a0100] mb-4 tracking-wide">
                 Ready to Start Your Project?
               </h4>
@@ -614,19 +619,43 @@ const SimplifiedPortfolio = () => {
                 Let's collaborate to bring your vision to life with innovative design and 
                 cutting-edge development.
               </p>
-              <button className="inline-flex items-center gap-3 bg-[#e61f00] text-white px-8 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#cc1a00] transition-colors duration-300">
-                <span>Get In Touch</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </button>
+              <Link 
+                to="/contact" 
+                className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+              >
+                <span className="font-erstoria text-base tracking-wide">GET IN TOUCH</span>
+                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </Link>
             </div>
           </div>
         </div>
 
         <style jsx>{`
-          @keyframes slideUp {
-            to {
-              transform: translateY(0);
-              opacity: 1;
+          /* Smooth transitions for all devices */
+          .transform {
+            transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                       opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          }
+          
+          /* Line clamp utility */
+          .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+          
+          /* Ensure smooth rendering on all devices */
+          .group {
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+          }
+          
+          /* Mobile optimizations */
+          @media (max-width: 768px) {
+            .group {
+              transform: translateZ(0);
             }
           }
         `}</style>
