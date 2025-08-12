@@ -16,55 +16,75 @@ const SimplifiedPortfolio = () => {
     setIsLoaded(true);
   }, []);
 
-  // Use the same projects from PortfolioLanding
+  // Use the same projects from HeroPortfolio with screenshots
   const featuredProjects = [
     {
       title: "EJSWCO",
+      subtitle: "Corporate Excellence",
       description: "A modern corporate website showcasing professional services with elegant design and seamless user experience.",
       url: "https://ejswco.vercel.app",
       tech: ["React", "Next.js", "Tailwind CSS"],
-      category: "Corporate Website"
+      category: "Corporate Website",
+      type: "website",
+      screenshot: "/screenshots/ejswco-preview.png"
     },
     {
       title: "WorkWhile",
+      subtitle: "Workspace Innovation",
       description: "Innovative workspace solution platform with clean interface design and powerful functionality.",
       url: "https://workwhile.vercel.app",
       tech: ["React", "Node.js", "MongoDB"],
-      category: "School Project"
+      category: "School Project",
+      type: "website",
+      screenshot: "/screenshots/workwhile-preview.png"
     },
     {
       title: "Asanada",
+      subtitle: "Digital Beauty",
       description: "Beautiful and responsive website delivering exceptional user experience and modern aesthetics.",
       url: "https://asanada-website.vercel.app",
       tech: ["React", "JavaScript", "Framer Motion"],
-      category: "Work Project"
+      category: "Work Project",
+      type: "website",
+      screenshot: "/screenshots/asanada-preview.png"
     },
     {
       title: "Wonderer Portfolio",
+      subtitle: "Personal Showcase",
       description: "My personal portfolio showcasing my skills, projects, and creative journey.",
       url: "https://wondererme.vercel.app",
       tech: ["React", "Tailwind CSS", "Vite"],
-      category: "Personal Project"
+      category: "Personal Project",
+      type: "website",
+      screenshot: "/screenshots/wonderer-preview.png"
     },
     {
       title: "Class Management",
+      subtitle: "Educational Platform",
       description: "A comprehensive class management system designed to streamline educational processes.",
       url: "https://class-management-zeta.vercel.app",
       tech: ["React", "Node.js", "Express"],
-      category: "School Project"
-    },{
-        title: "LMS System",
-        description: "A Learning Management System designed to enhance educational experiences with interactive features.",
-        url: "https://eduk.asanada.org",
-        tech: ["Laravel", "MySQL"],
-        category: "Work Project"
+      category: "School Project",
+      type: "website",
+      screenshot: "/screenshots/class-management-preview.png"
+    },
+    {
+      title: "LMS System",
+      subtitle: "Learning Platform",
+      description: "A Learning Management System designed to enhance educational experiences with interactive features.",
+      url: "https://eduk.asanada.org",
+      tech: ["Laravel", "MySQL"],
+      category: "Work Project",
+      type: "website",
+      screenshot: "/screenshots/lms-preview.png"
     }
   ];
 
-  // UI/UX Designs - mix of Figma link and PDF files
+  // UI/UX Designs with screenshots
   const designConcepts = [
     {
       title: "FinanceFlow Banking App",
+      subtitle: "Mobile Banking",
       description: "Modern mobile banking interface with intuitive user flows and secure transaction processes.",
       category: "Mobile App",
       tools: ["Figma", "Principle"],
@@ -72,10 +92,12 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#1e3a8a", "#3b82f6", "#e0f2fe"],
       type: "figma",
-      link: "https://www.figma.com/design/example-banking-app" // Replace with actual Figma link
+      link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
+      screenshot: "/screenshots/financeflow-design.png"
     },
     {
       title: "E-Commerce Platform Design",
+      subtitle: "Shopping Experience",
       description: "Complete e-commerce platform design with user-centered shopping experience and modern aesthetics.",
       category: "Web Platform",
       tools: ["Figma", "Adobe XD"],
@@ -83,11 +105,13 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#059669", "#10b981", "#ecfdf5"],
       type: "pdf",
-      file: "/designs/ecommerce-design.pdf", // 20MB PDF
-      fileSize: "18.5 MB"
+      file: "/designs/ecommerce-design.pdf",
+      fileSize: "18.5 MB",
+      screenshot: "/screenshots/ecommerce-design.png"
     },
     {
       title: "Educational Dashboard",
+      subtitle: "Learning Management",
       description: "Comprehensive learning management system design focused on student engagement and progress tracking.",
       category: "Web Dashboard",
       tools: ["Figma", "Framer"],
@@ -95,11 +119,13 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#7c3aed", "#8b5cf6", "#f3e8ff"],
       type: "pdf",
-      file: "/designs/education-dashboard.pdf", // 20MB PDF
-      fileSize: "21.2 MB"
+      file: "/designs/education-dashboard.pdf",
+      fileSize: "21.2 MB",
+      screenshot: "/screenshots/education-dashboard.png"
     },
     {
       title: "Healthcare Mobile App",
+      subtitle: "Patient Care",
       description: "Patient-centered healthcare application with appointment scheduling and health monitoring features.",
       category: "Mobile App",
       tools: ["Figma", "Protopie"],
@@ -107,11 +133,13 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#ea580c", "#fb923c", "#fed7aa"],
       type: "pdf",
-      file: "/designs/healthcare-app.pdf", // 20MB PDF
-      fileSize: "19.8 MB"
+      file: "/designs/healthcare-app.pdf",
+      fileSize: "19.8 MB",
+      screenshot: "/screenshots/healthcare-app.png"
     },
     {
       title: "Real Estate Platform",
+      subtitle: "Property Search",
       description: "Property search and management platform with advanced filtering and immersive property showcases.",
       category: "Web Platform",
       tools: ["Figma", "Sketch"],
@@ -119,11 +147,13 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#0f172a", "#1e293b", "#f1f5f9"],
       type: "pdf",
-      file: "/designs/real-estate-platform.pdf", // 20MB PDF
-      fileSize: "22.1 MB"
+      file: "/designs/real-estate-platform.pdf",
+      fileSize: "22.1 MB",
+      screenshot: "/screenshots/real-estate-platform.png"
     },
     {
       title: "Fitness Tracking App",
+      subtitle: "Wellness Companion",
       description: "Personal wellness companion with workout planning, nutrition tracking, and progress analytics.",
       category: "Mobile App",
       tools: ["Figma", "InVision"],
@@ -131,8 +161,9 @@ const SimplifiedPortfolio = () => {
       year: "2024",
       colors: ["#dc2626", "#ef4444", "#fee2e2"],
       type: "pdf",
-      file: "/designs/fitness-app.pdf", // 20MB PDF
-      fileSize: "17.9 MB"
+      file: "/designs/fitness-app.pdf",
+      fileSize: "17.9 MB",
+      screenshot: "/screenshots/fitness-app.png"
     }
   ];
 
@@ -265,88 +296,89 @@ const SimplifiedPortfolio = () => {
                   onMouseLeave={() => setHoveredProject(null)}
                   style={{
                     transitionDelay: isLoaded ? `${index * 0.1}s` : '0s',
-                    minHeight: '420px',
                   }}
                 >
-                  {/* Project Preview - Mobile First */}
-                  <div className="relative bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden h-56">
+                  {/* Project Screenshot Preview */}
+                  <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
                     
-                    {/* Universal Project Preview */}
-                    <div className="relative w-full h-full flex items-center justify-center p-6">
-                      {/* Mobile & Desktop Compatible Preview */}
-                      <div className="w-full h-full flex flex-col items-center justify-center text-center">
-                        {/* Project Icon */}
-                        <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10">
-                          <Globe className="w-8 h-8 text-[#0a0100]/70" />
-                        </div>
-                        
-                        {/* Project Title */}
-                        <h3 className="font-erstoria text-xl text-[#0a0100] mb-2 tracking-wide">
-                          {project.title}
-                        </h3>
-                        
-                        {/* Category */}
-                        <div className="px-3 py-1 bg-white/60 backdrop-blur-sm border border-[#0a0100]/10  mb-3">
-                          <span className="text-xs font-erstoria tracking-widest text-[#0a0100]/70 uppercase">
-                            {project.category}
-                          </span>
-                        </div>
-                        
-                        {/* Call to Action */}
-                        <div className="flex items-center gap-2 text-[#e61f00] text-sm font-medium opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-                          <span>View Live Site</span>
-                          <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
-                        </div>
-                      </div>
-
-                      {/* Desktop iframe overlay - only visible on hover */}
-                      <div className="hidden lg:block absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 bg-white overflow-hidden">
-                        <iframe
-                          src={project.url}
-                          className="absolute inset-0 w-full h-full"
-                          style={{
-                            width: '300%',
-                            height: '300%',
-                            transform: 'scale(0.333)',
-                            transformOrigin: 'top left',
-                            pointerEvents: 'none',
-                            border: 'none',
+                    {/* Screenshot Preview */}
+                    {project.screenshot ? (
+                      <div className="absolute inset-0">
+                        <img 
+                          src={project.screenshot}
+                          alt={`${project.title} preview`}
+                          className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                          onError={(e) => {
+                            // Fallback to icon if screenshot doesn't load
+                            e.target.style.display = 'none';
+                            e.target.parentElement.nextElementSibling.style.display = 'flex';
                           }}
-                          title={`${project.title} Preview`}
-                          loading="lazy"
                         />
                         
-                        {/* Hover overlay */}
-                        <div className="absolute inset-0 bg-[#0a0100]/20 flex items-center justify-center">
-                          <div className="text-white font-erstoria tracking-wide text-sm bg-[#0a0100]/80 px-4 py-2">
-                            <span>CLICK TO VISIT</span>
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
+                        
+                        {/* Type indicator */}
+                        <div className="absolute top-4 right-4">
+                          <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
+                            <Globe className="w-4 h-4 text-white" />
+                          </div>
+                        </div>
+
+                        {/* Hover overlay - Centered */}
+                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
+                          hoveredProject === index ? 'bg-[#0a0100]/40' : ''
+                        }`}>
+                          <div className={`transition-all duration-300 text-center transform ${
+                            hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                          }`}>
+                            <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                              <span>VIEW PROJECT</span>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    ) : (
+                      /* Fallback if no screenshot */
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="text-center">
+                          <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
+                            <Globe className="w-8 h-8 text-[#0a0100]/70" />
+                          </div>
+                          <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</h3>
+                          <p className="text-[#0a0100]/70">{project.subtitle}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   {/* Project Info */}
                   <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
                     <div className="mb-4 flex-grow">
-                      <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
-                        {project.title}
-                      </h3>
+                      <div className="mb-3">
+                        <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
+                          {project.category}
+                        </div>
+                        <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>
+                      </div>
                       <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
                         {project.description}
                       </p>
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4 sm:mb-6">
-                      {project.tech.map((tech, techIndex) => (
-                        <span 
-                          key={techIndex}
-                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+                      
+                      {/* Tech Stack */}
+                      <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+                        {project.tech.map((tech, techIndex) => (
+                          <span 
+                            key={techIndex}
+                            className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
                     {/* View Project Link */}
@@ -411,154 +443,137 @@ const SimplifiedPortfolio = () => {
                     transitionDelay: isLoaded ? `${index * 0.1}s` : '0s',
                   }}
                 >
-                  {/* Design Mockup */}
-                  <div className={`relative overflow-hidden bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] ${
-                    design.mockupType === 'mobile' ? 'h-80' : 'h-64'
-                  }`}>
+                  {/* Design Screenshot Preview */}
+                  <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
                     
-                    <div className="w-full h-full flex items-center justify-center p-8">
-                      {design.mockupType === 'mobile' ? (
-                        // Mobile Mockup (same as before)
-                        <div className="relative">
-                          <div 
-                            className="w-48 h-72 rounded-3xl p-1 shadow-2xl"
-                            style={{ backgroundColor: design.colors[0] }}
-                          >
-                            <div className="w-full h-full bg-white rounded-3xl p-4 overflow-hidden">
-                              <div className="space-y-4">
-                                <div className="flex items-center justify-between">
-                                  <div className="w-6 h-1 bg-[#0a0100]/20 rounded-full"></div>
-                                  <div className="w-8 h-1 bg-[#0a0100]/20 rounded-full"></div>
-                                </div>
-                                <div 
-                                  className="h-8 rounded-lg"
-                                  style={{ backgroundColor: `${design.colors[1]}20` }}
-                                ></div>
-                                <div className="space-y-2">
-                                  <div className="h-4 bg-[#0a0100]/10 rounded w-3/4"></div>
-                                  <div className="h-4 bg-[#0a0100]/10 rounded w-1/2"></div>
-                                </div>
-                                <div className="grid grid-cols-2 gap-2">
-                                  <div className="h-16 bg-[#0a0100]/5 rounded-lg"></div>
-                                  <div 
-                                    className="h-16 rounded-lg"
-                                    style={{ backgroundColor: `${design.colors[1]}15` }}
-                                  ></div>
-                                </div>
-                                <div className="space-y-2">
-                                  {[1,2,3].map(i => (
-                                    <div key={i} className="flex items-center gap-3">
-                                      <div 
-                                        className="w-3 h-3 rounded-full flex-shrink-0"
-                                        style={{ backgroundColor: `${design.colors[1]}40` }}
-                                      ></div>
-                                      <div className="h-3 bg-[#0a0100]/5 rounded flex-1"></div>
-                                    </div>
-                                  ))}
-                                </div>
-                                <div className="flex justify-center pt-4">
-                                  <div 
-                                    className="h-1 w-12 rounded-full"
-                                    style={{ backgroundColor: design.colors[0] }}
-                                  ></div>
-                                </div>
-                              </div>
-                            </div>
+                    {/* Screenshot Preview */}
+                    {design.screenshot ? (
+                      <div className="absolute inset-0">
+                        <img 
+                          src={design.screenshot}
+                          alt={`${design.title} design preview`}
+                          className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                          onError={(e) => {
+                            // Fallback to icon if screenshot doesn't load
+                            e.target.style.display = 'none';
+                            e.target.parentElement.nextElementSibling.style.display = 'flex';
+                          }}
+                        />
+                        
+                        {/* Gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
+                        
+                        {/* Type indicator */}
+                        <div className="absolute top-4 right-4">
+                          <div className={`p-2 backdrop-blur-sm ${
+                            design.type === 'figma'
+                              ? 'bg-green-500/20 border border-green-500/30' 
+                              : 'bg-blue-500/20 border border-blue-500/30'
+                          }`}>
+                            {design.type === 'figma' ? (
+                              <Figma className="w-4 h-4 text-white" />
+                            ) : (
+                              <Palette className="w-4 h-4 text-white" />
+                            )}
                           </div>
-                          <Smartphone className="absolute -top-2 -right-2 w-6 h-6 text-[#0a0100]/30" />
                         </div>
-                      ) : (
-                        // Desktop Mockup (same as before)
-                        <div className="relative w-full max-w-md">
-                          <div 
-                            className="rounded-lg p-1 shadow-xl"
-                            style={{ backgroundColor: design.colors[0] }}
-                          >
-                            <div className="bg-white rounded-lg p-6 space-y-4">
-                              <div className="flex items-center gap-2 pb-3 border-b border-[#0a0100]/10">
-                                <div 
-                                  className="w-3 h-3 rounded-full"
-                                  style={{ backgroundColor: `${design.colors[1]}50` }}
-                                ></div>
-                                <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
-                                <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
-                              </div>
-                              <div className="flex gap-4 pb-2">
-                                <div 
-                                  className="h-2 w-12 rounded-full"
-                                  style={{ backgroundColor: design.colors[1] }}
-                                ></div>
-                                <div className="h-2 w-8 bg-[#0a0100]/20 rounded-full"></div>
-                                <div className="h-2 w-10 bg-[#0a0100]/20 rounded-full"></div>
-                              </div>
-                              <div 
-                                className="h-12 rounded-lg mb-4"
-                                style={{ backgroundColor: `${design.colors[2]}60` }}
-                              ></div>
-                              <div className="grid grid-cols-3 gap-2">
-                                {[1,2,3].map(i => (
-                                  <div key={i} className="space-y-1">
-                                    <div 
-                                      className="h-8 rounded"
-                                      style={{ backgroundColor: i === 2 ? `${design.colors[1]}20` : '#0a010010' }}
-                                    ></div>
-                                    <div className="h-1 bg-[#0a0100]/10 rounded"></div>
-                                    <div className="h-1 bg-[#0a0100]/5 rounded w-2/3"></div>
-                                  </div>
-                                ))}
-                              </div>
-                              <div className="pt-2 border-t border-[#0a0100]/10">
-                                <div className="flex justify-between">
-                                  <div className="h-1 w-16 bg-[#0a0100]/20 rounded-full"></div>
-                                  <div className="h-1 w-12 bg-[#0a0100]/20 rounded-full"></div>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <Monitor className="absolute -top-2 -right-2 w-6 h-6 text-[#0a0100]/30" />
-                        </div>
-                      )}
-                    </div>
 
-                    {/* Design Overlay */}
-                    <div className="absolute inset-0 bg-[#0a0100]/0 group-hover:bg-[#0a0100]/5 transition-all duration-500 flex items-center justify-center">
-                      <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center gap-2 text-[#0a0100] font-erstoria tracking-wide text-sm">
-                        {design.type === 'figma' ? (
-                          <>
-                            <ExternalLinkIcon className="w-5 h-5" />
-                            <span>OPEN IN FIGMA</span>
-                          </>
+                        {/* Hover overlay - Centered */}
+                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
+                          hoveredDesign === index ? 'bg-[#0a0100]/40' : ''
+                        }`}>
+                          <div className={`transition-all duration-300 text-center transform ${
+                            hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                          }`}>
+                            <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                              <span>{design.type === 'figma' ? 'VIEW IN FIGMA' : 'VIEW DESIGN'}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      /* Fallback if no screenshot - Abstract mockup */
+                      <div className="w-full h-full flex items-center justify-center p-8">
+                        {design.mockupType === 'mobile' ? (
+                          // Mobile Mockup
+                          <div className="relative">
+                            <div 
+                              className="w-48 h-72 rounded-3xl p-1 shadow-2xl"
+                              style={{ backgroundColor: design.colors[0] }}
+                            >
+                              <div className="w-full h-full bg-white rounded-3xl p-4 overflow-hidden">
+                                <div className="space-y-4">
+                                  <div className="flex items-center justify-between">
+                                    <div className="w-6 h-1 bg-[#0a0100]/20 rounded-full"></div>
+                                    <div className="w-8 h-1 bg-[#0a0100]/20 rounded-full"></div>
+                                  </div>
+                                  <div 
+                                    className="h-8 rounded-lg"
+                                    style={{ backgroundColor: `${design.colors[1]}20` }}
+                                  ></div>
+                                  <div className="space-y-2">
+                                    <div className="h-4 bg-[#0a0100]/10 rounded w-3/4"></div>
+                                    <div className="h-4 bg-[#0a0100]/10 rounded w-1/2"></div>
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-2">
+                                    <div className="h-16 bg-[#0a0100]/5 rounded-lg"></div>
+                                    <div 
+                                      className="h-16 rounded-lg"
+                                      style={{ backgroundColor: `${design.colors[1]}15` }}
+                                    ></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <Smartphone className="absolute -top-2 -right-2 w-6 h-6 text-[#0a0100]/30" />
+                          </div>
                         ) : (
-                          <>
-                            <Eye className="w-5 h-5" />
-                            <span>VIEW DESIGN</span>
-                          </>
+                          // Desktop Mockup
+                          <div className="relative w-full max-w-md">
+                            <div 
+                              className="rounded-lg p-1 shadow-xl"
+                              style={{ backgroundColor: design.colors[0] }}
+                            >
+                              <div className="bg-white rounded-lg p-6 space-y-4">
+                                <div className="flex items-center gap-2 pb-3 border-b border-[#0a0100]/10">
+                                  <div 
+                                    className="w-3 h-3 rounded-full"
+                                    style={{ backgroundColor: `${design.colors[1]}50` }}
+                                  ></div>
+                                  <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
+                                  <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
+                                </div>
+                                <div 
+                                  className="h-12 rounded-lg mb-4"
+                                  style={{ backgroundColor: `${design.colors[2]}60` }}
+                                ></div>
+                              </div>
+                            </div>
+                            <Monitor className="absolute -top-2 -right-2 w-6 h-6 text-[#0a0100]/30" />
+                          </div>
                         )}
                       </div>
-                    </div>
-
-                    {/* Type Badge */}
-                    <div className="absolute top-4 right-4">
-                      <div className={`px-3 py-1 text-xs font-erstoria tracking-wide rounded-full ${
-                        design.type === 'figma' 
-                          ? 'bg-green-500/10 text-green-600 border border-green-500/20' 
-                          : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
-                      }`}>
-                        {design.type === 'figma' ? 'FIGMA' : 'PDF'}
-                      </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* Design Info */}
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <h4 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
-                          {design.title}
-                        </h4>
+                        <div className="mb-3">
+                          <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${
+                            design.type === 'figma'
+                              ? 'bg-green-500/10 text-green-600 border border-green-500/20' 
+                              : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
+                          }`}>
+                            {design.category}
+                          </div>
+                          <h4 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                            {design.title}
+                          </h4>
+                          <p className="text-sm text-[#0a0100]/60 mb-3">{design.subtitle}</p>
+                        </div>
                         <div className="flex items-center gap-3 text-xs text-[#0a0100]/50 uppercase tracking-wide mb-3">
-                          <span>{design.category}</span>
-                          <span>•</span>
                           <span>{design.year}</span>
                           {design.fileSize && (
                             <>
