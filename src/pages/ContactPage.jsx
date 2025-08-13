@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Mail, Phone, Github, Linkedin, MapPin, Clock } from 'lucide-react';
+import { ArrowUpRight, Mail, Phone, Github, Linkedin, MapPin, Clock, Download, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../components/common/Footer';
 import Lenis from 'lenis';
 
 const ContactPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredContact, setHoveredContact] = useState(null);
+  const [showCV, setShowCV] = useState(false);
+  const [cvLanguage, setCvLanguage] = useState('english');
   
   const sectionRef = useRef(null);
 
@@ -31,11 +34,20 @@ const ContactPage = () => {
 
     requestAnimationFrame(raf);
 
+    const handleNavbarMenuOpen = () => {
+      if (showCV) {
+        setShowCV(false);
+      }
+    };
+
+    window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+
     // Cleanup function
     return () => {
       lenis.destroy();
+      window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
     };
-  }, []);
+  }, [showCV]);
 
   const contactInfo = [
     {
@@ -86,6 +98,20 @@ const ContactPage = () => {
       description: "Available Mon-Fri, 9AM-6PM"
     }
   ];
+
+  const cvFiles = {
+    english: '/pdfs/Oussama_Alouche.pdf',
+    french: '/pdfs/OussamaAlouche.pdf'
+  };
+
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = cvFiles[cvLanguage];
+    link.download = `OussamaAlouche_CV_${cvLanguage.toUpperCase()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
@@ -297,12 +323,122 @@ const ContactPage = () => {
               <Phone className="w-5 h-5" />
               <span className="font-erstoria text-base tracking-wide">CALL NOW</span>
             </a>
+
+            <button 
+              onClick={() => setShowCV(true)}
+              className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#e61f00] text-white overflow-hidden transition-all duration-500 hover:bg-[#0a0100] active:scale-95 min-w-[200px] cursor-pointer"
+            >
+              <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
+              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Footer Component */}
       <Footer />
+
+      {/* CV Modal */}
+      <AnimatePresence>
+        {showCV && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-2 sm:p-4"
+            onClick={() => setShowCV(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="bg-[#f5f5f0] shadow-2xl w-full max-w-5xl h-full sm:h-[95vh] sm:max-h-[95vh] overflow-hidden flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Modal Header - Responsive */}
+              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">CV</h2>
+                  <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
+                </div>
+              </div>
+
+              {/* PDF Viewer - Responsive Height */}
+              <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
+                <div className="w-full h-full bg-white shadow-inner overflow-auto">
+                  <iframe
+                    key={cvLanguage}
+                    src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                    className="w-full h-full border-none"
+                    title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
+                    onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                  />
+                </div>
+              </div>
+
+              {/* Modal Footer - Responsive Controls */}
+              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
+                <div className="flex items-center justify-between gap-2">
+                  {/* Language Toggle */}
+                  <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
+                    <button
+                      onClick={() => setCvLanguage('english')}
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
+                        cvLanguage === 'english'
+                          ? 'bg-[#0a0100] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                      }`}
+                    >
+                      EN
+                    </button>
+                    <button
+                      onClick={() => setCvLanguage('french')}
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
+                        cvLanguage === 'french'
+                          ? 'bg-[#0a0100] text-white'
+                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                      }`}
+                    >
+                      FR
+                    </button>
+                  </div>
+                  
+                  {/* Action Buttons Group */}
+                  <div className="flex items-center gap-1">
+                    {/* Download Button - Icon only */}
+                    <button
+                      onClick={handleDownloadCV}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                      title="Download CV"
+                      aria-label="Download CV"
+                    >
+                      <Download size={16} className="sm:w-5 sm:h-5" />
+                    </button>
+
+                    {/* Close Button */}
+                    <button
+                      onClick={() => setShowCV(false)}
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                      aria-label="Close CV"
+                    >
+                      <X size={16} className="sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Loading fallback */}
+              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{display: 'none'}} id="pdf-loading">
+                <div className="text-center">
+                  <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+                  <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style jsx>{`
         @keyframes slideUp {

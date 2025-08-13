@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Brain, Target, Users, Lightbulb, Code, Palette, Zap, ArrowRight, Circle } from 'lucide-react';
+import { Brain, Target, Users, Lightbulb, Code, Palette, Zap, ArrowRight, Circle, ArrowUpRight, Download, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const ThinkPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activePhase, setActivePhase] = useState(0);
+  const [showCV, setShowCV] = useState(false);
+  const [cvLanguage, setCvLanguage] = useState('english');
 
   const thinkingPhases = [
     {
@@ -96,10 +99,27 @@ const ThinkPortfolio = () => {
     }
   ];
 
+  const cvFiles = {
+    english: '/pdfs/Oussama_Alouche.pdf',
+    french: '/pdfs/OussamaAlouche.pdf'
+  };
+
   useEffect(() => {
     // Load immediately when component mounts
     setIsLoaded(true);
-  }, []);
+
+    const handleNavbarMenuOpen = () => {
+      if (showCV) {
+        setShowCV(false);
+      }
+    };
+
+    window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+
+    return () => {
+      window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+    };
+  }, [showCV]);
 
   // Auto-rotate through phases
   useEffect(() => {
@@ -112,10 +132,20 @@ const ThinkPortfolio = () => {
     }
   }, [isLoaded]);
 
+  const handleDownloadCV = () => {
+    const link = document.createElement('a');
+    link.href = cvFiles[cvLanguage];
+    link.download = `OussamaAlouche_CV_${cvLanguage.toUpperCase()}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
-    <section 
-      className="relative py-20 md:pt-32 md:pb-12 bg-[#f5f5f0] overflow-hidden"
-    >
+    <>
+      <section 
+        className="relative py-20 md:pt-32 md:pb-12 bg-[#f5f5f0] overflow-hidden"
+      >
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.02]">
         <div 
@@ -435,6 +465,36 @@ const ThinkPortfolio = () => {
             </div>
           </div>
         </div>
+
+        {/* View My CV Button */}
+        <div 
+          className="text-center mb-20"
+          style={{
+            animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.8s forwards' : 'none',
+            transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
+            opacity: isLoaded ? 1 : 0,
+          }}
+        >
+          <div className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm p-8 md:p-12 max-w-4xl mx-auto">
+            <h4 className="font-erstoria text-2xl md:text-3xl text-[#0a0100] mb-4 tracking-wide">
+              Interested in Learning More?
+            </h4>
+            <p className="text-lg text-[#0a0100]/70 mb-6 leading-relaxed">
+              Dive deeper into my experience, skills, and professional journey through my comprehensive CV.
+            </p>
+            <p className="text-sm text-[#0a0100]/50 mb-8 font-erstoria tracking-wide">
+              LAST UPDATED: 13TH AUGUST 2025
+            </p>
+            <button 
+              onClick={() => setShowCV(true)}
+              className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+            >
+              <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
+              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            </button>
+          </div>
+        </div>
       </div>
 
       <style jsx>{`
@@ -453,6 +513,98 @@ const ThinkPortfolio = () => {
         }
       `}</style>
     </section>
+
+    {/* CV Modal */}
+    <AnimatePresence>
+      {showCV && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-2 sm:p-4"
+          onClick={() => setShowCV(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            className="bg-[#f5f5f0] shadow-2xl w-full max-w-5xl h-full sm:h-[95vh] sm:max-h-[95vh] overflow-hidden flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">CV</h2>
+                <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
+              </div>
+            </div>
+
+            {/* PDF Viewer */}
+            <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
+              <div className="w-full h-full bg-white shadow-inner overflow-auto">
+                <iframe
+                  key={cvLanguage}
+                  src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                  className="w-full h-full border-none"
+                  title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
+                  onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                />
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
+              <div className="flex items-center justify-between gap-2">
+                {/* Language Toggle */}
+                <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
+                  <button
+                    onClick={() => setCvLanguage('english')}
+                    className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
+                      cvLanguage === 'english'
+                        ? 'bg-[#0a0100] text-white'
+                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                    }`}
+                  >
+                    EN
+                  </button>
+                  <button
+                    onClick={() => setCvLanguage('french')}
+                    className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
+                      cvLanguage === 'french'
+                        ? 'bg-[#0a0100] text-white'
+                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                    }`}
+                  >
+                    FR
+                  </button>
+                </div>
+                
+                {/* Action Buttons */}
+                <div className="flex items-center gap-1">
+                  {/* Download Button */}
+                  <button
+                    onClick={handleDownloadCV}
+                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                    title="Download CV"
+                  >
+                    <Download size={16} className="sm:w-5 sm:h-5" />
+                  </button>
+
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setShowCV(false)}
+                    className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                  >
+                    <X size={16} className="sm:w-5 sm:h-5" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   );
 };
 

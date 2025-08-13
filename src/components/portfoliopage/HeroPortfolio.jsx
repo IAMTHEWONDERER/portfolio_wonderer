@@ -24,7 +24,7 @@ const HeroPortfolio = () => {
       tech: ["React", "Next.js", "Tailwind"],
       category: "Website",
       type: "website",
-      screenshot: "/screenshots/ejswco-preview.png" // Add actual screenshot
+      screenshot: "/imgs/screenshots/ejswco.png"
     },
     {
       title: "WorkWhile",
@@ -34,17 +34,17 @@ const HeroPortfolio = () => {
       tech: ["React", "Node.js", "MongoDB"],
       category: "Platform",
       type: "website",
-      screenshot: "/screenshots/workwhile-preview.png" // Add actual screenshot
+      screenshot: "/imgs/screenshots/workwhile.png"
     },
     {
-      title: "FinanceFlow App",
-      subtitle: "Banking Interface",
-      description: "Modern mobile banking interface with intuitive user flows and secure processes",
-      url: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f", // Replace with actual Figma link
-      tech: ["Figma", "UI Design", "Mobile"],
-      category: "UI/UX Design",
-      type: "design",
-      screenshot: "/screenshots/financeflow-design.png" // Add actual design screenshot
+      title: "Wonderer Portfolio",
+      subtitle: "Personal Showcase",
+      description: "My personal portfolio showcasing my skills, projects, and creative journey",
+      url: "https://wondererme.vercel.app",
+      tech: ["React", "Tailwind CSS", "Vite"],
+      category: "Personal Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/wonderer.png"
     },
     {
       title: "Asanada",
@@ -54,7 +54,7 @@ const HeroPortfolio = () => {
       tech: ["React", "Framer Motion"],
       category: "Website",
       type: "website",
-      screenshot: "/screenshots/asanada-preview.png" // Add actual screenshot
+      screenshot: "/imgs/screenshots/asanada.png"
     }
   ];
 

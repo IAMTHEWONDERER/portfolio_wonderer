@@ -26,7 +26,7 @@ const SimplifiedPortfolio = () => {
       tech: ["React", "Next.js", "Tailwind CSS"],
       category: "Corporate Website",
       type: "website",
-      screenshot: "/screenshots/ejswco-preview.png"
+      screenshot: "/imgs/screenshots/ejswco.png"
     },
     {
       title: "WorkWhile",
@@ -36,7 +36,7 @@ const SimplifiedPortfolio = () => {
       tech: ["React", "Node.js", "MongoDB"],
       category: "School Project",
       type: "website",
-      screenshot: "/screenshots/workwhile-preview.png"
+      screenshot: "/imgs/screenshots/workwhile.png"
     },
     {
       title: "Asanada",
@@ -46,7 +46,7 @@ const SimplifiedPortfolio = () => {
       tech: ["React", "JavaScript", "Framer Motion"],
       category: "Work Project",
       type: "website",
-      screenshot: "/screenshots/asanada-preview.png"
+      screenshot: "/imgs/screenshots/asanada.png"
     },
     {
       title: "Wonderer Portfolio",
@@ -56,115 +56,122 @@ const SimplifiedPortfolio = () => {
       tech: ["React", "Tailwind CSS", "Vite"],
       category: "Personal Project",
       type: "website",
-      screenshot: "/screenshots/wonderer-preview.png"
+      screenshot: "/imgs/screenshots/wonderer.png"
     },
     {
-      title: "Class Management",
-      subtitle: "Educational Platform",
-      description: "A comprehensive class management system designed to streamline educational processes.",
-      url: "https://class-management-zeta.vercel.app",
-      tech: ["React", "Node.js", "Express"],
-      category: "School Project",
-      type: "website",
-      screenshot: "/screenshots/class-management-preview.png"
-    },
-    {
-      title: "LMS System",
+      title: "Eduk Asanada LMS",
       subtitle: "Learning Platform",
-      description: "A Learning Management System designed to enhance educational experiences with interactive features.",
+      description: "A comprehensive Learning Management System designed to enhance educational experiences with interactive features.",
       url: "https://eduk.asanada.org",
-      tech: ["Laravel", "MySQL"],
+      tech: ["Laravel", "MySQL", "Bootstrap"],
       category: "Work Project",
       type: "website",
-      screenshot: "/screenshots/lms-preview.png"
+      screenshot: "/imgs/screenshots/edukasanada.png"
+    },
+    {
+      title: "Appart9 Platform",
+      subtitle: "Real Estate Solution",
+      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
+      url: "#",
+      tech: ["React", "Node.js", "PostgreSQL"],
+      category: "Real Estate Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/appart9.png"
+    },
+    {
+      title: "FOSTP",
+      subtitle: "Foundation Website",
+      description: "Professional foundation website featuring organizational information, projects showcase, and community engagement initiatives.",
+      url: "https://fostp.ma",
+      tech: ["React", "ExpressJS","NodeJS", "MySQL"],
+      category: "Foundation Website",
+      type: "website",
+      screenshot: "/imgs/screenshots/fostp.png"
+    },
+    {
+      title: "Nalida Power",
+      subtitle: "Energy Solutions",
+      description: "Modern energy solutions platform showcasing renewable energy services, project portfolio, and sustainable technology innovations.",
+      url: "https://nalida-power.vercel.app",
+      tech: ["React", "Next.js", "Tailwind CSS"],
+      category: "Energy Platform",
+      type: "website",
+      screenshot: "/imgs/screenshots/nalida.png"
     }
   ];
 
-  // UI/UX Designs with screenshots
+  // UI/UX Designs with screenshots - Real projects with available assets
   const designConcepts = [
     {
-      title: "FinanceFlow Banking App",
-      subtitle: "Mobile Banking",
-      description: "Modern mobile banking interface with intuitive user flows and secure transaction processes.",
-      category: "Mobile App",
-      tools: ["Figma", "Principle"],
-      mockupType: "mobile",
-      year: "2024",
-      colors: ["#1e3a8a", "#3b82f6", "#e0f2fe"],
-      type: "figma",
-      link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
-      screenshot: "/screenshots/financeflow-design.png"
-    },
-    {
-      title: "E-Commerce Platform Design",
-      subtitle: "Shopping Experience",
-      description: "Complete e-commerce platform design with user-centered shopping experience and modern aesthetics.",
-      category: "Web Platform",
-      tools: ["Figma", "Adobe XD"],
+      title: "AidUs Charity Platform",
+      subtitle: "Donation & Community",
+      description: "A comprehensive charity and donation platform designed to connect donors with causes, featuring intuitive donation flows and community engagement.",
+      category: "Charity Platform",
+      tools: ["Figma", "Prototyping"],
       mockupType: "desktop",
       year: "2024",
       colors: ["#059669", "#10b981", "#ecfdf5"],
-      type: "pdf",
-      file: "/designs/ecommerce-design.pdf",
-      fileSize: "18.5 MB",
-      screenshot: "/screenshots/ecommerce-design.png"
+      type: "figma",
+      link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
+      screenshot: "/imgs/screenshots/aidus.png"
     },
     {
-      title: "Educational Dashboard",
-      subtitle: "Learning Management",
-      description: "Comprehensive learning management system design focused on student engagement and progress tracking.",
-      category: "Web Dashboard",
-      tools: ["Figma", "Framer"],
+      title: "Fondation Platform",
+      subtitle: "Foundation Management",
+      description: "Professional foundation management system with comprehensive project tracking, donor management, and impact reporting features.",
+      category: "Foundation Platform",
+      tools: ["Figma", "Adobe XD"],
       mockupType: "desktop",
       year: "2024",
       colors: ["#7c3aed", "#8b5cf6", "#f3e8ff"],
       type: "pdf",
-      file: "/designs/education-dashboard.pdf",
-      fileSize: "21.2 MB",
-      screenshot: "/screenshots/education-dashboard.png"
+      filename: "fondation.pdf",
+      requiresContact: false,
+      screenshot: "/imgs/screenshots/fondation.png"
     },
     {
-      title: "Healthcare Mobile App",
-      subtitle: "Patient Care",
-      description: "Patient-centered healthcare application with appointment scheduling and health monitoring features.",
-      category: "Mobile App",
+      title: "RMA Marketplace",
+      subtitle: "Construction Materials",
+      description: "Modern marketplace platform for buying construction materials with advanced search, vendor management, and seamless ordering experience.",
+      category: "Marketplace Platform",
       tools: ["Figma", "Protopie"],
       mockupType: "mobile",
       year: "2024",
       colors: ["#ea580c", "#fb923c", "#fed7aa"],
       type: "pdf",
-      file: "/designs/healthcare-app.pdf",
-      fileSize: "19.8 MB",
-      screenshot: "/screenshots/healthcare-app.png"
+      filename: "rmamobile.pdf",
+      requiresContact: false,
+      screenshot: "/imgs/screenshots/rma.png"
     },
     {
-      title: "Real Estate Platform",
-      subtitle: "Property Search",
-      description: "Property search and management platform with advanced filtering and immersive property showcases.",
-      category: "Web Platform",
+      title: "AZ Finance Platform",
+      subtitle: "Financial Services",
+      description: "Comprehensive financial services platform featuring investment tracking, portfolio management, and advanced analytics for modern investors.",
+      category: "Finance Platform",
       tools: ["Figma", "Sketch"],
+      mockupType: "desktop",
+      year: "2024",
+      colors: ["#1e3a8a", "#3b82f6", "#e0f2fe"],
+      type: "pdf",
+      filename: "azfinance.pdf",
+      requiresContact: false,
+      screenshot: "/imgs/screenshots/azfinance.png"
+    },
+    {
+      title: "ITS Management System",
+      subtitle: "IT Service Management",
+      description: "Advanced IT service management platform with ticket tracking, resource allocation, and comprehensive reporting capabilities.",
+      category: "IT Management",
+      tools: ["Figma", "InVision"],
       mockupType: "desktop",
       year: "2024",
       colors: ["#0f172a", "#1e293b", "#f1f5f9"],
       type: "pdf",
-      file: "/designs/real-estate-platform.pdf",
-      fileSize: "22.1 MB",
-      screenshot: "/screenshots/real-estate-platform.png"
+      filename: "its.pdf",
+      requiresContact: false,
+      screenshot: "/imgs/screenshots/its.png"
     },
-    {
-      title: "Fitness Tracking App",
-      subtitle: "Wellness Companion",
-      description: "Personal wellness companion with workout planning, nutrition tracking, and progress analytics.",
-      category: "Mobile App",
-      tools: ["Figma", "InVision"],
-      mockupType: "mobile",
-      year: "2024",
-      colors: ["#dc2626", "#ef4444", "#fee2e2"],
-      type: "pdf",
-      file: "/designs/fitness-app.pdf",
-      fileSize: "17.9 MB",
-      screenshot: "/screenshots/fitness-app.png"
-    }
+   
   ];
 
   const handleProjectClick = (url) => {
@@ -174,16 +181,24 @@ const SimplifiedPortfolio = () => {
   const handleDesignClick = (design) => {
     if (design.type === 'figma') {
       window.open(design.link, '_blank', 'noopener,noreferrer');
-    } else {
+    } else if (design.type === 'protected' && design.requiresContact) {
+      // Trigger contact modal for protected files
       setCurrentPdf(design);
       setShowPdfModal(true);
+    } else if (design.type === 'pdf') {
+      // Show PDF in modal for viewing
+      setCurrentPdf(design);
+      setShowPdfModal(true);
+    } else {
+      // Direct download for unrestricted files
+      handleDownloadPdf(design);
     }
   };
 
   const handleDownloadPdf = (design) => {
     const link = document.createElement('a');
-    link.href = design.file;
-    link.download = `${design.title.replace(/\s+/g, '_')}.pdf`;
+    link.href = `/pdfs/${design.filename}`;
+    link.download = design.filename;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -486,7 +501,14 @@ const SimplifiedPortfolio = () => {
                             hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                           }`}>
                             <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                              <span>{design.type === 'figma' ? 'VIEW IN FIGMA' : 'VIEW DESIGN'}</span>
+                              <span>
+                                {design.type === 'figma' 
+                                  ? 'VIEW IN FIGMA' 
+                                  : design.requiresContact 
+                                  ? 'REQUEST ACCESS' 
+                                  : 'VIEW DESIGN'
+                                }
+                              </span>
                             </div>
                           </div>
                         </div>
@@ -563,7 +585,9 @@ const SimplifiedPortfolio = () => {
                         <div className="mb-3">
                           <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${
                             design.type === 'figma'
-                              ? 'bg-green-500/10 text-green-600 border border-green-500/20' 
+                              ? 'bg-green-500/10 text-green-600 border border-green-500/20'
+                              : design.type === 'protected'
+                              ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
                               : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
                           }`}>
                             {design.category}
@@ -575,12 +599,6 @@ const SimplifiedPortfolio = () => {
                         </div>
                         <div className="flex items-center gap-3 text-xs text-[#0a0100]/50 uppercase tracking-wide mb-3">
                           <span>{design.year}</span>
-                          {design.fileSize && (
-                            <>
-                              <span>•</span>
-                              <span>{design.fileSize}</span>
-                            </>
-                          )}
                         </div>
                       </div>
                       {design.type === 'figma' ? (
@@ -695,54 +713,106 @@ const SimplifiedPortfolio = () => {
             >
               {/* Modal Header */}
               <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 sm:gap-4">
-                    <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">
+                <div className="flex items-center gap-2 sm:gap-4">
+                  <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">
+                    {currentPdf.title}
+                  </h2>
+                  <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
+                </div>
+              </div>
+
+              {/* PDF Viewer - Responsive Height */}
+              <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
+                {currentPdf.requiresContact ? (
+                  /* Contact request for protected files */
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white text-center p-6">
+                    <div className="p-4 bg-amber-500/10 border border-amber-500/20 rounded-full mb-6">
+                      <FileText className="w-16 h-16 text-amber-600" />
+                    </div>
+                    <h3 className="font-erstoria text-2xl text-[#0a0100] mb-3">
                       {currentPdf.title}
-                    </h2>
-                    <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
-                    <span className="text-sm text-[#0a0100]/60">{currentPdf.fileSize}</span>
+                    </h3>
+                    <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-6 max-w-lg">
+                      <p className="text-amber-800 text-sm font-medium mb-2">🔒 Protected Design File</p>
+                      <p className="text-amber-700 text-sm">
+                        This premium design file contains detailed mockups, 
+                        design systems, and professional documentation.
+                      </p>
+                    </div>
+                    <p className="text-[#0a0100]/70 mb-6 max-w-md">
+                      To access the complete design files and documentation, please get in touch. 
+                      I'll be happy to share the full case study and design assets.
+                    </p>
+                    
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Link
+                        to="/contact"
+                        className="inline-flex items-center gap-3 bg-[#e61f00] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#cc1a00] transition-colors duration-300"
+                        onClick={() => setShowPdfModal(false)}
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        <span>Contact Me</span>
+                      </Link>
+                      
+                      <button
+                        onClick={() => window.open('mailto:your-email@domain.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
+                        className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
+                      >
+                        <span>📧</span>
+                        <span>Email Direct</span>
+                      </button>
+                    </div>
+                    
+                    <p className="text-xs text-[#0a0100]/50 mt-6 max-w-sm">
+                      Professional portfolio work • Available for serious inquiries
+                    </p>
+                  </div>
+                ) : (
+                  /* PDF Viewer for regular PDFs - Same as CV implementation */
+                  <div className="w-full h-full bg-white shadow-inner overflow-auto">
+                    <iframe
+                      src={`/pdfs/${currentPdf.filename}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                      className="w-full h-full border-none"
+                      title={`${currentPdf.title} - Design PDF`}
+                      onLoad={() => console.log(`PDF loaded: ${currentPdf.filename}`)}
+                    />
+                  </div>
+                )}
+              </div>
+
+              {/* Modal Footer - Responsive Controls */}
+              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
+                <div className="flex items-center justify-between gap-2">
+                  {/* Design Info */}
+                  <div className="flex items-center gap-1">
+                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+                      {currentPdf.category}
+                    </span>
                   </div>
                   
+                  {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">
-                    {/* Download Button */}
-                    <button
-                      onClick={() => handleDownloadPdf(currentPdf)}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
-                      title="Download PDF"
-                    >
-                      <Download size={16} className="sm:w-5 sm:h-5" />
-                    </button>
+                    {/* Download Button - Only show for non-protected files */}
+                    {!currentPdf.requiresContact && (
+                      <button
+                        onClick={() => handleDownloadPdf(currentPdf)}
+                        className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                        title="Download PDF"
+                        aria-label="Download PDF"
+                      >
+                        <Download size={16} className="sm:w-5 sm:h-5" />
+                      </button>
+                    )}
 
                     {/* Close Button */}
                     <button
                       onClick={() => setShowPdfModal(false)}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300"
+                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
+                      aria-label="Close PDF"
                     >
                       <span className="text-lg">×</span>
                     </button>
                   </div>
-                </div>
-              </div>
-
-              {/* PDF Content */}
-              <div className="flex-1 relative bg-white">
-                {/* Loading message for large PDFs */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center bg-white text-center">
-                  <FileText className="w-16 h-16 text-[#0a0100]/30 mb-4" />
-                  <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">
-                    {currentPdf.title}
-                  </h3>
-                  <p className="text-[#0a0100]/70 mb-6 max-w-md">
-                    This design file is {currentPdf.fileSize}. Click download to view the complete design system and detailed mockups.
-                  </p>
-                  <button
-                    onClick={() => handleDownloadPdf(currentPdf)}
-                    className="inline-flex items-center gap-3 bg-[#e61f00] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#cc1a00] transition-colors duration-300"
-                  >
-                    <Download className="w-4 h-4" />
-                    <span>Download PDF ({currentPdf.fileSize})</span>
-                  </button>
                 </div>
               </div>
             </motion.div>
