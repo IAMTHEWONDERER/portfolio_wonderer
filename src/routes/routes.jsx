@@ -5,6 +5,7 @@ import { PageTransitionLayout } from './PageTransitionLayout';
 import LandingPage from '../pages/LandingPage';
 import ContactPage from '../pages/ContactPage';
 import PortfolioPage from '../pages/PortfolioPage';
+
 // Component to scroll to top on route change
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -22,30 +23,55 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Component to update document title based on route
+const DocumentTitle = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const getPageTitle = (path) => {
+      switch (path) {
+        case '/':
+          return 'Wonderer';
+        case '/contact':
+          return 'Contact';
+        case '/portfolio':
+          return 'Portfolio';
+        default:
+          return 'Wonderer';
+      }
+    };
+
+    document.title = getPageTitle(pathname);
+  }, [pathname]);
+
+  return null;
+};
+
 const AppRouter = () => {
   return (
     <Router>
       <div className='bg-[#f5f5f0]' style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>
         <ScrollToTop />
+        <DocumentTitle />
         <EnhancedNavbar />
         <Routes>
           <Route path="/" element={
-            <PageTransitionLayout backgroundColor="#ffffff">
+            <PageTransitionLayout backgroundColor="#f5f5f0">
               <LandingPage />
             </PageTransitionLayout>
           } />
           <Route path="/contact" element={
-            <PageTransitionLayout backgroundColor="#ffffff">
+            <PageTransitionLayout backgroundColor="#f5f5f0">
               <ContactPage />
             </PageTransitionLayout>
           } />
           <Route path="/portfolio" element={
-            <PageTransitionLayout backgroundColor="#ffffff">
+            <PageTransitionLayout backgroundColor="#f5f5f0">
               <PortfolioPage />
             </PageTransitionLayout>
           } />
           <Route path="*" element={
-            <PageTransitionLayout backgroundColor="#ffffff">
+            <PageTransitionLayout backgroundColor="#f5f5f0">
               <LandingPage />
             </PageTransitionLayout>
           } />
