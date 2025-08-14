@@ -1,7 +1,7 @@
 // App.jsx or main.jsx
 import React from "react";
 import ReactDOM from "react-dom/client";
-import AppWithLoading from "./AppWithLoading.jsx";
+import AppWithLoading from "./routes/AppWithLoading.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(

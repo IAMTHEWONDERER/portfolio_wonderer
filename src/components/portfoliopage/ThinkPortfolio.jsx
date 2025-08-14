@@ -7,6 +7,7 @@ const ThinkPortfolio = () => {
   const [activePhase, setActivePhase] = useState(0);
   const [showCV, setShowCV] = useState(false);
   const [cvLanguage, setCvLanguage] = useState('english');
+  const [isSafari, setIsSafari] = useState(false);
 
   const thinkingPhases = [
     {
@@ -107,6 +108,15 @@ const ThinkPortfolio = () => {
   useEffect(() => {
     // Load immediately when component mounts
     setIsLoaded(true);
+
+    // Detect Safari browser
+    const detectSafari = () => {
+      const userAgent = navigator.userAgent;
+      const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/Chromium/.test(userAgent);
+      setIsSafari(isSafariBrowser);
+    };
+
+    detectSafari();
 
     const handleNavbarMenuOpen = () => {
       if (showCV) {
@@ -542,13 +552,63 @@ const ThinkPortfolio = () => {
             {/* PDF Viewer */}
             <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
               <div className="w-full h-full bg-white shadow-inner overflow-auto">
-                <iframe
-                  key={cvLanguage}
-                  src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
-                  className="w-full h-full border-none"
-                  title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
-                  onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
-                />
+                {isSafari ? (
+                  /* Safari-specific PDF viewer */
+                  <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
+                    <div className="text-center space-y-4">
+                      <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
+                        <svg 
+                          className="w-8 h-8 text-[#0a0100]/60" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth={1.5} 
+                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                          />
+                        </svg>
+                      </div>
+                      <h3 className="font-erstoria text-lg text-[#0a0100] tracking-wide">
+                        Safari PDF Viewer
+                      </h3>
+                      <p className="text-[#0a0100]/70 text-sm max-w-md">
+                        Safari has restrictions on embedded PDFs. Click the button below to open the CV in a new tab for the best viewing experience.
+                      </p>
+                    </div>
+                    
+                    <div className="flex flex-col gap-3">
+                      <a
+                        href={cvFiles[cvLanguage]}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-all duration-300 cursor-pointer active:scale-95"
+                      >
+                        <span className="font-erstoria text-sm tracking-wide">OPEN CV IN NEW TAB</span>
+                        <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      </a>
+                      
+                      <button
+                        onClick={handleDownloadCV}
+                        className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100] hover:bg-[#0a0100]/5 transition-all duration-300 cursor-pointer active:scale-95"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span className="font-erstoria text-sm tracking-wide">DOWNLOAD CV</span>
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  /* Standard iframe for other browsers */
+                  <iframe
+                    key={cvLanguage}
+                    src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                    className="w-full h-full border-none"
+                    title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
+                    onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                  />
+                )}
               </div>
             </div>
 

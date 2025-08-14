@@ -1,13 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const LoadingScreen = ({ onLoadingComplete }) => {
+const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [showReveal, setShowReveal] = useState(false);
+  const [isSafari, setIsSafari] = useState(false);
   const animationRef = useRef();
 
   useEffect(() => {
+    // Detect Safari browser
+    const detectSafari = () => {
+      const userAgent = navigator.userAgent;
+      const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/Chromium/.test(userAgent);
+      setIsSafari(isSafariBrowser);
+    };
+
+    detectSafari();
+
+    // Ensure scrolling is disabled when component mounts
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    
     // Smooth progress from 0 to 100
     const duration = 3000; // 3 seconds total loading time
     const startTime = Date.now();
@@ -17,6 +31,11 @@ const LoadingScreen = ({ onLoadingComplete }) => {
       const progressValue = Math.min((elapsed / duration) * 100, 100);
       
       setProgress(progressValue);
+      
+      // Call progress update callback
+      if (onProgressUpdate) {
+        onProgressUpdate(progressValue);
+      }
       
       if (progressValue >= 100) {
         setIsComplete(true);
@@ -49,6 +68,43 @@ const LoadingScreen = ({ onLoadingComplete }) => {
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (progress / 100) * circumference;
 
+  // Generate Safari-specific height styles
+  const getSafariHeightStyles = () => {
+    if (isSafari) {
+      return {
+        height: '100vh',
+        minHeight: '100vh',
+        maxHeight: '100vh',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0
+      };
+    }
+    return {
+      height: '110dvh',
+      minHeight: '100dvh',
+      maxHeight: '110dvh',
+      WebkitFillAvailable: '110dvh'
+    };
+  };
+
+  const getSafariContentStyles = () => {
+    if (isSafari) {
+      return {
+        minHeight: '100vh',
+        height: '100vh',
+        maxHeight: '100vh'
+      };
+    }
+    return {
+        height: '110dvh',
+      minHeight: '100dvh',
+      maxHeight: '110dvh',
+    };
+  };
+
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -60,6 +116,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
           ease: [0.76, 0, 0.24, 1]
         }}
         className="fixed inset-0 z-[100000] bg-[#f5f5f0] overflow-hidden"
+        style={getSafariHeightStyles()}
       >
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.02]">
@@ -90,7 +147,8 @@ const LoadingScreen = ({ onLoadingComplete }) => {
 
         {/* Loading Content - Centered */}
         <motion.div 
-          className="relative z-10 flex flex-col items-center justify-center text-center min-h-screen"
+          className="relative z-10 flex flex-col items-center justify-center text-center"
+          style={getSafariContentStyles()}
           animate={{ 
             y: showReveal ? -50 : 0,
             opacity: showReveal ? 0 : 1,
@@ -160,7 +218,7 @@ const LoadingScreen = ({ onLoadingComplete }) => {
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
                   style={{
-                    transition: 'stroke-dashoffset 0.05s linear',
+                    transition: 'stroke-dashoffset 0.1s ease-out',
                   }}
                 />
               </svg>

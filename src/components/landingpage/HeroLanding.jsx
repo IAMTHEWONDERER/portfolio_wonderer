@@ -5,7 +5,7 @@ const HeroLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   
-  const rotatingTexts = ['DEVELOPER', 'DESIGNER', 'HUMAN'];
+  const rotatingTexts = ['DEVELOPER', 'DESIGNER', 'PERSON'];
 
   useEffect(() => {
     setIsLoaded(true);
