@@ -46,6 +46,15 @@ const PortfolioLanding = () => {
       category: "Work Project",
       type: "website",
       screenshot: "/imgs/screenshots/edukasanada.png"
+    }, {
+      title: "Appart9 Platform",
+      subtitle: "Real Estate Solution",
+      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
+      url: "#",
+      tech: ["React", "Node.js", "PostgreSQL"],
+      category: "Real Estate Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/appart9.png"
     },
     
   ];
