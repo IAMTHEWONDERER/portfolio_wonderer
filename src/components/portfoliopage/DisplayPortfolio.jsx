@@ -28,16 +28,7 @@ const SimplifiedPortfolio = () => {
 
   // Use the same projects from HeroPortfolio with screenshots
   const featuredProjects = [
-    {
-      title: "EJSWCO",
-      subtitle: "Corporate Excellence",
-      description: "A modern corporate website showcasing professional services with elegant design and seamless user experience.",
-      url: "https://ejswco.vercel.app",
-      tech: ["React", "Next.js", "Tailwind CSS"],
-      category: "Corporate Website",
-      type: "website",
-      screenshot: "/imgs/screenshots/ejswco.png"
-    },
+   
     {
       title: "WorkWhile",
       subtitle: "Workspace Innovation",

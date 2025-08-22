@@ -101,8 +101,8 @@ const ThinkPortfolio = () => {
   ];
 
   const cvFiles = {
-    english: '/pdfs/Oussama_Alouche.pdf',
-    french: '/pdfs/OussamaAlouche.pdf'
+    english: '/pdfs/CV_OUSSAMA_ALOUCHE_EN.pdf',
+    french: '/pdfs/CV_OUSSAMA_ALOUCHE_FR.pdf'
   };
 
   useEffect(() => {
@@ -493,7 +493,7 @@ const ThinkPortfolio = () => {
               Dive deeper into my experience, skills, and professional journey through my comprehensive CV.
             </p>
             <p className="text-sm text-[#0a0100]/50 mb-8 font-erstoria tracking-wide">
-              LAST UPDATED: 13TH AUGUST 2025
+              LAST UPDATED: 22ND AUGUST 2025
             </p>
             <button 
               onClick={() => setShowCV(true)}

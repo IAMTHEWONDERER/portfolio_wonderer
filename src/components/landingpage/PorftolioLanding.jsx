@@ -28,16 +28,6 @@ const PortfolioLanding = () => {
 
   const projects = [
     {
-      title: "EJSWCO",
-      subtitle: "Corporate Excellence",
-      description: "A modern corporate website showcasing professional services with elegant design and seamless user experience.",
-      url: "https://ejswco.vercel.app",
-      tech: ["React", "Next.js", "Tailwind CSS"],
-      category: "Corporate Website",
-      type: "website",
-      screenshot: "/imgs/screenshots/ejswco.png"
-    },
-    {
       title: "WorkWhile",
       subtitle: "Workspace Innovation",
       description: "Innovative workspace solution platform with clean interface design and powerful functionality.",

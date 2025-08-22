@@ -110,8 +110,8 @@ const ContactPage = () => {
   ];
 
   const cvFiles = {
-    english: '/pdfs/Oussama_Alouche.pdf',
-    french: '/pdfs/OussamaAlouche.pdf'
+    english: '/pdfs/CV_OUSSAMA_ALOUCHE_EN.pdf',
+    french: '/pdfs/CV_OUSSAMA_ALOUCHE_FR.pdf'
   };
 
   const handleDownloadCV = () => {

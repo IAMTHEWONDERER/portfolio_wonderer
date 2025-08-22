@@ -49,20 +49,7 @@ const TechStackLanding = () => {
         { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
       ],
       color: "text-[#e61f00]"
-    },
-    {
-      category: "AI Integration",
-      level: "Expert", 
-      description: "Machine learning and AI-powered solutions",
-      technologies: [
-        { name: "OpenAI APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
-        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Langchain", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
-      ],
-      color: "text-[#e61f00]"
-    },
-    {
+    }, {
       category: "UI/UX Design",
       level: "Expert",
       description: "User interface and experience design",
@@ -75,6 +62,19 @@ const TechStackLanding = () => {
       color: "text-[#e61f00]"
     },
     {
+      category: "AI Integration",
+      level: "Intermediate", 
+      description: "Machine learning and AI-powered solutions",
+      technologies: [
+        { name: "OpenAI APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
+        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Langchain", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
+      ],
+      color: "text-[#e61f00]"
+    },
+   
+    {
       category: "Database & Backend",
       level: "Intermediate",
       description: "Data management and server architecture",
@@ -85,10 +85,21 @@ const TechStackLanding = () => {
         { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
       ],
       color: "text-[#0a0100]/70"
+    },  {
+      category: "Tools & Utilities",
+      level: "Proficient",
+      description: "Development tools and productivity software",
+      technologies: [
+        { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
+        { name: "VS Code", url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
+        { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
+        { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" }
+      ],
+      color: "text-[#0a0100]/60"
     },
     {
       category: "Cloud & DevOps",
-      level: "Intermediate",
+      level: "Varied",
       description: "Deployment and infrastructure management",
       technologies: [
         { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
@@ -110,23 +121,12 @@ const TechStackLanding = () => {
       ],
       color: "text-[#0a0100]/60"
     },
-    {
-      category: "Tools & Utilities",
-      level: "Proficient",
-      description: "Development tools and productivity software",
-      technologies: [
-        { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-        { name: "VS Code", url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-        { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
-        { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" }
-      ],
-      color: "text-[#0a0100]/60"
-    }
+  
   ];
 
   const cvFiles = {
-    english: '/pdfs/Oussama_Alouche.pdf',
-    french: '/pdfs/OussamaAlouche.pdf'
+    english: '/pdfs/CV_OUSSAMA_ALOUCHE_EN.pdf',
+    french: '/pdfs/CV_OUSSAMA_ALOUCHE_FR.pdf'
   };
 
   useEffect(() => {
