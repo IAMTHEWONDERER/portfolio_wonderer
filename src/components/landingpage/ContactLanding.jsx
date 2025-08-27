@@ -16,8 +16,8 @@ const ContactLanding = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "theoblivionitself@gmail.com",
-      href: "mailto:theoblivionitself@gmail.com",
+      value: "oussama.alouche@outlook.com",
+      href: "mailto:oussama.alouche@outlook.com",
       color: "text-[#e61f00]"
     },
     {

@@ -63,8 +63,8 @@ const ContactPage = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "theoblivionitself@gmail.com",
-      href: "mailto:theoblivionitself@gmail.com",
+      value: "oussama.alouche@outlook.com",
+      href: "mailto:oussama.alouche@outlook.com",
       color: "text-[#e61f00]",
       description: "Send me an email anytime"
     },
@@ -105,7 +105,7 @@ const ContactPage = () => {
       icon: Clock,
       label: "Availability",
       value: "GMT+1 Timezone",
-      description: "Available Mon-Fri, 9AM-6PM"
+      description: "Available for any inquiries"
     }
   ];
 
@@ -317,7 +317,7 @@ const ContactPage = () => {
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="mailto:theoblivionitself@gmail.com"
+              href="mailto:oussama.alouche@outlook.com"
               className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
             >
               <Mail className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />

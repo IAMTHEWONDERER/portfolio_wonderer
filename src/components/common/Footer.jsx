@@ -64,7 +64,7 @@ const Footer = () => {
               <Linkedin className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
             </a>
             <a 
-              href="mailto:theoblivionitself@gmail.com"
+              href="mailto:oussama.alouche@outlook.com"
               className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
               aria-label="Email"
             >
@@ -72,6 +72,14 @@ const Footer = () => {
             </a>
           </div>
 
+        </div>
+
+        {/* Privacy Notice */}
+        <div className="mt-6 pt-4 border-t border-[#0a0100]/5 text-center">
+          <p className="text-[#0a0100]/40 text-xs leading-relaxed max-w-4xl mx-auto">
+            This website tracks visitor engagement for analytics purposes. We only collect anonymous usage data to improve user experience. 
+            No personal information, IP addresses, or identifying data is collected or stored.
+          </p>
         </div>
       </div>
     </footer>

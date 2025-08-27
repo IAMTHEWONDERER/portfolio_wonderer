@@ -566,7 +566,7 @@ const PortfolioLanding = () => {
                       </Link>
                       
                       <button
-                        onClick={() => window.open('mailto:theoblivionitself@gmail.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
+                        onClick={() => window.open('mailto:oussama.alouche@outlook.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
                         className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
                       >
                         <span>📧</span>
