@@ -56,8 +56,8 @@ export const EnhancedNavbar = () => {
   // Simplified navigation items - only 3 items
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Contact', href: '/contact' },
-    { label: 'Portfolio', href: '/portfolio' }
+    { label: 'Portfolio', href: '/portfolio' },
+    { label: 'Contact', href: '/contact' }
   ];
 
   // Listen for navbar transition events
