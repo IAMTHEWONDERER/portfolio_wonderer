@@ -57,7 +57,7 @@ const HeroLanding = () => {
               }}
             >
               <div className="w-12 h-px bg-[#0a0100]/30" />
-              <span className="font-erstoria">Oussama Alouche</span>
+              <h2 className="font-erstoria">Oussama Alouche</h2>
               <div className="w-12 h-px bg-[#0a0100]/30" />
             </div>
           </div>
