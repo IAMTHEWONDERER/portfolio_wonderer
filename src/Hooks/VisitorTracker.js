@@ -1,4 +1,4 @@
-// VisitorTracker.jsx - Updated to use environment variable
+// VisitorTracker.jsx - Updated with location tracking
 import { useEffect } from 'react';
 
 const VisitorTracker = () => {
@@ -8,6 +8,37 @@ const VisitorTracker = () => {
       if (sessionStorage.getItem('visitor_tracked')) return;
 
       try {
+        // Get location data first (non-blocking)
+        let locationData = '🌍 Location not available';
+        try {
+          // Use ipapi.co for free IP geolocation (no API key needed)
+          const locationResponse = await fetch('https://ipapi.co/json/', {
+            timeout: 3000 // 3 second timeout
+          });
+          
+          if (locationResponse.ok) {
+            const location = await locationResponse.json();
+            if (location.country_name && location.region) {
+              locationData = `${getCountryFlag(location.country_code)} ${location.region}, ${location.country_name}`;
+            } else if (location.country_name) {
+              locationData = `${getCountryFlag(location.country_code)} ${location.country_name}`;
+            }
+          }
+        } catch (locationError) {
+          // Fallback: try a different service
+          try {
+            const fallbackResponse = await fetch('https://api.country.is/', {
+              timeout: 2000
+            });
+            if (fallbackResponse.ok) {
+              const data = await fallbackResponse.json();
+              locationData = `${getCountryFlag(data.country)} ${data.country}`;
+            }
+          } catch {
+            console.log('Location services unavailable');
+          }
+        }
+
         // Get basic visitor info
         const visitorData = {
           page: window.location.pathname,
@@ -24,7 +55,8 @@ const VisitorTracker = () => {
           userAgent: navigator.userAgent,
           language: navigator.language,
           screenSize: `${screen.width}x${screen.height}`,
-          sessionId: Math.random().toString(36).substring(2, 8)
+          sessionId: Math.random().toString(36).substring(2, 8),
+          location: locationData
         };
 
         // Format message for Discord
@@ -32,6 +64,7 @@ const VisitorTracker = () => {
 
 📄 **Page:** ${visitorData.page}
 ⏰ **Time:** ${visitorData.timestamp}
+📍 **Location:** ${visitorData.location}
 🔗 **From:** ${getReferrerDisplay(visitorData.referrer)}
 🌍 **Language:** ${visitorData.language}
 📱 **Screen:** ${visitorData.screenSize}
@@ -128,6 +161,24 @@ const getDeviceInfo = (userAgent) => {
   else if (ua.includes('linux')) os = 'Linux';
   
   return `${device} • ${browser}${os ? ` • ${os}` : ''}`;
+};
+
+const getCountryFlag = (countryCode) => {
+  if (!countryCode) return '🌍';
+  
+  const flagMap = {
+    'US': '🇺🇸', 'CA': '🇨🇦', 'GB': '🇬🇧', 'FR': '🇫🇷', 'DE': '🇩🇪', 
+    'ES': '🇪🇸', 'IT': '🇮🇹', 'NL': '🇳🇱', 'BE': '🇧🇪', 'CH': '🇨🇭',
+    'AT': '🇦🇹', 'SE': '🇸🇪', 'NO': '🇳🇴', 'DK': '🇩🇰', 'FI': '🇫🇮',
+    'JP': '🇯🇵', 'KR': '🇰🇷', 'CN': '🇨🇳', 'IN': '🇮🇳', 'AU': '🇦🇺',
+    'BR': '🇧🇷', 'MX': '🇲🇽', 'AR': '🇦🇷', 'RU': '🇷🇺', 'PL': '🇵🇱',
+    'TR': '🇹🇷', 'EG': '🇪🇬', 'SA': '🇸🇦', 'AE': '🇦🇪', 'IL': '🇮🇱',
+    'ZA': '🇿🇦', 'NG': '🇳🇬', 'KE': '🇰🇪', 'MA': '🇲🇦', 'TN': '🇹🇳',
+    'DZ': '🇩🇿', 'LY': '🇱🇾', 'SG': '🇸🇬', 'MY': '🇲🇾', 'TH': '🇹🇭',
+    'VN': '🇻🇳', 'ID': '🇮🇩', 'PH': '🇵🇭', 'PT': '🇵🇹', 'IE': '🇮🇪'
+  };
+  
+  return flagMap[countryCode?.toUpperCase()] || '🌍';
 };
 
 export default VisitorTracker;
