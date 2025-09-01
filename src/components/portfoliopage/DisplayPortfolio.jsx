@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ExternalLink, Globe, Monitor, Smartphone, Code, Palette, Figma, Eye, Download, FileText, ExternalLinkIcon } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import { title } from 'framer-motion/client';
 
 const SimplifiedPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -73,7 +74,7 @@ const SimplifiedPortfolio = () => {
       title: "Appart9 Platform",
       subtitle: "Real Estate Solution",
       description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
-      url: "#",
+      url: "https://appartement9.com/",
       tech: ["React", "Node.js", "PostgreSQL"],
       category: "Real Estate Project",
       type: "website",
@@ -90,15 +91,25 @@ const SimplifiedPortfolio = () => {
       screenshot: "/imgs/screenshots/fostp.png"
     },
     {
-      title: "Nalida Power",
-      subtitle: "Energy Solutions",
-      description: "Modern energy solutions platform showcasing renewable energy services, project portfolio, and sustainable technology innovations.",
-      url: "https://nalida-power.vercel.app",
-      tech: ["React", "Next.js", "Tailwind CSS"],
-      category: "Energy Platform",
+      title:"TECHNIQ8",
+      subtitle: "Technology Solutions",
+      description: "Innovative technology solutions platform offering a range of services from software development to IT consulting.",
+      url: "https://techniq8.com",
+      tech: ["React", "Node.js", "AWS"],
+      category: "Technology Platform",
       type: "website",
-      screenshot: "/imgs/screenshots/nalida.png"
-    }
+      screenshot: "/imgs/screenshots/techniq8.png"
+    },
+   {
+    title:"RechargerMonAuto",
+    subtitle: "Electric Vehicle Charging",
+    description: "A platform for locating and reserving electric vehicle charging stations.",
+    url: "https://rechargemonauto.com",
+    tech: ["React", "Node.js", "MongoDB"],
+    category: "Transportation",
+    type: "website",
+    screenshot: "/imgs/screenshots/rmasite.png"
+   }
   ];
 
   // UI/UX Designs with screenshots - Real projects with available assets
@@ -117,18 +128,49 @@ const SimplifiedPortfolio = () => {
       screenshot: "/imgs/screenshots/aidus.png"
     },
     {
-      title: "Fondation Platform",
-      subtitle: "Foundation Management",
-      description: "Professional foundation management system with comprehensive project tracking, donor management, and impact reporting features.",
-      category: "Foundation Platform",
-      tools: ["Figma", "Adobe XD"],
+      title:" AZ Food",
+      subtitle: "Food Delivery",
+      description: "A user-friendly food delivery platform connecting customers with local restaurants for seamless ordering.",
+      category: "Food Delivery",
+      tools: ["Figma", "Prototyping"],
+      mockupType: "mobile",
+      year: "2024",
+      colors: ["#ef4444", "#fca5a1", "#fee2e2"],
+      type: "pdf",
+      filename: "azfood.pdf",
+            requiresContact: false,
+
+      screenshot: "/imgs/screenshots/azfood.png"
+    },
+    {
+      title:"AZ Energie",
+      subtitle: "Energy Solutions",
+      description: "Sustainable energy solutions platform offering services in solar energy, wind energy, and energy efficiency consulting.",
+      category: "Energy Solutions",
+      tools: ["Figma", "Prototyping"],
       mockupType: "desktop",
       year: "2024",
-      colors: ["#7c3aed", "#8b5cf6", "#f3e8ff"],
+      colors: ["#4ade80", "#22c55e", "#ecfdf5"],
       type: "pdf",
-      filename: "fondation.pdf",
-      requiresContact: false,
-      screenshot: "/imgs/screenshots/fondation.png"
+      filename: "azenergie.pdf",
+            requiresContact: false,
+
+      screenshot: "/imgs/screenshots/azenergie.png"
+    },
+    {
+      title:' Neom Agency',
+      subtitle: "Creative Agency",
+      description: "Innovative creative agency specializing in branding, design, and digital marketing solutions.",
+      category: "Creative Agency",
+      tools: ["Figma", "Prototyping"],
+      mockupType: "desktop",
+      year: "2024",
+      colors: ["#3b82f6", "#60a5fa", "#dbeafe"],
+      type: "pdf",
+      filename: "neom.pdf",
+            requiresContact: false,
+
+      screenshot: "/imgs/screenshots/neom.png"
     },
     {
       title: "RMA Marketplace",

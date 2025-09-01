@@ -16,16 +16,7 @@ const HeroPortfolio = () => {
   const dragControls = useDragControls();
 
   const featuredProjects = [
-    {
-      title: "EJSWCO",
-      subtitle: "Corporate Excellence",
-      description: "Modern corporate website showcasing professional services with elegant design",
-      url: "https://ejswco.vercel.app",
-      tech: ["React", "Next.js", "Tailwind"],
-      category: "Website",
-      type: "website",
-      screenshot: "/imgs/screenshots/ejswco.png"
-    },
+   
     {
       title: "WorkWhile",
       subtitle: "Workspace Innovation", 
@@ -35,6 +26,18 @@ const HeroPortfolio = () => {
       category: "Platform",
       type: "website",
       screenshot: "/imgs/screenshots/workwhile.png"
+    },
+    {
+ 
+      title: "Appart9 Platform",
+      subtitle: "Real Estate Solution",
+      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
+      url: "https://appartement9.com/",
+      tech: ["React", "Node.js", "PostgreSQL"],
+      category: "Real Estate Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/appart9.png"
+    
     },
     {
       title: "Wonderer Portfolio",
