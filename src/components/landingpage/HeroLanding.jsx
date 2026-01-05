@@ -24,7 +24,7 @@ const HeroLanding = () => {
       tech: ["React", "TypeScript", "Supabase", "AI MCPs"],
       category: "Personal Business",
       type: "website",
-      screenshot: "/imgs/screenshots/trcks.png"
+      screenshot: "/imgs/Screenshot 2026-01-05 040627.png"
     },
     {
       title: "WorkWhile",
