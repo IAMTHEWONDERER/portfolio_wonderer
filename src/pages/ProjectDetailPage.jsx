@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, ArrowLeft, Calendar, ChevronRight } from 'lucide-react';
+import { ArrowUpRight, ArrowLeft, Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { EnhancedNavbar } from '../components/common/Navbar';
@@ -8,6 +8,7 @@ import Lenis from 'lenis';
 
 const ProjectDetailPage = () => {
     const [isLoaded, setIsLoaded] = useState(false);
+    const [activeScreenshot, setActiveScreenshot] = useState(0);
     const { slug } = useParams();
     const heroRef = useRef(null);
 
@@ -51,7 +52,13 @@ const ProjectDetailPage = () => {
             longDescription: `TRCKS was born from a personal need - I wanted a gym tracking app that truly understood how I work out. Most apps force you into rigid structures, but real gym sessions are fluid. You superset, you adjust on the fly, you want to quickly log and get back to lifting.
 
 That's why I built TRCKS with an AI-powered coach that understands natural language. Just tell it "Did 4 sets of bench press, started at 80kg and worked up to 100kg" and it logs everything perfectly. No clicking through menus, no counting reps on your phone.`,
-            screenshot: "/imgs/screenshots/trcks.png",
+            screenshot: "/imgs/Screenshot 2026-01-05 040627.png",
+            screenshots: [
+                "/imgs/Screenshot 2026-01-05 040627.png",
+                "/imgs/Screenshot 2026-01-05 040648.png",
+                "/imgs/Screenshot 2026-01-05 040711.png",
+                "/imgs/Screenshot 2026-01-05 040731.png"
+            ],
             color: "#e61f00",
             technologies: [
                 { name: "React.js", category: "Frontend" },
@@ -236,7 +243,71 @@ That's why I built TRCKS with an AI-powered coach that understands natural langu
                 </div>
             </section>
 
-            {/* Features Section */}
+            {/* Screenshots Gallery Section */}
+            {project.screenshots && project.screenshots.length > 0 && (
+                <section className="py-16 md:py-20 bg-white/50">
+                    <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
+                        <div className="mb-8">
+                            <div className="inline-flex items-center gap-3 text-[#0a0100]/50 uppercase tracking-widest text-xs mb-4">
+                                <div className="w-8 h-px bg-[#0a0100]/30" />
+                                <span className="font-erstoria">Platform Preview</span>
+                            </div>
+                            <h2 className="font-erstoria text-3xl md:text-4xl text-[#0a0100]">
+                                See It In Action
+                            </h2>
+                        </div>
+
+                        {/* Main Image Display */}
+                        <div className="relative mb-6">
+                            <div className="relative aspect-video bg-white border border-[#0a0100]/10 overflow-hidden">
+                                <img
+                                    src={project.screenshots[activeScreenshot]}
+                                    alt={`${project.title} screenshot ${activeScreenshot + 1}`}
+                                    className="w-full h-full object-contain"
+                                />
+                            </div>
+
+                            {/* Navigation Arrows */}
+                            {project.screenshots.length > 1 && (
+                                <>
+                                    <button
+                                        onClick={() => setActiveScreenshot(prev => prev === 0 ? project.screenshots.length - 1 : prev - 1)}
+                                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors cursor-pointer"
+                                    >
+                                        <ChevronLeft className="w-5 h-5" />
+                                    </button>
+                                    <button
+                                        onClick={() => setActiveScreenshot(prev => prev === project.screenshots.length - 1 ? 0 : prev + 1)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors cursor-pointer"
+                                    >
+                                        <ChevronRight className="w-5 h-5" />
+                                    </button>
+                                </>
+                            )}
+                        </div>
+
+                        {/* Thumbnail Navigation */}
+                        <div className="flex gap-3 justify-center">
+                            {project.screenshots.map((screenshot, index) => (
+                                <button
+                                    key={index}
+                                    onClick={() => setActiveScreenshot(index)}
+                                    className={`relative w-20 h-14 overflow-hidden border-2 transition-all cursor-pointer ${activeScreenshot === index
+                                            ? 'border-[#e61f00]'
+                                            : 'border-[#0a0100]/10 hover:border-[#0a0100]/30'
+                                        }`}
+                                >
+                                    <img
+                                        src={screenshot}
+                                        alt={`Thumbnail ${index + 1}`}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
             <section className="py-16 md:py-20 bg-white/50">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
                     <div className="mb-12">

@@ -695,7 +695,7 @@ const SimplifiedPortfolio = () => {
                 {/* Project Screenshot Preview */}
                 <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
                   <img
-                    src="/imgs/screenshots/trcks.png"
+                    src="/imgs/Screenshot 2026-01-05 040627.png"
                     alt="TRCKS preview"
                     className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                     onError={(e) => {
