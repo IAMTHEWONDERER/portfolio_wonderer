@@ -32,7 +32,7 @@ const AboutLanding = () => {
       src: '/imgs/im5.jpg',
       alt: 'Artistic Vision',
       title: 'Artistic Vision',
-      position: 'bottom-12 left-6', 
+      position: 'bottom-12 left-6',
       size: 'w-68 h-84',
       delay: '1.5s'
     }
@@ -41,15 +41,15 @@ const AboutLanding = () => {
   useEffect(() => {
     // Load immediately when component mounts
     setIsLoaded(true);
-    
+
     // Check if mobile
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
     // Auto-rotate carousel only on mobile
     let interval;
     if (isMobile) {
@@ -78,18 +78,18 @@ const AboutLanding = () => {
       return 'none'; // No filter on mobile
     }
     return hoveredImage === imageId
-      ? 'grayscale(0%) contrast(1.1) brightness(1)' 
+      ? 'grayscale(0%) contrast(1.1) brightness(1)'
       : 'grayscale(100%) contrast(1.2) brightness(1)';
   };
 
   return (
-    <section 
+    <section
       id="about"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
     >
       {/* Background Grid */}
-     <div className="absolute inset-0 opacity-[0.02]">
-        <div 
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -126,7 +126,7 @@ const AboutLanding = () => {
                   filter: getImageFilter(image.id),
                 }}
               />
-              
+
               {/* Subtle Border */}
               <div className="absolute inset-0 border border-[#0a0100]/20" />
             </div>
@@ -138,7 +138,7 @@ const AboutLanding = () => {
       <div id="main-content" className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
         <div className="text-center">
           {/* Section Label */}
-          <div 
+          <div
             className="overflow-hidden mb-8"
             style={{
               animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
@@ -155,7 +155,7 @@ const AboutLanding = () => {
 
           {/* Main Heading */}
           <div className="overflow-hidden mb-12">
-            <h2 
+            <h2
               className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
               style={{
                 animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
@@ -169,7 +169,7 @@ const AboutLanding = () => {
           </div>
 
           {/* Quote */}
-          <div 
+          <div
             className="overflow-hidden mb-12"
             style={{
               animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
@@ -180,14 +180,14 @@ const AboutLanding = () => {
             <div className="relative">
               <Quote className="w-8 h-8 text-[#e61f00] mb-4 mx-auto" />
               <p className="text-xl md:text-2xl lg:text-3xl text-[#0a0100]/80 font-light italic leading-relaxed max-w-3xl mx-auto">
-                "Design is not just what it looks like and feels like. 
+                "Design is not just what it looks like and feels like.
                 Design is how it works."
               </p>
             </div>
           </div>
 
           {/* Description */}
-          <div 
+          <div
             className="overflow-hidden mb-16"
             style={{
               animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
@@ -198,22 +198,22 @@ const AboutLanding = () => {
             <div className="grid md:grid-cols-2 gap-12 text-left max-w-4xl mx-auto">
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  My name is Oussama Alouche, 24 Years old, a passionate designer and developer based in Morocco, dedicated to creating 
-                  meaningful digital experiences that bridge the gap between aesthetics and functionality.
+                  I'm Oussama Alouche, a Frontend Engineer based in Morocco, passionate about
+                  crafting scalable, high-performance web experiences that users love.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
-                  My approach combines minimalist design principles with cutting-edge technology 
-                  to deliver solutions that are both beautiful and purposeful.
+                  My approach combines modern frontend architecture with cutting-edge technology
+                  to deliver solutions that are both visually stunning and technically robust.
                 </p>
               </div>
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  With a keen eye for detail and a deep understanding of user experience, 
-                  I transform complex ideas into elegant, intuitive interfaces.
+                  With expertise in React, TypeScript, and design systems, I transform complex
+                  requirements into elegant, intuitive interfaces with exceptional UX.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
-                  Every project is an opportunity to push creative boundaries while maintaining 
-                  the highest standards of craftsmanship and innovation.
+                  I specialize in frontend architecture, performance optimization, and AI integration,
+                  leading teams to build products that make a real impact.
                 </p>
               </div>
             </div>
@@ -221,7 +221,7 @@ const AboutLanding = () => {
 
           {/* Mobile: Image Carousel */}
           {isMobile && (
-            <div 
+            <div
               className="overflow-hidden mb-16 md:hidden"
               style={{
                 animation: isLoaded ? 'slideUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards' : 'none',
@@ -242,7 +242,7 @@ const AboutLanding = () => {
                       }}
                     />
                     <div className="absolute inset-0 border border-[#0a0100]/20 rounded-sm" />
-                    
+
                     {/* Image Title Overlay */}
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#0a0100]/80 to-transparent p-6">
                       <h3 className="font-erstoria text-lg text-white tracking-wide">
@@ -267,11 +267,10 @@ const AboutLanding = () => {
                       <button
                         key={index}
                         onClick={() => setCurrentImageIndex(index)}
-                        className={`w-3 h-3 rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${
-                          index === currentImageIndex 
-                            ? 'bg-[#e61f00] scale-110' 
+                        className={`w-3 h-3 rounded-full transition-all duration-300 active:scale-95 cursor-pointer ${index === currentImageIndex
+                            ? 'bg-[#e61f00] scale-110'
                             : 'bg-[#0a0100]/30 hover:bg-[#0a0100]/50'
-                        }`}
+                          }`}
                       />
                     ))}
                   </div>
@@ -295,7 +294,7 @@ const AboutLanding = () => {
           )}
 
           {/* Skills/Expertise */}
-          <div 
+          <div
             className="overflow-hidden mb-16"
             style={{
               animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards' : 'none',
@@ -303,24 +302,24 @@ const AboutLanding = () => {
               opacity: isLoaded ? 1 : 0,
             }}
           >
-            <div className="flex flex-wrap justify-center gap-6 text-sm uppercase tracking-widest text-[#0a0100]/60">
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
-                UI/UX Design
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm uppercase tracking-widest text-[#0a0100]/60">
+              <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
+                Frontend Architecture
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
-                Frontend Development
+              <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
+                Design Systems
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
-                Brand Identity
+              <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
+                Performance Optimization
               </span>
-              <span className="border border-[#0a0100]/20 px-6 py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
-                Creative Direction
+              <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
+                AI Integration
               </span>
             </div>
           </div>
 
           {/* CTA */}
-          <div 
+          <div
             className="overflow-hidden"
             style={{
               animation: isLoaded ? 'slideUp 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards' : 'none',
@@ -329,11 +328,11 @@ const AboutLanding = () => {
             }}
           >
             <Link to="/contact">
-            <button className="group relative inline-flex items-center justify-center gap-4 px-10 py-5 border-2 border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-500 overflow-hidden active:scale-95 cursor-pointer">
-              <span className="font-erstoria text-lg tracking-wide">LET'S COLLABORATE</span>
-              <ArrowUpRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            </button>
+              <button className="group relative inline-flex items-center justify-center gap-4 px-10 py-5 border-2 border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-500 overflow-hidden active:scale-95 cursor-pointer">
+                <span className="font-erstoria text-lg tracking-wide">LET'S COLLABORATE</span>
+                <ArrowUpRight className="w-6 h-6 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </button>
             </Link>
           </div>
         </div>

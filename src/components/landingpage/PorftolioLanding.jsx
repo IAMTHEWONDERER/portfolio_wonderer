@@ -28,6 +28,36 @@ const PortfolioLanding = () => {
 
   const projects = [
     {
+      title: "ASANADA LMS Platform",
+      subtitle: "Learning Management System",
+      description: "Full learning management system frontend with courses, quizzes, forums, real-time notifications and responsive layouts.",
+      url: "https://eduk.asanada.org",
+      tech: ["React.js", "TypeScript", "Tailwind CSS"],
+      category: "Work Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/edukasanada.png"
+    },
+    {
+      title: "FOSTP Platform",
+      subtitle: "Organization Portal",
+      description: "High-performance SSR website using Next.js with real-time synchronization, member management, and multi-step forms.",
+      url: "#",
+      tech: ["Next.js", "Tailwind CSS", "Firebase"],
+      category: "Work Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/fostp.png"
+    },
+    {
+      title: "RMA-connect",
+      subtitle: "Electric Charging Station App",
+      description: "IoT management frontend for electric charging stations with real-time monitoring dashboards and cross-platform user interfaces.",
+      url: "#",
+      tech: ["React", "Angular", "Flutter"],
+      category: "Work Project",
+      type: "website",
+      screenshot: "/imgs/screenshots/rma.png"
+    },
+    {
       title: "WorkWhile",
       subtitle: "Workspace Innovation",
       description: "Innovative workspace solution platform with clean interface design and powerful functionality.",
@@ -38,15 +68,6 @@ const PortfolioLanding = () => {
       screenshot: "/imgs/screenshots/workwhile.png"
     },
     {
-      title: "Eduk Asanada LMS",
-      subtitle: "Learning Platform",
-      description: "A comprehensive Learning Management System designed to enhance educational experiences with interactive features.",
-      url: "https://eduk.asanada.org",
-      tech: ["Laravel", "MySQL", "Bootstrap"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/edukasanada.png"
-    }, {
       title: "Appart9 Platform",
       subtitle: "Real Estate Solution",
       description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
@@ -55,8 +76,7 @@ const PortfolioLanding = () => {
       category: "Real Estate Project",
       type: "website",
       screenshot: "/imgs/screenshots/appart9.png"
-    },
-    
+    }
   ];
 
   const designConcepts = [
@@ -73,7 +93,7 @@ const PortfolioLanding = () => {
       link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
       screenshot: "/imgs/screenshots/aidus.png"
     },
-  
+
     {
       title: "ITS",
       subtitle: "Construction Materials",
@@ -88,8 +108,8 @@ const PortfolioLanding = () => {
       requiresContact: false,
       screenshot: "/imgs/screenshots/its.png"
     },
-   
- 
+
+
   ];
 
   const handleViewMore = () => {
@@ -132,12 +152,12 @@ const PortfolioLanding = () => {
   };
 
   return (
-    <section 
+    <section
       className="relative min-h-screen py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
     >
       {/* Background Grid */}
-     <div className="absolute inset-0 opacity-[0.02]">
-        <div 
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -152,7 +172,7 @@ const PortfolioLanding = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <div 
+          <div
             className="overflow-hidden mb-8"
             style={{
               animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
@@ -168,7 +188,7 @@ const PortfolioLanding = () => {
           </div>
 
           <div className="overflow-hidden mb-12">
-            <h2 
+            <h2
               className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
               style={{
                 animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
@@ -181,7 +201,7 @@ const PortfolioLanding = () => {
             </h2>
           </div>
 
-          <div 
+          <div
             className="overflow-hidden mb-16"
             style={{
               animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
@@ -190,14 +210,14 @@ const PortfolioLanding = () => {
             }}
           >
             <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
-              Explore some of the exceptional websites and applications I've crafted. 
+              Explore some of the exceptional websites and applications I've crafted.
               Each project represents a unique solution tailored to deliver outstanding results.
             </p>
           </div>
         </div>
 
         {/* Web Development Section */}
-        <div 
+        <div
           className="mb-32"
           style={{
             animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
@@ -215,7 +235,7 @@ const PortfolioLanding = () => {
           {/* Website Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-16">
             {projects.filter(project => project.type === 'website').map((project, index) => (
-              <div 
+              <div
                 key={index}
                 className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg"
                 onClick={() => handleProjectClick(project)}
@@ -224,11 +244,11 @@ const PortfolioLanding = () => {
               >
                 {/* Project Screenshot Preview */}
                 <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-                  
+
                   {/* Screenshot Preview */}
                   {project.screenshot ? (
                     <div className="absolute inset-0">
-                      <img 
+                      <img
                         src={project.screenshot}
                         alt={`${project.title} preview`}
                         className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
@@ -238,10 +258,10 @@ const PortfolioLanding = () => {
                           e.target.parentElement.nextElementSibling.style.display = 'flex';
                         }}
                       />
-                      
+
                       {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-                      
+
                       {/* Type indicator */}
                       <div className="absolute top-4 right-4">
                         <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
@@ -250,12 +270,10 @@ const PortfolioLanding = () => {
                       </div>
 
                       {/* Hover overlay - Centered */}
-                      <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
-                        hoveredProject === index ? 'bg-[#0a0100]/40' : ''
-                      }`}>
-                        <div className={`transition-all duration-300 text-center transform ${
-                          hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                      <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === index ? 'bg-[#0a0100]/40' : ''
                         }`}>
+                        <div className={`transition-all duration-300 text-center transform ${hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                          }`}>
                           <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
                             <span>VIEW PROJECT</span>
                           </div>
@@ -291,11 +309,11 @@ const PortfolioLanding = () => {
                     <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
                       {project.description}
                     </p>
-                    
+
                     {/* Tech Stack */}
                     <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
                       {project.tech.map((tech, techIndex) => (
-                        <span 
+                        <span
                           key={techIndex}
                           className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
                         >
@@ -310,10 +328,9 @@ const PortfolioLanding = () => {
                     <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
                       View Project
                     </span>
-                    <ArrowUpRight 
-                      className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${
-                        hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                      }`}
+                    <ArrowUpRight
+                      className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
+                        }`}
                     />
                   </div>
                 </div>
@@ -323,7 +340,7 @@ const PortfolioLanding = () => {
         </div>
 
         {/* UI/UX Design Section */}
-        <div 
+        <div
           className="mb-20"
           style={{
             animation: isLoaded ? 'slideUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.0s forwards' : 'none',
@@ -341,7 +358,7 @@ const PortfolioLanding = () => {
           {/* Design Grid - Display first 2 designs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
             {designConcepts.slice(0, 2).map((design, index) => (
-              <div 
+              <div
                 key={index}
                 className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden"
                 onClick={() => handleDesignClick(design)}
@@ -350,11 +367,11 @@ const PortfolioLanding = () => {
               >
                 {/* Design Screenshot Preview */}
                 <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-                  
+
                   {/* Screenshot Preview */}
                   {design.screenshot ? (
                     <div className="absolute inset-0">
-                      <img 
+                      <img
                         src={design.screenshot}
                         alt={`${design.title} design preview`}
                         className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
@@ -364,17 +381,16 @@ const PortfolioLanding = () => {
                           e.target.parentElement.nextElementSibling.style.display = 'flex';
                         }}
                       />
-                      
+
                       {/* Gradient overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-                      
+
                       {/* Type indicator */}
                       <div className="absolute top-4 right-4">
-                        <div className={`p-2 backdrop-blur-sm ${
-                          design.type === 'figma'
-                            ? 'bg-green-500/20 border border-green-500/30' 
+                        <div className={`p-2 backdrop-blur-sm ${design.type === 'figma'
+                            ? 'bg-green-500/20 border border-green-500/30'
                             : 'bg-blue-500/20 border border-blue-500/30'
-                        }`}>
+                          }`}>
                           {design.type === 'figma' ? (
                             <Figma className="w-4 h-4 text-white" />
                           ) : (
@@ -384,19 +400,17 @@ const PortfolioLanding = () => {
                       </div>
 
                       {/* Hover overlay - Centered */}
-                      <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
-                        hoveredDesign === index ? 'bg-[#0a0100]/40' : ''
-                      }`}>
-                        <div className={`transition-all duration-300 text-center transform ${
-                          hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                      <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredDesign === index ? 'bg-[#0a0100]/40' : ''
                         }`}>
+                        <div className={`transition-all duration-300 text-center transform ${hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                          }`}>
                           <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
                             <span>
-                              {design.type === 'figma' 
-                                ? 'VIEW IN FIGMA' 
-                                : design.requiresContact 
-                                ? 'REQUEST ACCESS' 
-                                : 'VIEW DESIGN'
+                              {design.type === 'figma'
+                                ? 'VIEW IN FIGMA'
+                                : design.requiresContact
+                                  ? 'REQUEST ACCESS'
+                                  : 'VIEW DESIGN'
                               }
                             </span>
                           </div>
@@ -422,13 +436,12 @@ const PortfolioLanding = () => {
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1">
                       <div className="mb-3">
-                        <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${
-                          design.type === 'figma'
+                        <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${design.type === 'figma'
                             ? 'bg-green-500/10 text-green-600 border border-green-500/20'
                             : design.type === 'protected'
-                            ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
-                            : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
-                        }`}>
+                              ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
+                              : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
+                          }`}>
                           {design.category}
                         </div>
                         <h4 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
@@ -441,20 +454,18 @@ const PortfolioLanding = () => {
                       </div>
                     </div>
                     {design.type === 'figma' ? (
-                      <Figma 
-                        className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${
-                          hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
-                        }`}
+                      <Figma
+                        className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
+                          }`}
                       />
                     ) : (
-                      <FileText 
-                        className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${
-                          hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
-                        }`}
+                      <FileText
+                        className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
+                          }`}
                       />
                     )}
                   </div>
-                  
+
                   <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4">
                     {design.description}
                   </p>
@@ -462,7 +473,7 @@ const PortfolioLanding = () => {
                   {/* Tools */}
                   <div className="flex flex-wrap gap-2">
                     {design.tools.map((tool, toolIndex) => (
-                      <span 
+                      <span
                         key={toolIndex}
                         className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10 rounded"
                       >
@@ -477,7 +488,7 @@ const PortfolioLanding = () => {
         </div>
 
         {/* View More Button */}
-        <div 
+        <div
           className="text-center overflow-hidden"
           style={{
             animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.6s forwards' : 'none',
@@ -487,20 +498,20 @@ const PortfolioLanding = () => {
         >
           <div className="mb-8">
             <p className="text-[#0a0100]/70 max-w-2xl mx-auto leading-relaxed mb-6">
-              These are just a few examples of the digital experiences I create. 
+              These are just a few examples of the digital experiences I create.
               Each project is a testament to attention to detail, innovative solutions, and exceptional craftsmanship.
             </p>
           </div>
           <Link to="/portfolio">
-          
-          <button 
-            onClick={handleViewMore}
-            className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px] cursor-pointer active:scale-95"
-          >
-            <span className="font-erstoria text-base tracking-wide">VIEW MORE</span>
-            <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-          </button>
+
+            <button
+              onClick={handleViewMore}
+              className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] min-w-[200px] cursor-pointer active:scale-95"
+            >
+              <span className="font-erstoria text-base tracking-wide">VIEW MORE</span>
+              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+            </button>
           </Link>
         </div>
       </div>
@@ -546,15 +557,15 @@ const PortfolioLanding = () => {
                     <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-6 max-w-lg">
                       <p className="text-amber-800 text-sm font-medium mb-2">🔒 Protected Design File</p>
                       <p className="text-amber-700 text-sm">
-                        This premium design file contains detailed mockups, 
+                        This premium design file contains detailed mockups,
                         design systems, and professional documentation.
                       </p>
                     </div>
                     <p className="text-[#0a0100]/70 mb-6 max-w-md">
-                      To access the complete design files and documentation, please get in touch. 
+                      To access the complete design files and documentation, please get in touch.
                       I'll be happy to share the full case study and design assets.
                     </p>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Link
                         to="/contact"
@@ -564,7 +575,7 @@ const PortfolioLanding = () => {
                         <ExternalLink className="w-4 h-4" />
                         <span>Contact Me</span>
                       </Link>
-                      
+
                       <button
                         onClick={() => window.open('mailto:oussama.alouche@outlook.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
                         className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
@@ -573,7 +584,7 @@ const PortfolioLanding = () => {
                         <span>Email Direct</span>
                       </button>
                     </div>
-                    
+
                     <p className="text-xs text-[#0a0100]/50 mt-6 max-w-sm">
                       Professional portfolio work • Available for serious inquiries
                     </p>
@@ -586,17 +597,17 @@ const PortfolioLanding = () => {
                       <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
                         <div className="text-center space-y-4">
                           <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                            <svg 
-                              className="w-8 h-8 text-[#0a0100]/60" 
-                              fill="none" 
-                              stroke="currentColor" 
+                            <svg
+                              className="w-8 h-8 text-[#0a0100]/60"
+                              fill="none"
+                              stroke="currentColor"
                               viewBox="0 0 24 24"
                             >
-                              <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={1.5} 
-                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={1.5}
+                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                               />
                             </svg>
                           </div>
@@ -607,7 +618,7 @@ const PortfolioLanding = () => {
                             Safari has restrictions on embedded PDFs. Click the button below to open the design in a new tab for the best viewing experience.
                           </p>
                         </div>
-                        
+
                         <div className="flex flex-col gap-3">
                           <a
                             href={`/pdfs/${currentPdf.filename}`}
@@ -618,7 +629,7 @@ const PortfolioLanding = () => {
                             <span className="font-erstoria text-sm tracking-wide">OPEN DESIGN IN NEW TAB</span>
                             <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                           </a>
-                          
+
                           <a
                             href={`/pdfs/${currentPdf.filename}`}
                             download
@@ -651,7 +662,7 @@ const PortfolioLanding = () => {
                       {currentPdf.category}
                     </span>
                   </div>
-                  
+
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">
                     {/* Download Button - Only show for non-protected files */}

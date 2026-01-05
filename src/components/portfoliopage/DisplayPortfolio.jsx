@@ -29,7 +29,7 @@ const SimplifiedPortfolio = () => {
 
   // Use the same projects from HeroPortfolio with screenshots
   const featuredProjects = [
-   
+
     {
       title: "WorkWhile",
       subtitle: "Workspace Innovation",
@@ -85,13 +85,13 @@ const SimplifiedPortfolio = () => {
       subtitle: "Foundation Website",
       description: "Professional foundation website featuring organizational information, projects showcase, and community engagement initiatives.",
       url: "https://fostp.ma",
-      tech: ["React", "ExpressJS","NodeJS", "MySQL"],
+      tech: ["React", "ExpressJS", "NodeJS", "MySQL"],
       category: "Foundation Website",
       type: "website",
       screenshot: "/imgs/screenshots/fostp.png"
     },
     {
-      title:"TECHNIQ8",
+      title: "TECHNIQ8",
       subtitle: "Technology Solutions",
       description: "Innovative technology solutions platform offering a range of services from software development to IT consulting.",
       url: "https://techniq8.com",
@@ -100,16 +100,16 @@ const SimplifiedPortfolio = () => {
       type: "website",
       screenshot: "/imgs/screenshots/techniq8.png"
     },
-   {
-    title:"RechargerMonAuto",
-    subtitle: "Electric Vehicle Charging",
-    description: "A platform for locating and reserving electric vehicle charging stations.",
-    url: "https://rechargemonauto.com",
-    tech: ["React", "Node.js", "MongoDB"],
-    category: "Transportation",
-    type: "website",
-    screenshot: "/imgs/screenshots/rmasite.png"
-   }
+    {
+      title: "RechargerMonAuto",
+      subtitle: "Electric Vehicle Charging",
+      description: "A platform for locating and reserving electric vehicle charging stations.",
+      url: "https://rechargemonauto.com",
+      tech: ["React", "Node.js", "MongoDB"],
+      category: "Transportation",
+      type: "website",
+      screenshot: "/imgs/screenshots/rmasite.png"
+    }
   ];
 
   // UI/UX Designs with screenshots - Real projects with available assets
@@ -128,7 +128,7 @@ const SimplifiedPortfolio = () => {
       screenshot: "/imgs/screenshots/aidus.png"
     },
     {
-      title:" AZ Food",
+      title: " AZ Food",
       subtitle: "Food Delivery",
       description: "A user-friendly food delivery platform connecting customers with local restaurants for seamless ordering.",
       category: "Food Delivery",
@@ -138,12 +138,12 @@ const SimplifiedPortfolio = () => {
       colors: ["#ef4444", "#fca5a1", "#fee2e2"],
       type: "pdf",
       filename: "azfood.pdf",
-            requiresContact: false,
+      requiresContact: false,
 
       screenshot: "/imgs/screenshots/azfood.png"
     },
     {
-      title:"AZ Energie",
+      title: "AZ Energie",
       subtitle: "Energy Solutions",
       description: "Sustainable energy solutions platform offering services in solar energy, wind energy, and energy efficiency consulting.",
       category: "Energy Solutions",
@@ -153,12 +153,12 @@ const SimplifiedPortfolio = () => {
       colors: ["#4ade80", "#22c55e", "#ecfdf5"],
       type: "pdf",
       filename: "azenergie.pdf",
-            requiresContact: false,
+      requiresContact: false,
 
       screenshot: "/imgs/screenshots/azenergie.png"
     },
     {
-      title:' Neom Agency',
+      title: ' Neom Agency',
       subtitle: "Creative Agency",
       description: "Innovative creative agency specializing in branding, design, and digital marketing solutions.",
       category: "Creative Agency",
@@ -168,7 +168,7 @@ const SimplifiedPortfolio = () => {
       colors: ["#3b82f6", "#60a5fa", "#dbeafe"],
       type: "pdf",
       filename: "neom.pdf",
-            requiresContact: false,
+      requiresContact: false,
 
       screenshot: "/imgs/screenshots/neom.png"
     },
@@ -214,7 +214,7 @@ const SimplifiedPortfolio = () => {
       requiresContact: false,
       screenshot: "/imgs/screenshots/its.png"
     },
-   
+
   ];
 
   const handleProjectClick = (url) => {
@@ -249,14 +249,14 @@ const SimplifiedPortfolio = () => {
 
   return (
     <>
-      <section 
+      <section
         ref={sectionRef}
         data-section="display-portfolio"
         className="relative py-20 md:py-12 bg-[#f5f5f0] overflow-hidden"
       >
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.02]">
-          <div 
+          <div
             className="absolute inset-0"
             style={{
               backgroundImage: `
@@ -269,13 +269,12 @@ const SimplifiedPortfolio = () => {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
-          
+
           {/* Section Header */}
           <div className="text-center mb-16 md:mb-24">
-            <div 
-              className={`overflow-hidden mb-8 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`overflow-hidden mb-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
             >
               <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
                 <div className="w-12 h-px bg-[#0a0100]/30" />
@@ -284,13 +283,12 @@ const SimplifiedPortfolio = () => {
               </div>
             </div>
 
-            <div 
-              className={`overflow-hidden mb-12 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`overflow-hidden mb-12 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.1s' : '0s' }}
             >
-              <h2 
+              <h2
                 className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
               >
                 FEATURED
@@ -298,30 +296,27 @@ const SimplifiedPortfolio = () => {
               </h2>
             </div>
 
-            <div 
-              className={`overflow-hidden mb-16 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`overflow-hidden mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.2s' : '0s' }}
             >
               <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-4xl mx-auto leading-relaxed">
-                A curated selection of my best web development projects and UI/UX design concepts, 
+                A curated selection of my best web development projects and UI/UX design concepts,
                 demonstrating technical expertise and creative vision.
               </p>
             </div>
           </div>
 
           {/* Web Development Section */}
-          <div 
-            className={`mb-32 transition-all duration-1000 ${
-              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
-            }`}
+          <div
+            className={`mb-32 transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+              }`}
             style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
           >
-            <div 
-              className={`mb-16 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
             >
               <div className="flex items-center gap-4 mb-6">
@@ -331,24 +326,22 @@ const SimplifiedPortfolio = () => {
                 </h3>
               </div>
               <p className="text-lg text-[#0a0100]/70 leading-relaxed max-w-3xl">
-                Live web applications showcasing modern development practices, 
+                Live web applications showcasing modern development practices,
                 performance optimization, and exceptional user experiences.
               </p>
             </div>
 
             {/* Projects Grid - Mobile Optimized */}
-            <div 
-              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.4s' : '0s' }}
             >
               {featuredProjects.map((project, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg transform ${
-                    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
+                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
                   onClick={() => handleProjectClick(project.url)}
                   onMouseEnter={() => setHoveredProject(index)}
                   onMouseLeave={() => setHoveredProject(null)}
@@ -358,11 +351,11 @@ const SimplifiedPortfolio = () => {
                 >
                   {/* Project Screenshot Preview */}
                   <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-                    
+
                     {/* Screenshot Preview */}
                     {project.screenshot ? (
                       <div className="absolute inset-0">
-                        <img 
+                        <img
                           src={project.screenshot}
                           alt={`${project.title} preview`}
                           className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
@@ -372,10 +365,10 @@ const SimplifiedPortfolio = () => {
                             e.target.parentElement.nextElementSibling.style.display = 'flex';
                           }}
                         />
-                        
+
                         {/* Gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-                        
+
                         {/* Type indicator */}
                         <div className="absolute top-4 right-4">
                           <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
@@ -384,12 +377,10 @@ const SimplifiedPortfolio = () => {
                         </div>
 
                         {/* Hover overlay - Centered */}
-                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
-                          hoveredProject === index ? 'bg-[#0a0100]/40' : ''
-                        }`}>
-                          <div className={`transition-all duration-300 text-center transform ${
-                            hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === index ? 'bg-[#0a0100]/40' : ''
                           }`}>
+                          <div className={`transition-all duration-300 text-center transform ${hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                            }`}>
                             <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
                               <span>VIEW PROJECT</span>
                             </div>
@@ -425,11 +416,11 @@ const SimplifiedPortfolio = () => {
                       <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
                         {project.description}
                       </p>
-                      
+
                       {/* Tech Stack */}
                       <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
                         {project.tech.map((tech, techIndex) => (
-                          <span 
+                          <span
                             key={techIndex}
                             className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
                           >
@@ -444,10 +435,9 @@ const SimplifiedPortfolio = () => {
                       <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
                         View Project
                       </span>
-                      <ArrowUpRight 
-                        className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${
-                          hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                        }`}
+                      <ArrowUpRight
+                        className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
+                          }`}
                       />
                     </div>
                   </div>
@@ -457,16 +447,14 @@ const SimplifiedPortfolio = () => {
           </div>
 
           {/* UI/UX Design Section */}
-          <div 
-            className={`mb-20 transition-all duration-1000 ${
-              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
-            }`}
+          <div
+            className={`mb-20 transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+              }`}
             style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
           >
-            <div 
-              className={`mb-16 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
             >
               <div className="flex items-center gap-4 mb-6">
@@ -476,24 +464,22 @@ const SimplifiedPortfolio = () => {
                 </h3>
               </div>
               <p className="text-lg text-[#0a0100]/70 leading-relaxed max-w-3xl">
-                Creative interface designs and user experience concepts that demonstrate 
+                Creative interface designs and user experience concepts that demonstrate
                 design thinking, visual hierarchy, and interaction patterns.
               </p>
             </div>
 
             {/* Design Grid - Optimized */}
-            <div 
-              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${
-                isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-              }`}
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
               style={{ transitionDelay: isLoaded ? '0.6s' : '0s' }}
             >
               {designConcepts.map((design, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden transform ${
-                    isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
+                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
                   onClick={() => handleDesignClick(design)}
                   onMouseEnter={() => setHoveredDesign(index)}
                   onMouseLeave={() => setHoveredDesign(null)}
@@ -503,11 +489,11 @@ const SimplifiedPortfolio = () => {
                 >
                   {/* Design Screenshot Preview */}
                   <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-                    
+
                     {/* Screenshot Preview */}
                     {design.screenshot ? (
                       <div className="absolute inset-0">
-                        <img 
+                        <img
                           src={design.screenshot}
                           alt={`${design.title} design preview`}
                           className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
@@ -517,17 +503,16 @@ const SimplifiedPortfolio = () => {
                             e.target.parentElement.nextElementSibling.style.display = 'flex';
                           }}
                         />
-                        
+
                         {/* Gradient overlay */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-                        
+
                         {/* Type indicator */}
                         <div className="absolute top-4 right-4">
-                          <div className={`p-2 backdrop-blur-sm ${
-                            design.type === 'figma'
-                              ? 'bg-green-500/20 border border-green-500/30' 
-                              : 'bg-blue-500/20 border border-blue-500/30'
-                          }`}>
+                          <div className={`p-2 backdrop-blur-sm ${design.type === 'figma'
+                            ? 'bg-green-500/20 border border-green-500/30'
+                            : 'bg-blue-500/20 border border-blue-500/30'
+                            }`}>
                             {design.type === 'figma' ? (
                               <Figma className="w-4 h-4 text-white" />
                             ) : (
@@ -537,19 +522,17 @@ const SimplifiedPortfolio = () => {
                         </div>
 
                         {/* Hover overlay - Centered */}
-                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
-                          hoveredDesign === index ? 'bg-[#0a0100]/40' : ''
-                        }`}>
-                          <div className={`transition-all duration-300 text-center transform ${
-                            hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredDesign === index ? 'bg-[#0a0100]/40' : ''
                           }`}>
+                          <div className={`transition-all duration-300 text-center transform ${hoveredDesign === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                            }`}>
                             <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
                               <span>
-                                {design.type === 'figma' 
-                                  ? 'VIEW IN FIGMA' 
-                                  : design.requiresContact 
-                                  ? 'REQUEST ACCESS' 
-                                  : 'VIEW DESIGN'
+                                {design.type === 'figma'
+                                  ? 'VIEW IN FIGMA'
+                                  : design.requiresContact
+                                    ? 'REQUEST ACCESS'
+                                    : 'VIEW DESIGN'
                                 }
                               </span>
                             </div>
@@ -562,7 +545,7 @@ const SimplifiedPortfolio = () => {
                         {design.mockupType === 'mobile' ? (
                           // Mobile Mockup
                           <div className="relative">
-                            <div 
+                            <div
                               className="w-48 h-72 rounded-3xl p-1 shadow-2xl"
                               style={{ backgroundColor: design.colors[0] }}
                             >
@@ -572,7 +555,7 @@ const SimplifiedPortfolio = () => {
                                     <div className="w-6 h-1 bg-[#0a0100]/20 rounded-full"></div>
                                     <div className="w-8 h-1 bg-[#0a0100]/20 rounded-full"></div>
                                   </div>
-                                  <div 
+                                  <div
                                     className="h-8 rounded-lg"
                                     style={{ backgroundColor: `${design.colors[1]}20` }}
                                   ></div>
@@ -582,7 +565,7 @@ const SimplifiedPortfolio = () => {
                                   </div>
                                   <div className="grid grid-cols-2 gap-2">
                                     <div className="h-16 bg-[#0a0100]/5 rounded-lg"></div>
-                                    <div 
+                                    <div
                                       className="h-16 rounded-lg"
                                       style={{ backgroundColor: `${design.colors[1]}15` }}
                                     ></div>
@@ -595,20 +578,20 @@ const SimplifiedPortfolio = () => {
                         ) : (
                           // Desktop Mockup
                           <div className="relative w-full max-w-md">
-                            <div 
+                            <div
                               className="rounded-lg p-1 shadow-xl"
                               style={{ backgroundColor: design.colors[0] }}
                             >
                               <div className="bg-white rounded-lg p-6 space-y-4">
                                 <div className="flex items-center gap-2 pb-3 border-b border-[#0a0100]/10">
-                                  <div 
+                                  <div
                                     className="w-3 h-3 rounded-full"
                                     style={{ backgroundColor: `${design.colors[1]}50` }}
                                   ></div>
                                   <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
                                   <div className="w-3 h-3 bg-[#0a0100]/20 rounded-full"></div>
                                 </div>
-                                <div 
+                                <div
                                   className="h-12 rounded-lg mb-4"
                                   style={{ backgroundColor: `${design.colors[2]}60` }}
                                 ></div>
@@ -626,13 +609,12 @@ const SimplifiedPortfolio = () => {
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <div className="mb-3">
-                          <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${
-                            design.type === 'figma'
-                              ? 'bg-green-500/10 text-green-600 border border-green-500/20'
-                              : design.type === 'protected'
+                          <div className={`inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase ${design.type === 'figma'
+                            ? 'bg-green-500/10 text-green-600 border border-green-500/20'
+                            : design.type === 'protected'
                               ? 'bg-amber-500/10 text-amber-600 border border-amber-500/20'
                               : 'bg-blue-500/10 text-blue-600 border border-blue-500/20'
-                          }`}>
+                            }`}>
                             {design.category}
                           </div>
                           <h4 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
@@ -645,20 +627,18 @@ const SimplifiedPortfolio = () => {
                         </div>
                       </div>
                       {design.type === 'figma' ? (
-                        <Figma 
-                          className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${
-                            hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
-                          }`}
+                        <Figma
+                          className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
+                            }`}
                         />
                       ) : (
-                        <FileText 
-                          className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${
-                            hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
-                          }`}
+                        <FileText
+                          className={`w-5 h-5 text-[#0a0100]/40 transition-all duration-300 flex-shrink-0 ${hoveredDesign === index ? 'scale-110 text-[#e61f00]' : ''
+                            }`}
                         />
                       )}
                     </div>
-                    
+
                     <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4">
                       {design.description}
                     </p>
@@ -666,7 +646,7 @@ const SimplifiedPortfolio = () => {
                     {/* Tools */}
                     <div className="flex flex-wrap gap-2">
                       {design.tools.map((tool, toolIndex) => (
-                        <span 
+                        <span
                           key={toolIndex}
                           className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10 rounded"
                         >
@@ -680,11 +660,120 @@ const SimplifiedPortfolio = () => {
             </div>
           </div>
 
+          {/* Passion Projects Section */}
+          <div
+            className={`mb-32 transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+              }`}
+            style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
+          >
+            <div
+              className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
+              style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <Code className="w-8 h-8 text-[#e61f00]" />
+                <h3 className="font-erstoria text-3xl md:text-4xl text-[#0a0100] tracking-wide">
+                  PASSION PROJECTS
+                </h3>
+              </div>
+              <p className="text-lg text-[#0a0100]/70 leading-relaxed max-w-3xl">
+                Personal ventures where I explore new technologies and build business ideas.
+              </p>
+            </div>
+
+            {/* TRCKS Card - Same style as other project cards */}
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
+              style={{ transitionDelay: isLoaded ? '0.6s' : '0s' }}
+            >
+              <Link
+                to="/portfolio/trcks"
+                className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg"
+              >
+                {/* Project Screenshot Preview */}
+                <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
+                  <img
+                    src="/imgs/screenshots/trcks.png"
+                    alt="TRCKS preview"
+                    className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                    }}
+                  />
+
+                  {/* Fallback */}
+                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
+                    <span className="font-erstoria text-4xl text-[#0a0100]/20">TRCKS</span>
+                  </div>
+
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
+
+                  {/* Type indicator */}
+                  <div className="absolute top-4 right-4">
+                    <div className="p-2 backdrop-blur-sm bg-[#e61f00]/20 border border-[#e61f00]/30">
+                      <Globe className="w-4 h-4 text-white" />
+                    </div>
+                  </div>
+
+                  {/* Hover overlay */}
+                  <div className="absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center group-hover:bg-[#0a0100]/40">
+                    <div className="transition-all duration-300 text-center transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100">
+                      <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                        <span>VIEW CASE STUDY</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Project Info */}
+                <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+                  <div className="mb-4 flex-grow">
+                    <div className="mb-3">
+                      <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#e61f00]/10 text-[#e61f00] border border-[#e61f00]/20">
+                        Personal Business
+                      </div>
+                      <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                        TRCKS
+                      </h3>
+                      <p className="text-sm text-[#0a0100]/60 mb-3">Gym Progress Tracking Platform</p>
+                    </div>
+                    <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
+                      AI-powered gym tracking with natural language workout logging. Describe your workout and let the AI handle the rest.
+                    </p>
+
+                    {/* Tech Stack */}
+                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+                      {['React', 'TypeScript', 'Supabase', 'AI MCPs'].map((tech, techIndex) => (
+                        <span
+                          key={techIndex}
+                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* View Project Link */}
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+                      View Case Study
+                    </span>
+                    <ArrowUpRight
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#e61f00]"
+                    />
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </div>
           {/* Call to Action */}
-          <div 
-            className={`text-center transition-all duration-1000 ${
-              isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
-            }`}
+          <div
+            className={`text-center transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+              }`}
             style={{ transitionDelay: isLoaded ? '0.7s' : '0s' }}
           >
             <div className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm p-8 md:p-12 max-w-4xl mx-auto">
@@ -692,11 +781,11 @@ const SimplifiedPortfolio = () => {
                 Ready to Start Your Project?
               </h4>
               <p className="text-lg text-[#0a0100]/70 mb-8 leading-relaxed">
-                Let's collaborate to bring your vision to life with innovative design and 
+                Let's collaborate to bring your vision to life with innovative design and
                 cutting-edge development.
               </p>
-              <Link 
-                to="/contact" 
+              <Link
+                to="/contact"
                 className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
               >
                 <span className="font-erstoria text-base tracking-wide">GET IN TOUCH</span>
@@ -778,15 +867,15 @@ const SimplifiedPortfolio = () => {
                     <div className="bg-amber-50 border border-amber-200 p-4 rounded-lg mb-6 max-w-lg">
                       <p className="text-amber-800 text-sm font-medium mb-2">🔒 Protected Design File</p>
                       <p className="text-amber-700 text-sm">
-                        This premium design file contains detailed mockups, 
+                        This premium design file contains detailed mockups,
                         design systems, and professional documentation.
                       </p>
                     </div>
                     <p className="text-[#0a0100]/70 mb-6 max-w-md">
-                      To access the complete design files and documentation, please get in touch. 
+                      To access the complete design files and documentation, please get in touch.
                       I'll be happy to share the full case study and design assets.
                     </p>
-                    
+
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Link
                         to="/contact"
@@ -796,7 +885,7 @@ const SimplifiedPortfolio = () => {
                         <ExternalLink className="w-4 h-4" />
                         <span>Contact Me</span>
                       </Link>
-                      
+
                       <button
                         onClick={() => window.open('mailto:your-email@domain.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
                         className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
@@ -805,7 +894,7 @@ const SimplifiedPortfolio = () => {
                         <span>Email Direct</span>
                       </button>
                     </div>
-                    
+
                     <p className="text-xs text-[#0a0100]/50 mt-6 max-w-sm">
                       Professional portfolio work • Available for serious inquiries
                     </p>
@@ -818,17 +907,17 @@ const SimplifiedPortfolio = () => {
                       <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
                         <div className="text-center space-y-4">
                           <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                            <svg 
-                              className="w-8 h-8 text-[#0a0100]/60" 
-                              fill="none" 
-                              stroke="currentColor" 
+                            <svg
+                              className="w-8 h-8 text-[#0a0100]/60"
+                              fill="none"
+                              stroke="currentColor"
                               viewBox="0 0 24 24"
                             >
-                              <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                strokeWidth={1.5} 
-                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={1.5}
+                                d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                               />
                             </svg>
                           </div>
@@ -839,7 +928,7 @@ const SimplifiedPortfolio = () => {
                             Safari has restrictions on embedded PDFs. Click the button below to open the design in a new tab for the best viewing experience.
                           </p>
                         </div>
-                        
+
                         <div className="flex flex-col gap-3">
                           <a
                             href={`/pdfs/${currentPdf.filename}`}
@@ -850,7 +939,7 @@ const SimplifiedPortfolio = () => {
                             <span className="font-erstoria text-sm tracking-wide">OPEN DESIGN IN NEW TAB</span>
                             <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                           </a>
-                          
+
                           <a
                             href={`/pdfs/${currentPdf.filename}`}
                             download
@@ -883,7 +972,7 @@ const SimplifiedPortfolio = () => {
                       {currentPdf.category}
                     </span>
                   </div>
-                  
+
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">
                     {/* Download Button - Only show for non-protected files */}

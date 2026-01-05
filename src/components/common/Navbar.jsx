@@ -15,7 +15,7 @@ export const EnhancedNavbar = () => {
   const { startNavbarTransition } = useNavbarTransition();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClosingForTransition, setIsClosingForTransition] = useState(false);
-  
+
   // Commented out language switching functionality
   // const [currentLanguage, setCurrentLanguage] = useState('fr');
 
@@ -53,7 +53,7 @@ export const EnhancedNavbar = () => {
   // Commented out translation function
   // const t = languages[currentLanguage];
 
-  // Simplified navigation items - only 3 items
+  // Navigation items - 3 items
   const navItems = [
     { label: 'Home', href: '/' },
     { label: 'Portfolio', href: '/portfolio' },
@@ -99,7 +99,7 @@ export const EnhancedNavbar = () => {
     if (location.pathname === '/') {
       return;
     }
-    
+
     startNavbarTransition('/', () => {
       navigate('/');
     });
@@ -130,9 +130,9 @@ export const EnhancedNavbar = () => {
           <div className="flex justify-between items-center h-26">
             {/* Logo */}
             <div className="flex items-center">
-              <button 
+              <button
                 onClick={handleHomeClick}
-                className="text-2xl font-bold text-[#0a0100]" 
+                className="text-2xl font-bold text-[#0a0100]"
                 style={{ fontFamily: 'Erstoria, sans-serif', background: 'none', border: 'none', cursor: 'pointer' }}
               >
                 WONDERER
@@ -145,8 +145,8 @@ export const EnhancedNavbar = () => {
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className={cn(
                   "p-3 transition-all duration-300 shadow-sm border border-gray-200 relative z-[10002]",
-                  isMobileMenuOpen 
-                    ? "text-[#f5f5f0] bg-[#e61f00] border-[#e61f00]" 
+                  isMobileMenuOpen
+                    ? "text-[#f5f5f0] bg-[#e61f00] border-[#e61f00]"
                     : "text-[#000000] bg-[#f5f5f0] border-gray-200"
                 )}
               >
@@ -168,7 +168,7 @@ export const EnhancedNavbar = () => {
                 </div>
               </button>
             </div>
-              
+
             {/* Menu Overlay */}
             <div className={`hamburger-overlay-custom ${isMobileMenuOpen ? 'open' : ''}`}>
               <style>{`
@@ -323,7 +323,7 @@ export const EnhancedNavbar = () => {
                 }
                 */
               `}</style>
-              
+
               <div className="mobile-menu-content">
                 {/* Menu Items Container - Now only 3 items */}
                 <div className="menu-items-container font-black">
@@ -338,7 +338,7 @@ export const EnhancedNavbar = () => {
                     </button>
                   ))}
                 </div>
-                
+
                 {/* Commented out Language Selector */}
                 {/*
                 <div className="language-selector-custom">

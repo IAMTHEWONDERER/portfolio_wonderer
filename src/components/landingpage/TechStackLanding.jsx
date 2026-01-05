@@ -10,28 +10,28 @@ const TechStackLanding = () => {
   const [cvLanguage, setCvLanguage] = useState('english');
   const [isDragging, setIsDragging] = useState(false);
   const [isSafari, setIsSafari] = useState(false);
-  
+
   const carouselRef = useRef(null);
   const x = useMotionValue(0);
   const dragControls = useDragControls();
 
   const techLogos = [
     { name: 'React', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg' },
-    { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
-    { name: 'MongoDB', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
-    { name: 'Express', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg' },
-    { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'Next.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg' },
     { name: 'TypeScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg' },
+    { name: 'JavaScript', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg' },
+    { name: 'Node.js', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg' },
     { name: 'Python', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg' },
-    { name: 'TensorFlow', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg' },
-    { name: 'Figma', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
     { name: 'Tailwind', url: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg' },
+    { name: 'Figma', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg' },
+    { name: 'Supabase', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg' },
     { name: 'PostgreSQL', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg' },
-    { name: 'Redis', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg' },
+    { name: 'MongoDB', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg' },
     { name: 'Docker', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
-    { name: 'AWS', url: 'https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg' },
     { name: 'Git', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg' },
-    { name: 'VS Code', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' }
+    { name: 'Jest', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg' },
+    { name: 'GraphQL', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg' },
+    { name: 'Redux', url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg' }
   ];
 
   // Create duplicated array for seamless loop
@@ -39,94 +39,106 @@ const TechStackLanding = () => {
 
   const techCategories = [
     {
-      category: "MERN Stack",
+      category: "Modern Frontend",
       level: "Expert",
-      description: "Full-stack JavaScript development with modern frameworks",
+      description: "Building scalable, high-performance web applications",
       technologies: [
-        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-        { name: "Express.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" },
         { name: "React.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-        { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
+        { name: "Next.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
+        { name: "TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
+        { name: "Redux", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" }
       ],
       color: "text-[#e61f00]"
-    }, {
-      category: "UI/UX Design",
+    },
+    {
+      category: "Frontend Architecture",
       level: "Expert",
-      description: "User interface and experience design",
+      description: "Component-driven architecture and design systems",
+      technologies: [
+        { name: "Design Systems", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
+        { name: "Accessibility (WCAG)", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" },
+        { name: "Responsive Design", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" }
+      ],
+      color: "text-[#e61f00]"
+    },
+    {
+      category: "UI/UX Development",
+      level: "Expert",
+      description: "From wireframes to high-fidelity prototypes",
       technologies: [
         { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-        { name: "Tailwind CSS", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg" },
-        { name: "Framer Motion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
-        { name: "Design Systems", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" }
+        { name: "Prototyping", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "UX Flows", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+        { name: "Visual Hierarchy", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" }
       ],
       color: "text-[#e61f00]"
+    },
+    {
+      category: "Testing & Quality",
+      level: "Proficient",
+      description: "Ensuring reliability through comprehensive testing",
+      technologies: [
+        { name: "Jest", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" },
+        { name: "React Testing Library", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" },
+        { name: "Unit Testing", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg" },
+        { name: "Code Reviews", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" }
+      ],
+      color: "text-[#0a0100]/70"
+    },
+    {
+      category: "APIs & Integration",
+      level: "Expert",
+      description: "Connecting frontends to powerful backends",
+      technologies: [
+        { name: "REST APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
+        { name: "GraphQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg" },
+        { name: "Webhooks", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name: "Third-party Services", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" }
+      ],
+      color: "text-[#0a0100]/70"
+    },
+    {
+      category: "Backend & Platforms",
+      level: "Intermediate",
+      description: "Server-side development and database management",
+      technologies: [
+        { name: "Node.js", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" },
+        { name: "Python/FastAPI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Supabase", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg" },
+        { name: "PostgreSQL", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" }
+      ],
+      color: "text-[#0a0100]/70"
     },
     {
       category: "AI Integration",
-      level: "Intermediate", 
-      description: "Machine learning and AI-powered solutions",
+      level: "Proficient",
+      description: "AI-powered features and conversational interfaces",
       technologies: [
-        { name: "OpenAI APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "TensorFlow", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" },
-        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Langchain", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" }
+        { name: "AI APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Model Context Protocols", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "AI Workflows", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
+        { name: "Conversational UI", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" }
       ],
       color: "text-[#e61f00]"
     },
-   
     {
-      category: "Database & Backend",
+      category: "DevOps & Deployment",
       level: "Intermediate",
-      description: "Data management and server architecture",
+      description: "CI/CD pipelines and cloud infrastructure",
       technologies: [
-        { name: "MongoDB", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" },
-        { name: "Redis", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg" },
-        { name: "REST APIs", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" },
-        { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" }
-      ],
-      color: "text-[#0a0100]/70"
-    },  {
-      category: "Tools & Utilities",
-      level: "Proficient",
-      description: "Development tools and productivity software",
-      technologies: [
+        { name: "Vercel", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg" },
+        { name: "Docker", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg" },
         { name: "Git", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" },
-        { name: "VS Code", url: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg' },
-        { name: "Postman", logo: "https://www.vectorlogo.zone/logos/getpostman/getpostman-icon.svg" },
-        { name: "Webpack", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg" }
+        { name: "CI/CD", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" }
       ],
       color: "text-[#0a0100]/60"
-    },
-    {
-      category: "Cloud & DevOps",
-      level: "Varied",
-      description: "Deployment and infrastructure management",
-      technologies: [
-        { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
-        { name: "Vercel", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" },
-        { name: "GitHub Actions", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" },
-        { name: "Nginx", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg" }
-      ],
-      color: "text-[#0a0100]/70"
-    },
-    {
-      category: "Programming Languages",
-      level: "Varied",
-      description: "Core programming languages and frameworks",
-      technologies: [
-        { name: "JavaScript/TypeScript", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" },
-        { name: "Python", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" },
-        { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
-        { name: "C++", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg" }
-      ],
-      color: "text-[#0a0100]/60"
-    },
-  
+    }
   ];
 
   const cvFiles = {
-    english: '/pdfs/CV_OUSSAMA_ALOUCHE_EN.pdf',
-    french: '/pdfs/CV_OUSSAMA_ALOUCHE_FR.pdf'
+    english: '/pdfs/updated_Oussama_Alouche.pdf',
+    french: '/pdfs/french_Oussama_Alouche.pdf'
   };
 
   useEffect(() => {
@@ -161,25 +173,25 @@ const TechStackLanding = () => {
 
     const itemWidth = 120; // 80px icon + 40px gap
     const totalWidth = techLogos.length * itemWidth;
-    
+
     let animationId;
-    
+
     const smoothAnimation = () => {
       const currentX = x.get();
       const newX = currentX - 0.5; // Continuous smooth movement (0.5px per frame)
-      
+
       // Reset position when we've moved one full set
       if (Math.abs(newX) >= totalWidth) {
         x.set(0);
       } else {
         x.set(newX);
       }
-      
+
       animationId = requestAnimationFrame(smoothAnimation);
     };
-    
+
     animationId = requestAnimationFrame(smoothAnimation);
-    
+
     return () => {
       if (animationId) {
         cancelAnimationFrame(animationId);
@@ -197,7 +209,7 @@ const TechStackLanding = () => {
   };
 
   const getLevelIndicator = (level) => {
-    switch(level) {
+    switch (level) {
       case 'Expert':
         return { dots: 3, color: 'bg-[#e61f00]' };
       case 'Intermediate':
@@ -215,7 +227,7 @@ const TechStackLanding = () => {
 
   const handleDragEnd = () => {
     setIsDragging(false);
-    
+
     // Snap to nearest position
     const itemWidth = 120;
     const currentX = x.get();
@@ -225,26 +237,26 @@ const TechStackLanding = () => {
 
   return (
     <>
-      <section 
-        id="tech-stack" 
+      <section
+        id="tech-stack"
         className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
       >
         <div className="absolute inset-0 opacity-[0.02]">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `
               linear-gradient(to right, #0a0100 1px, transparent 1px),
               linear-gradient(to bottom, #0a0100 1px, transparent 1px)
             `,
-            backgroundSize: '80px 80px',
-          }}
-        />
-      </div>
+              backgroundSize: '80px 80px',
+            }}
+          />
+        </div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
           <div className="text-center">
-            <div 
+            <div
               className="overflow-hidden mb-8"
               style={{
                 animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
@@ -260,7 +272,7 @@ const TechStackLanding = () => {
             </div>
 
             <div className="overflow-hidden mb-12">
-              <h2 
+              <h2
                 className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
                 style={{
                   animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
@@ -273,7 +285,7 @@ const TechStackLanding = () => {
               </h2>
             </div>
 
-            <div 
+            <div
               className="overflow-hidden mb-12"
               style={{
                 animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
@@ -282,13 +294,13 @@ const TechStackLanding = () => {
               }}
             >
               <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
-                A comprehensive overview of my technical skills and the technologies I work with 
+                A comprehensive overview of my technical skills and the technologies I work with
                 to bring innovative ideas to life.
               </p>
             </div>
 
             {/* Tech Icons Carousel */}
-            <div 
+            <div
               className="overflow-hidden mb-16"
               style={{
                 animation: isLoaded ? 'slideUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards' : 'none',
@@ -302,7 +314,7 @@ const TechStackLanding = () => {
                   {/* Gradient Masks */}
                   <div className="absolute left-0 top-0 w-24 h-full bg-gradient-to-r from-[#f5f5f0] to-transparent z-10 pointer-events-none" />
                   <div className="absolute right-0 top-0 w-24 h-full bg-gradient-to-l from-[#f5f5f0] to-transparent z-10 pointer-events-none" />
-                  
+
                   {/* Scrollable Icons */}
                   <motion.div
                     ref={carouselRef}
@@ -315,7 +327,7 @@ const TechStackLanding = () => {
                     onDragStart={handleDragStart}
                     onDragEnd={handleDragEnd}
                     whileTap={{ cursor: "grabbing" }}
-                    transition={{ 
+                    transition={{
                       type: "tween",
                       ease: "linear",
                       duration: 0
@@ -329,8 +341,8 @@ const TechStackLanding = () => {
                         whileTap={{ scale: 0.95 }}
                       >
                         <div className="relative">
-                          <img 
-                            src={tech.url} 
+                          <img
+                            src={tech.url}
                             alt={tech.name}
                             className="w-16 h-16 object-contain transition-all duration-300 group-hover:drop-shadow-lg"
                             draggable={false}
@@ -357,7 +369,7 @@ const TechStackLanding = () => {
               </div>
             </div>
 
-            <div 
+            <div
               className="overflow-hidden"
               style={{
                 animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
@@ -369,9 +381,9 @@ const TechStackLanding = () => {
                 {techCategories.map((category, index) => {
                   const levelInfo = getLevelIndicator(category.level);
                   const isActive = activeCategory === index;
-                  
+
                   return (
-                    <div 
+                    <div
                       key={index}
                       className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer active:scale-[0.99]"
                       onClick={() => setActiveCategory(isActive ? null : index)}
@@ -385,22 +397,20 @@ const TechStackLanding = () => {
                             </h3>
                             <div className="flex gap-1 flex-shrink-0">
                               {Array.from({ length: 3 }, (_, i) => (
-                                <div 
+                                <div
                                   key={i}
-                                  className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
-                                    i < levelInfo.dots ? levelInfo.color : 'bg-[#0a0100]/10'
-                                  }`}
+                                  className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${i < levelInfo.dots ? levelInfo.color : 'bg-[#0a0100]/10'
+                                    }`}
                                 />
                               ))}
                             </div>
                           </div>
-                          <ChevronDown 
-                            className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/60 transition-transform duration-300 flex-shrink-0 ${
-                              isActive ? 'rotate-180' : ''
-                            }`}
+                          <ChevronDown
+                            className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/60 transition-transform duration-300 flex-shrink-0 ${isActive ? 'rotate-180' : ''
+                              }`}
                           />
                         </div>
-                        
+
                         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-0">
                           <p className="text-[#0a0100]/60 text-xs sm:text-sm leading-relaxed flex-grow">
                             {category.description}
@@ -412,18 +422,17 @@ const TechStackLanding = () => {
                       </div>
 
                       {/* Expandable Technology List */}
-                      <div className={`overflow-hidden transition-all duration-500 ${
-                        isActive ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
-                      }`}>
+                      <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
+                        }`}>
                         <div className="px-3 sm:px-4 md:px-6 pb-3 sm:pb-4 md:pb-6 border-t border-[#0a0100]/10">
                           <div className="pt-2 sm:pt-3 md:pt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                             {category.technologies.map((tech, techIndex) => (
-                              <div 
+                              <div
                                 key={techIndex}
                                 className="flex items-center gap-2 sm:gap-3 py-1.5 sm:py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-1 sm:px-2 cursor-pointer"
                               >
-                                <img 
-                                  src={tech.logo} 
+                                <img
+                                  src={tech.logo}
                                   alt={tech.name}
                                   className="w-4 h-4 sm:w-5 sm:h-5 object-contain flex-shrink-0"
                                 />
@@ -441,7 +450,7 @@ const TechStackLanding = () => {
               </div>
             </div>
 
-            <div 
+            <div
               className="overflow-hidden mt-16"
               style={{
                 animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards' : 'none',
@@ -450,7 +459,7 @@ const TechStackLanding = () => {
               }}
             >
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button 
+                <button
                   onClick={() => setShowCV(true)}
                   className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
                 >
@@ -505,17 +514,17 @@ const TechStackLanding = () => {
                     <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
                       <div className="text-center space-y-4">
                         <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                          <svg 
-                            className="w-8 h-8 text-[#0a0100]/60" 
-                            fill="none" 
-                            stroke="currentColor" 
+                          <svg
+                            className="w-8 h-8 text-[#0a0100]/60"
+                            fill="none"
+                            stroke="currentColor"
                             viewBox="0 0 24 24"
                           >
-                            <path 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round" 
-                              strokeWidth={1.5} 
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.5}
+                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                             />
                           </svg>
                         </div>
@@ -526,7 +535,7 @@ const TechStackLanding = () => {
                           Safari has restrictions on embedded PDFs. Click the button below to open the CV in a new tab for the best viewing experience.
                         </p>
                       </div>
-                      
+
                       <div className="flex flex-col gap-3">
                         <a
                           href={cvFiles[cvLanguage]}
@@ -537,7 +546,7 @@ const TechStackLanding = () => {
                           <span className="font-erstoria text-sm tracking-wide">OPEN CV IN NEW TAB</span>
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </a>
-                        
+
                         <button
                           onClick={handleDownloadCV}
                           className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100] hover:bg-[#0a0100]/5 transition-all duration-300 cursor-pointer active:scale-95"
@@ -567,26 +576,24 @@ const TechStackLanding = () => {
                   <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
                     <button
                       onClick={() => setCvLanguage('english')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
-                        cvLanguage === 'english'
-                          ? 'bg-[#0a0100] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                      }`}
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'english'
+                        ? 'bg-[#0a0100] text-white'
+                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                        }`}
                     >
                       EN
                     </button>
                     <button
                       onClick={() => setCvLanguage('french')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
-                        cvLanguage === 'french'
-                          ? 'bg-[#0a0100] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                      }`}
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'french'
+                        ? 'bg-[#0a0100] text-white'
+                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
+                        }`}
                     >
                       FR
                     </button>
                   </div>
-                  
+
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">
                     {/* Download Button - Icon only */}
@@ -612,7 +619,7 @@ const TechStackLanding = () => {
               </div>
 
               {/* Loading fallback */}
-              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{display: 'none'}} id="pdf-loading">
+              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{ display: 'none' }} id="pdf-loading">
                 <div className="text-center">
                   <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                   <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>

@@ -10,7 +10,7 @@ const ContactPage = () => {
   const [showCV, setShowCV] = useState(false);
   const [cvLanguage, setCvLanguage] = useState('english');
   const [isSafari, setIsSafari] = useState(false);
-  
+
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -110,8 +110,8 @@ const ContactPage = () => {
   ];
 
   const cvFiles = {
-    english: '/pdfs/CV_OUSSAMA_ALOUCHE_EN.pdf',
-    french: '/pdfs/CV_OUSSAMA_ALOUCHE_FR.pdf'
+    english: '/pdfs/updated_Oussama_Alouche.pdf',
+    french: '/pdfs/french_Oussama_Alouche.pdf'
   };
 
   const handleDownloadCV = () => {
@@ -127,7 +127,7 @@ const ContactPage = () => {
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.02]">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -142,7 +142,7 @@ const ContactPage = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-32 pb-20">
         {/* Header Section */}
         <div className="text-center mb-20">
-          <div 
+          <div
             className="overflow-hidden mb-8"
             style={{
               animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
@@ -158,7 +158,7 @@ const ContactPage = () => {
           </div>
 
           <div className="overflow-hidden mb-12">
-            <h1 
+            <h1
               className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
               style={{
                 animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
@@ -171,7 +171,7 @@ const ContactPage = () => {
             </h1>
           </div>
 
-          <div 
+          <div
             className="overflow-hidden mb-16"
             style={{
               animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
@@ -180,15 +180,15 @@ const ContactPage = () => {
             }}
           >
             <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-4xl mx-auto leading-relaxed">
-              Have a project in mind? I'd love to hear about it. Whether it's a complete 
-              digital transformation or a simple website refresh, let's discuss how we can 
+              Have a project in mind? I'd love to hear about it. Whether it's a complete
+              digital transformation or a simple website refresh, let's discuss how we can
               bring your vision to life.
             </p>
           </div>
         </div>
 
         {/* Contact Information Grid */}
-        <div 
+        <div
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20"
           style={{
             animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
@@ -199,9 +199,9 @@ const ContactPage = () => {
           {contactInfo.map((contact, index) => {
             const Icon = contact.icon;
             const isHovered = hoveredContact === index;
-            
+
             return (
-              <a 
+              <a
                 key={index}
                 href={contact.href}
                 target={contact.href.startsWith('http') ? '_blank' : '_self'}
@@ -211,7 +211,7 @@ const ContactPage = () => {
                 onMouseLeave={() => setHoveredContact(null)}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#e61f00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                
+
                 <div className="relative flex items-center gap-6">
                   <div className="w-16 h-16 flex items-center justify-center bg-[#0a0100]/5 group-hover:bg-[#e61f00]/10 transition-colors duration-500">
                     <Icon className={`w-8 h-8 ${contact.color} transition-transform duration-300 group-hover:scale-110`} />
@@ -229,10 +229,9 @@ const ContactPage = () => {
                     </p>
                   </div>
 
-                  <ArrowUpRight 
-                    className={`w-6 h-6 text-[#0a0100]/40 transition-all duration-300 ${
-                      isHovered ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                    }`}
+                  <ArrowUpRight
+                    className={`w-6 h-6 text-[#0a0100]/40 transition-all duration-300 ${isHovered ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
+                      }`}
                   />
                 </div>
               </a>
@@ -241,7 +240,7 @@ const ContactPage = () => {
         </div>
 
         {/* Additional Information Section */}
-        <div 
+        <div
           className="max-w-4xl mx-auto mb-20"
           style={{
             animation: isLoaded ? 'slideUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards' : 'none',
@@ -257,11 +256,11 @@ const ContactPage = () => {
               Everything you need to know about getting in touch and working together.
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
             {additionalInfo.map((info, index) => {
               const Icon = info.icon;
-              
+
               return (
                 <div key={index} className="flex items-center gap-6 p-6 bg-white/30 backdrop-blur-sm border border-[#0a0100]/10">
                   <div className="w-12 h-12 flex items-center justify-center bg-[#0a0100]/5">
@@ -289,15 +288,15 @@ const ContactPage = () => {
               Quick Response Guarantee
             </h4>
             <p className="text-[#0a0100]/70 leading-relaxed max-w-2xl mx-auto">
-              I typically respond to all messages within 24 hours during business days. 
-              For urgent matters, feel free to call or text me directly. Let's start building 
+              I typically respond to all messages within 24 hours during business days.
+              For urgent matters, feel free to call or text me directly. Let's start building
               something amazing together!
             </p>
           </div>
         </div>
 
         {/* Call-to-Action Section */}
-        <div 
+        <div
           className="text-center"
           style={{
             animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards' : 'none',
@@ -310,11 +309,11 @@ const ContactPage = () => {
               Ready to start your project?
             </h2>
             <p className="text-[#0a0100]/70 max-w-2xl mx-auto leading-relaxed">
-              From initial concept to final launch, I'm here to guide you through every step 
+              From initial concept to final launch, I'm here to guide you through every step
               of your digital journey. Let's create something extraordinary together.
             </p>
           </div>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
               href="mailto:oussama.alouche@outlook.com"
@@ -325,8 +324,8 @@ const ContactPage = () => {
               <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </a>
-            
-            <button 
+
+            <button
               onClick={() => setShowCV(true)}
               className="group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer"
             >
@@ -372,17 +371,17 @@ const ContactPage = () => {
                     <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
                       <div className="text-center space-y-4">
                         <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                          <svg 
-                            className="w-8 h-8 text-[#0a0100]/60" 
-                            fill="none" 
-                            stroke="currentColor" 
+                          <svg
+                            className="w-8 h-8 text-[#0a0100]/60"
+                            fill="none"
+                            stroke="currentColor"
                             viewBox="0 0 24 24"
                           >
-                            <path 
-                              strokeLinecap="round" 
-                              strokeLinejoin="round" 
-                              strokeWidth={1.5} 
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" 
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={1.5}
+                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
                             />
                           </svg>
                         </div>
@@ -393,7 +392,7 @@ const ContactPage = () => {
                           Safari has restrictions on embedded PDFs. Click the button below to open the CV in a new tab for the best viewing experience.
                         </p>
                       </div>
-                      
+
                       <div className="flex flex-col gap-3">
                         <a
                           href={cvFiles[cvLanguage]}
@@ -404,7 +403,7 @@ const ContactPage = () => {
                           <span className="font-erstoria text-sm tracking-wide">OPEN CV IN NEW TAB</span>
                           <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </a>
-                        
+
                         <button
                           onClick={handleDownloadCV}
                           className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100] hover:bg-[#0a0100]/5 transition-all duration-300 cursor-pointer active:scale-95"
@@ -434,26 +433,24 @@ const ContactPage = () => {
                   <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
                     <button
                       onClick={() => setCvLanguage('english')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
-                        cvLanguage === 'english'
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'english'
                           ? 'bg-[#0a0100] text-white'
                           : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                      }`}
+                        }`}
                     >
                       EN
                     </button>
                     <button
                       onClick={() => setCvLanguage('french')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${
-                        cvLanguage === 'french'
+                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'french'
                           ? 'bg-[#0a0100] text-white'
                           : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                      }`}
+                        }`}
                     >
                       FR
                     </button>
                   </div>
-                  
+
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">
                     {/* Download Button - Icon only */}
@@ -479,7 +476,7 @@ const ContactPage = () => {
               </div>
 
               {/* Loading fallback */}
-              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{display: 'none'}} id="pdf-loading">
+              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{ display: 'none' }} id="pdf-loading">
                 <div className="text-center">
                   <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
                   <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>

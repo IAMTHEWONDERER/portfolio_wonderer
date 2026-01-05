@@ -5,6 +5,7 @@ import { PageTransitionLayout } from './PageTransitionLayout';
 import LandingPage from '../pages/LandingPage';
 import ContactPage from '../pages/ContactPage';
 import PortfolioPage from '../pages/PortfolioPage';
+import ProjectDetailPage from '../pages/ProjectDetailPage';
 
 // Component to scroll to top on route change
 const ScrollToTop = () => {
@@ -13,7 +14,7 @@ const ScrollToTop = () => {
   useEffect(() => {
     // Immediate scroll to top
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-    
+
     // Also ensure it happens after any transitions
     setTimeout(() => {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
@@ -37,6 +38,9 @@ const DocumentTitle = () => {
         case '/portfolio':
           return 'Portfolio';
         default:
+          if (path.startsWith('/portfolio/')) {
+            return 'Project Details';
+          }
           return 'Wonderer';
       }
     };
@@ -68,6 +72,11 @@ const AppRouter = () => {
           <Route path="/portfolio" element={
             <PageTransitionLayout backgroundColor="#f5f5f0">
               <PortfolioPage />
+            </PageTransitionLayout>
+          } />
+          <Route path="/portfolio/:slug" element={
+            <PageTransitionLayout backgroundColor="#f5f5f0">
+              <ProjectDetailPage />
             </PageTransitionLayout>
           } />
           <Route path="*" element={
