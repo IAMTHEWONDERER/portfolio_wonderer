@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Github, Linkedin, Mail } from 'lucide-react';
+import { CONTACT } from '../../data/projects';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -46,7 +47,8 @@ const Footer = () => {
           {/* Right: Social Links */}
           <div className="flex gap-4">
             <a 
-              href="https://github.com/IAMTHEWONDERER" 
+              href={CONTACT.github}
+              
               target="_blank"
               rel="noopener noreferrer"
               className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
@@ -55,7 +57,7 @@ const Footer = () => {
               <Github className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
             </a>
             <a 
-              href="https://linkedin.com/in/oussama-alouche"
+              href={CONTACT.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
@@ -64,7 +66,7 @@ const Footer = () => {
               <Linkedin className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
             </a>
             <a 
-              href="mailto:oussama.alouche@outlook.com"
+              href={`mailto:${CONTACT.emailPrimary}`}
               className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
               aria-label="Email"
             >

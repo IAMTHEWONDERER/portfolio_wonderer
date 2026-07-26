@@ -2,6 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ArrowUpRight, ExternalLink, Globe, Palette, Figma, Download, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, Link } from 'react-router-dom';
+import {
+  CONTACT,
+  landingDesignConcepts,
+  landingProjects,
+} from '../../data/projects';
 
 const PortfolioLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -26,103 +31,13 @@ const PortfolioLanding = () => {
     detectSafari();
   }, []);
 
-  const projects = [
-    {
-      title: "ASANADA LMS Platform",
-      subtitle: "Learning Management System",
-      description: "Full learning management system frontend with courses, quizzes, forums, real-time notifications and responsive layouts.",
-      url: "https://eduk.asanada.org",
-      tech: ["React.js", "TypeScript", "Tailwind CSS"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/edukasanada.png"
-    },
-    {
-      title: "FOSTP Platform",
-      subtitle: "Organization Portal",
-      description: "High-performance SSR website using Next.js with real-time synchronization, member management, and multi-step forms.",
-      url: "#",
-      tech: ["Next.js", "Tailwind CSS", "Firebase"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/fostp.png"
-    },
-    {
-      title: "RMA-connect",
-      subtitle: "Electric Charging Station App",
-      description: "IoT management frontend for electric charging stations with real-time monitoring dashboards and cross-platform user interfaces.",
-      url: "#",
-      tech: ["React", "Angular", "Flutter"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/rma.png"
-    },
-    {
-      title: "WorkWhile",
-      subtitle: "Workspace Innovation",
-      description: "Innovative workspace solution platform with clean interface design and powerful functionality.",
-      url: "https://workwhile.vercel.app",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "School Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/workwhile.png"
-    },
-    {
-      title: "Appart9 Platform",
-      subtitle: "Real Estate Solution",
-      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
-      url: "#",
-      tech: ["React", "Node.js", "PostgreSQL"],
-      category: "Real Estate Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/appart9.png"
-    }
-  ];
-
-  const designConcepts = [
-    {
-      title: "AidUs Charity Platform",
-      subtitle: "Donation & Community",
-      description: "A comprehensive charity and donation platform designed to connect donors with causes, featuring intuitive donation flows and community engagement.",
-      category: "Charity Platform",
-      tools: ["Figma", "Prototyping"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#059669", "#10b981", "#ecfdf5"],
-      type: "figma",
-      link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
-      screenshot: "/imgs/screenshots/aidus.png"
-    },
-
-    {
-      title: "ITS",
-      subtitle: "Construction Materials",
-      description: "Modern marketplace platform for buying construction materials with advanced search, vendor management, and seamless ordering experience.",
-      category: "Marketplace Platform",
-      tools: ["Figma", "Protopie"],
-      mockupType: "mobile",
-      year: "2024",
-      colors: ["#ea580c", "#fb923c", "#fed7aa"],
-      type: "pdf",
-      filename: "its.pdf",
-      requiresContact: false,
-      screenshot: "/imgs/screenshots/its.png"
-    },
-
-
-  ];
-
   const handleViewMore = () => {
     navigate('/portfolio');
   };
 
-  const handleProjectClick = (project) => {
-    if (project.type === 'website') {
-      window.open(project.url, '_blank', 'noopener,noreferrer');
-    } else if (project.type === 'design') {
-      // Navigate to portfolio page for design details
-      navigate('/portfolio');
-    }
+  const handleProjectClick = (url) => {
+    if (!url) return;
+    window.open(url, '_blank', 'noopener,noreferrer');
   };
 
   const handleDesignClick = (design) => {
@@ -149,6 +64,143 @@ const PortfolioLanding = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  /**
+   * Renders as an internal Link when the project has a case study, as a
+   * click-through when it has a real public URL, and as a plain non-clickable
+   * card when it has neither — never as a dead "#" link.
+   */
+  const renderProjectCard = (project, index) => {
+    const isHovered = hoveredProject === index;
+    const hasCaseStudy = Boolean(project.to);
+    const hasLink = hasCaseStudy || Boolean(project.url);
+    const actionLabel = hasCaseStudy
+      ? 'View Case Study'
+      : project.url
+        ? 'View Project'
+        : project.linkNote || 'Not Publicly Available';
+
+    const inner = (
+      <>
+        {/* Project Screenshot Preview */}
+        <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
+
+          {/* Screenshot Preview */}
+          {project.screenshot ? (
+            <div className="absolute inset-0">
+              <img
+                src={project.screenshot}
+                alt={`${project.title} preview`}
+                className="w-full h-full object-cover object-top transition-all duration-500 hover:scale-105"
+              />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
+
+              {/* Type indicator */}
+              <div className="absolute top-4 right-4">
+                <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
+                  <Globe className="w-4 h-4 text-white" />
+                </div>
+              </div>
+
+              {/* Hover overlay - Centered */}
+              {hasLink && (
+                <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${isHovered ? 'bg-[#0a0100]/40' : ''
+                  }`}>
+                  <div className={`transition-all duration-300 text-center transform ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    }`}>
+                    <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                      <span>{hasCaseStudy ? 'VIEW CASE STUDY' : 'VIEW PROJECT'}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* Fallback if no screenshot */
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center px-6">
+                <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
+                  <Globe className="w-8 h-8 text-[#0a0100]/70" />
+                </div>
+                <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</h3>
+                <p className="text-[#0a0100]/70">{project.subtitle}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Project Info */}
+        <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+          <div className="mb-4 flex-grow">
+            <div className="mb-3">
+              <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
+                {project.category}
+              </div>
+              <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>
+            </div>
+            <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
+              {project.description}
+            </p>
+
+            {/* Tech Stack */}
+            <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+              {project.tech.map((tech, techIndex) => (
+                <span
+                  key={techIndex}
+                  className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* View Project Link */}
+          <div className="flex items-center justify-between mt-auto">
+            <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+              {actionLabel}
+            </span>
+            {hasLink && (
+              <ArrowUpRight
+                className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${isHovered ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
+                  }`}
+              />
+            )}
+          </div>
+        </div>
+      </>
+    );
+
+    const className = `group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-lg ${hasLink ? 'cursor-pointer' : ''}`;
+    const sharedProps = {
+      onMouseEnter: () => setHoveredProject(index),
+      onMouseLeave: () => setHoveredProject(null),
+    };
+
+    if (hasCaseStudy) {
+      return (
+        <Link key={project.slug} to={project.to} className={className} {...sharedProps}>
+          {inner}
+        </Link>
+      );
+    }
+
+    return (
+      <div
+        key={project.slug}
+        className={className}
+        onClick={project.url ? () => handleProjectClick(project.url) : undefined}
+        {...sharedProps}
+      >
+        {inner}
+      </div>
+    );
   };
 
   return (
@@ -234,108 +286,7 @@ const PortfolioLanding = () => {
 
           {/* Website Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-16">
-            {projects.filter(project => project.type === 'website').map((project, index) => (
-              <div
-                key={index}
-                className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg"
-                onClick={() => handleProjectClick(project)}
-                onMouseEnter={() => setHoveredProject(index)}
-                onMouseLeave={() => setHoveredProject(null)}
-              >
-                {/* Project Screenshot Preview */}
-                <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-
-                  {/* Screenshot Preview */}
-                  {project.screenshot ? (
-                    <div className="absolute inset-0">
-                      <img
-                        src={project.screenshot}
-                        alt={`${project.title} preview`}
-                        className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-                        onError={(e) => {
-                          // Fallback to icon if screenshot doesn't load
-                          e.target.style.display = 'none';
-                          e.target.parentElement.nextElementSibling.style.display = 'flex';
-                        }}
-                      />
-
-                      {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-
-                      {/* Type indicator */}
-                      <div className="absolute top-4 right-4">
-                        <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
-                          <Globe className="w-4 h-4 text-white" />
-                        </div>
-                      </div>
-
-                      {/* Hover overlay - Centered */}
-                      <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === index ? 'bg-[#0a0100]/40' : ''
-                        }`}>
-                        <div className={`transition-all duration-300 text-center transform ${hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                          }`}>
-                          <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                            <span>VIEW PROJECT</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Fallback if no screenshot */
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
-                          <Globe className="w-8 h-8 text-[#0a0100]/70" />
-                        </div>
-                        <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</h3>
-                        <p className="text-[#0a0100]/70">{project.subtitle}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Project Info */}
-                <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
-                  <div className="mb-4 flex-grow">
-                    <div className="mb-3">
-                      <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
-                        {project.category}
-                      </div>
-                      <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
-                        {project.title}
-                      </h3>
-                      <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>
-                    </div>
-                    <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
-                      {project.description}
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
-                      {project.tech.map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* View Project Link */}
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
-                      View Project
-                    </span>
-                    <ArrowUpRight
-                      className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                        }`}
-                    />
-                  </div>
-                </div>
-              </div>
-            ))}
+            {landingProjects.map((project, index) => renderProjectCard(project, index))}
           </div>
         </div>
 
@@ -357,7 +308,7 @@ const PortfolioLanding = () => {
 
           {/* Design Grid - Display first 2 designs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            {designConcepts.slice(0, 2).map((design, index) => (
+            {landingDesignConcepts.map((design, index) => (
               <div
                 key={index}
                 className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden"
@@ -376,9 +327,8 @@ const PortfolioLanding = () => {
                         alt={`${design.title} design preview`}
                         className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                         onError={(e) => {
-                          // Fallback to icon if screenshot doesn't load
+                          // Hide the broken image; the gradient panel behind it stands in.
                           e.target.style.display = 'none';
-                          e.target.parentElement.nextElementSibling.style.display = 'flex';
                         }}
                       />
 
@@ -577,7 +527,7 @@ const PortfolioLanding = () => {
                       </Link>
 
                       <button
-                        onClick={() => window.open('mailto:oussama.alouche@outlook.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
+                        onClick={() => window.open(`mailto:${CONTACT.emailPrimary}?subject=Design%20File%20Request:%20` + encodeURIComponent(currentPdf.title))}
                         className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
                       >
                         <span>📧</span>

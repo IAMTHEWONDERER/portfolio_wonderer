@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowUpRight, Mail, Phone, Github, Linkedin, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, Mail, Github, Linkedin, MessageCircle } from 'lucide-react';
 import { useNavigate, Link } from 'react-router-dom';
+import { CONTACT } from '../../data/projects';
 
 const ContactLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -16,29 +17,29 @@ const ContactLanding = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "oussama.alouche@outlook.com",
-      href: "mailto:oussama.alouche@outlook.com",
+      value: CONTACT.emailPrimary,
+      href: `mailto:${CONTACT.emailPrimary}`,
       color: "text-[#e61f00]"
     },
     {
-      icon: Phone,
-      label: "Phone",
-      value: "+212 7 20 14 88 07",
-      href: "tel:+212720148807",
+      icon: Mail,
+      label: "Email (Alternate)",
+      value: CONTACT.emailSecondary,
+      href: `mailto:${CONTACT.emailSecondary}`,
       color: "text-[#0a0100]"
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "github.com/IAMTHEWONDERER",
-      href: "https://github.com/IAMTHEWONDERER",
+      value: CONTACT.githubLabel,
+      href: CONTACT.github,
       color: "text-[#e61f00]"
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "linkedin.com/in/oussama-alouche",
-      href: "https://linkedin.com/in/oussama-alouche",
+      value: CONTACT.linkedinLabel,
+      href: CONTACT.linkedin,
       color: "text-[#0a0100]"
     }
   ];

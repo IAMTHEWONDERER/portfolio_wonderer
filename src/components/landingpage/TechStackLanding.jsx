@@ -2,12 +2,12 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useDragControls } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, X, Globe } from 'lucide-react';
+import { CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../../data/projects';
 
 const TechStackLanding = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [showCV, setShowCV] = useState(false);
-  const [cvLanguage, setCvLanguage] = useState('english');
   const [isDragging, setIsDragging] = useState(false);
   const [isSafari, setIsSafari] = useState(false);
 
@@ -136,11 +136,6 @@ const TechStackLanding = () => {
     }
   ];
 
-  const cvFiles = {
-    english: '/pdfs/updated_Oussama_Alouche.pdf',
-    french: '/pdfs/french_Oussama_Alouche.pdf'
-  };
-
   useEffect(() => {
     // Load immediately when component mounts
     setIsLoaded(true);
@@ -201,8 +196,8 @@ const TechStackLanding = () => {
 
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = cvFiles[cvLanguage];
-    link.download = `OussamaAlouche_CV_${cvLanguage.toUpperCase()}.pdf`;
+    link.href = CV_FILE;
+    link.download = CV_DOWNLOAD_NAME;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -538,7 +533,7 @@ const TechStackLanding = () => {
 
                       <div className="flex flex-col gap-3">
                         <a
-                          href={cvFiles[cvLanguage]}
+                          href={CV_FILE}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-all duration-300 cursor-pointer active:scale-95"
@@ -559,11 +554,9 @@ const TechStackLanding = () => {
                   ) : (
                     /* Standard iframe for other browsers */
                     <iframe
-                      key={cvLanguage}
-                      src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                      src={`${CV_FILE}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
                       className="w-full h-full border-none"
-                      title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
-                      onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                      title="CV - Oussama Alouche"
                     />
                   )}
                 </div>
@@ -572,27 +565,9 @@ const TechStackLanding = () => {
               {/* Modal Footer - Responsive Controls */}
               <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
                 <div className="flex items-center justify-between gap-2">
-                  {/* Language Toggle */}
-                  <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
-                    <button
-                      onClick={() => setCvLanguage('english')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'english'
-                        ? 'bg-[#0a0100] text-white'
-                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                        }`}
-                    >
-                      EN
-                    </button>
-                    <button
-                      onClick={() => setCvLanguage('french')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'french'
-                        ? 'bg-[#0a0100] text-white'
-                        : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                        }`}
-                    >
-                      FR
-                    </button>
-                  </div>
+                  <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+                    Updated {CV_LAST_UPDATED}
+                  </span>
 
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">

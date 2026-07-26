@@ -198,22 +198,22 @@ const AboutLanding = () => {
             <div className="grid md:grid-cols-2 gap-12 text-left max-w-4xl mx-auto">
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  I'm Oussama Alouche, a Frontend Engineer based in Morocco, passionate about
-                  crafting scalable, high-performance web experiences that users love.
+                  I'm Oussama Alouche, a Full-Stack Engineer & Frontend Architect, currently
+                  Design Systems & Frontend Experience Lead at BuildwellAI, remote from London.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
-                  My approach combines modern frontend architecture with cutting-edge technology
-                  to deliver solutions that are both visually stunning and technically robust.
+                  There I own the whole UI/UX function — brand identity, design system and visual
+                  consistency across every product in the suite.
                 </p>
               </div>
               <div>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed mb-6">
-                  With expertise in React, TypeScript, and design systems, I transform complex
-                  requirements into elegant, intuitive interfaces with exceptional UX.
+                  I work in React, Next.js and TypeScript on the front, and FastAPI, Node and
+                  PostgreSQL behind it, turning complex requirements into interfaces that feel obvious.
                 </p>
                 <p className="text-lg text-[#0a0100]/70 leading-relaxed">
-                  I specialize in frontend architecture, performance optimization, and AI integration,
-                  leading teams to build products that make a real impact.
+                  My focus is design systems, frontend architecture and AI integration — building
+                  products end to end rather than handing them off halfway.
                 </p>
               </div>
             </div>
@@ -310,7 +310,7 @@ const AboutLanding = () => {
                 Design Systems
               </span>
               <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
-                Performance Optimization
+                Full-Stack Engineering
               </span>
               <span className="border border-[#0a0100]/20 px-4 md:px-6 py-2 md:py-3 hover:border-[#e61f00] hover:text-[#e61f00] transition-colors duration-300 cursor-pointer">
                 AI Integration

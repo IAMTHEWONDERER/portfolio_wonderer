@@ -1,8 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, ExternalLink, Globe, Monitor, Smartphone, Code, Palette, Figma, Eye, Download, FileText, ExternalLinkIcon } from 'lucide-react';
+import { ArrowUpRight, ExternalLink, Globe, Monitor, Smartphone, Code, Palette, Figma, Download, FileText, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { title } from 'framer-motion/client';
+import {
+  CONTACT,
+  designConcepts,
+  flagshipProjects,
+  portfolioWebProjects,
+} from '../../data/projects';
+
+const CARD_CLASS =
+  'group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-lg transform';
 
 const SimplifiedPortfolio = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -27,197 +35,8 @@ const SimplifiedPortfolio = () => {
     detectSafari();
   }, []);
 
-  // Use the same projects from HeroPortfolio with screenshots
-  const featuredProjects = [
-
-    {
-      title: "WorkWhile",
-      subtitle: "Workspace Innovation",
-      description: "Innovative workspace solution platform with clean interface design and powerful functionality.",
-      url: "https://workwhile.vercel.app",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "School Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/workwhile.png"
-    },
-    {
-      title: "Asanada",
-      subtitle: "Digital Beauty",
-      description: "Beautiful and responsive website delivering exceptional user experience and modern aesthetics.",
-      url: "https://asanada-website.vercel.app",
-      tech: ["React", "JavaScript", "Framer Motion"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/asanada.png"
-    },
-    {
-      title: "Wonderer Portfolio",
-      subtitle: "Personal Showcase",
-      description: "My personal portfolio showcasing my skills, projects, and creative journey.",
-      url: "https://wondererme.vercel.app",
-      tech: ["React", "Tailwind CSS", "Vite"],
-      category: "Personal Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/wonderer.png"
-    },
-    {
-      title: "Eduk Asanada LMS",
-      subtitle: "Learning Platform",
-      description: "A comprehensive Learning Management System designed to enhance educational experiences with interactive features.",
-      url: "https://eduk.asanada.org",
-      tech: ["Laravel", "MySQL", "Bootstrap"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/edukasanada.png"
-    },
-    {
-      title: "Appart9 Platform",
-      subtitle: "Real Estate Solution",
-      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
-      url: "https://appartement9.com/",
-      tech: ["React", "Node.js", "PostgreSQL"],
-      category: "Real Estate Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/appart9.png"
-    },
-    {
-      title: "FOSTP",
-      subtitle: "Foundation Website",
-      description: "Professional foundation website featuring organizational information, projects showcase, and community engagement initiatives.",
-      url: "https://fostp.ma",
-      tech: ["React", "ExpressJS", "NodeJS", "MySQL"],
-      category: "Foundation Website",
-      type: "website",
-      screenshot: "/imgs/screenshots/fostp.png"
-    },
-    {
-      title: "TECHNIQ8",
-      subtitle: "Technology Solutions",
-      description: "Innovative technology solutions platform offering a range of services from software development to IT consulting.",
-      url: "https://techniq8.com",
-      tech: ["React", "Node.js", "AWS"],
-      category: "Technology Platform",
-      type: "website",
-      screenshot: "/imgs/screenshots/techniq8.png"
-    },
-    {
-      title: "RechargerMonAuto",
-      subtitle: "Electric Vehicle Charging",
-      description: "A platform for locating and reserving electric vehicle charging stations.",
-      url: "https://rechargemonauto.com",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "Transportation",
-      type: "website",
-      screenshot: "/imgs/screenshots/rmasite.png"
-    }
-  ];
-
-  // UI/UX Designs with screenshots - Real projects with available assets
-  const designConcepts = [
-    {
-      title: "AidUs Charity Platform",
-      subtitle: "Donation & Community",
-      description: "A comprehensive charity and donation platform designed to connect donors with causes, featuring intuitive donation flows and community engagement.",
-      category: "Charity Platform",
-      tools: ["Figma", "Prototyping"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#059669", "#10b981", "#ecfdf5"],
-      type: "figma",
-      link: "https://www.figma.com/design/4oLIS6PsSSDOgbJwWX6kV5/AidUs--Charity---Donation?node-id=0-1&p=f",
-      screenshot: "/imgs/screenshots/aidus.png"
-    },
-    {
-      title: " AZ Food",
-      subtitle: "Food Delivery",
-      description: "A user-friendly food delivery platform connecting customers with local restaurants for seamless ordering.",
-      category: "Food Delivery",
-      tools: ["Figma", "Prototyping"],
-      mockupType: "mobile",
-      year: "2024",
-      colors: ["#ef4444", "#fca5a1", "#fee2e2"],
-      type: "pdf",
-      filename: "azfood.pdf",
-      requiresContact: false,
-
-      screenshot: "/imgs/screenshots/azfood.png"
-    },
-    {
-      title: "AZ Energie",
-      subtitle: "Energy Solutions",
-      description: "Sustainable energy solutions platform offering services in solar energy, wind energy, and energy efficiency consulting.",
-      category: "Energy Solutions",
-      tools: ["Figma", "Prototyping"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#4ade80", "#22c55e", "#ecfdf5"],
-      type: "pdf",
-      filename: "azenergie.pdf",
-      requiresContact: false,
-
-      screenshot: "/imgs/screenshots/azenergie.png"
-    },
-    {
-      title: ' Neom Agency',
-      subtitle: "Creative Agency",
-      description: "Innovative creative agency specializing in branding, design, and digital marketing solutions.",
-      category: "Creative Agency",
-      tools: ["Figma", "Prototyping"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#3b82f6", "#60a5fa", "#dbeafe"],
-      type: "pdf",
-      filename: "neom.pdf",
-      requiresContact: false,
-
-      screenshot: "/imgs/screenshots/neom.png"
-    },
-    {
-      title: "RMA Marketplace",
-      subtitle: "Construction Materials",
-      description: "Modern marketplace platform for buying construction materials with advanced search, vendor management, and seamless ordering experience.",
-      category: "Marketplace Platform",
-      tools: ["Figma", "Protopie"],
-      mockupType: "mobile",
-      year: "2024",
-      colors: ["#ea580c", "#fb923c", "#fed7aa"],
-      type: "pdf",
-      filename: "rmamobile.pdf",
-      requiresContact: false,
-      screenshot: "/imgs/screenshots/rma.png"
-    },
-    {
-      title: "AZ Finance Platform",
-      subtitle: "Financial Services",
-      description: "Comprehensive financial services platform featuring investment tracking, portfolio management, and advanced analytics for modern investors.",
-      category: "Finance Platform",
-      tools: ["Figma", "Sketch"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#1e3a8a", "#3b82f6", "#e0f2fe"],
-      type: "pdf",
-      filename: "azfinance.pdf",
-      requiresContact: false,
-      screenshot: "/imgs/screenshots/azfinance.png"
-    },
-    {
-      title: "ITS Management System",
-      subtitle: "IT Service Management",
-      description: "Advanced IT service management platform with ticket tracking, resource allocation, and comprehensive reporting capabilities.",
-      category: "IT Management",
-      tools: ["Figma", "InVision"],
-      mockupType: "desktop",
-      year: "2024",
-      colors: ["#0f172a", "#1e293b", "#f1f5f9"],
-      type: "pdf",
-      filename: "its.pdf",
-      requiresContact: false,
-      screenshot: "/imgs/screenshots/its.png"
-    },
-
-  ];
-
   const handleProjectClick = (url) => {
+    if (!url) return;
     window.open(url, '_blank', 'noopener,noreferrer');
   };
 
@@ -245,6 +64,143 @@ const SimplifiedPortfolio = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  /**
+   * Project card. Renders as an internal Link when the project has a case
+   * study, as a click-through when it has a real public URL, and as a plain
+   * non-clickable card when it has neither — never as a dead "#" link.
+   */
+  const renderProjectCard = (project, index, keyPrefix) => {
+    const isHovered = hoveredProject === `${keyPrefix}-${index}`;
+    const hasCaseStudy = Boolean(project.to);
+    const hasLink = hasCaseStudy || Boolean(project.url);
+    const actionLabel = hasCaseStudy
+      ? 'View Case Study'
+      : project.url
+        ? 'View Project'
+        : project.linkNote || 'Not Publicly Available';
+
+    const inner = (
+      <>
+        {/* Project Screenshot Preview */}
+        <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
+          {project.screenshot ? (
+            <div className="absolute inset-0">
+              <img
+                src={project.screenshot}
+                alt={`${project.title} preview`}
+                className="w-full h-full object-cover object-top transition-all duration-500 hover:scale-105"
+              />
+
+              {/* Gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
+
+              {/* Type indicator */}
+              <div className="absolute top-4 right-4">
+                <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
+                  <Globe className="w-4 h-4 text-white" />
+                </div>
+              </div>
+
+              {/* Hover overlay - Centered */}
+              {hasLink && (
+                <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${isHovered ? 'bg-[#0a0100]/40' : ''
+                  }`}>
+                  <div className={`transition-all duration-300 text-center transform ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                    }`}>
+                    <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                      <span>{hasCaseStudy ? 'VIEW CASE STUDY' : 'VIEW PROJECT'}</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : (
+            /* Fallback if no screenshot */
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center px-6">
+                <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
+                  <Globe className="w-8 h-8 text-[#0a0100]/70" />
+                </div>
+                <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</h3>
+                <p className="text-[#0a0100]/70">{project.subtitle}</p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Project Info */}
+        <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
+          <div className="mb-4 flex-grow">
+            <div className="mb-3">
+              <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
+                {project.category}
+              </div>
+              <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                {project.title}
+              </h3>
+              <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>
+            </div>
+            <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
+              {project.description}
+            </p>
+
+            {/* Tech Stack */}
+            <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+              {project.tech.map((tech, techIndex) => (
+                <span
+                  key={techIndex}
+                  className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
+                >
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* View Project Link */}
+          <div className="flex items-center justify-between mt-auto">
+            <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+              {actionLabel}
+            </span>
+            {hasLink && (
+              <ArrowUpRight
+                className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${isHovered ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
+                  }`}
+              />
+            )}
+          </div>
+        </div>
+      </>
+    );
+
+    const sharedProps = {
+      onMouseEnter: () => setHoveredProject(`${keyPrefix}-${index}`),
+      onMouseLeave: () => setHoveredProject(null),
+      style: { transitionDelay: isLoaded ? `${index * 0.1}s` : '0s' },
+    };
+
+    const stateClass = `${CARD_CLASS} ${hasLink ? 'cursor-pointer' : ''} ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`;
+
+    if (hasCaseStudy) {
+      return (
+        <Link key={project.slug} to={project.to} className={stateClass} {...sharedProps}>
+          {inner}
+        </Link>
+      );
+    }
+
+    return (
+      <div
+        key={project.slug}
+        className={stateClass}
+        onClick={project.url ? () => handleProjectClick(project.url) : undefined}
+        {...sharedProps}
+      >
+        {inner}
+      </div>
+    );
   };
 
   return (
@@ -302,9 +258,41 @@ const SimplifiedPortfolio = () => {
               style={{ transitionDelay: isLoaded ? '0.2s' : '0s' }}
             >
               <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-4xl mx-auto leading-relaxed">
-                A curated selection of my best web development projects and UI/UX design concepts,
-                demonstrating technical expertise and creative vision.
+                A curated selection of the products, platforms and design systems I build —
+                from live ventures to client and product engineering work.
               </p>
+            </div>
+          </div>
+
+          {/* Products & Ventures - current era of work, shown first */}
+          <div
+            className={`mb-32 transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
+              }`}
+            style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
+          >
+            <div
+              className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
+              style={{ transitionDelay: isLoaded ? '0.3s' : '0s' }}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <Sparkles className="w-8 h-8 text-[#e61f00]" />
+                <h3 className="font-erstoria text-3xl md:text-4xl text-[#0a0100] tracking-wide">
+                  PRODUCTS & VENTURES
+                </h3>
+              </div>
+              <p className="text-lg text-[#0a0100]/70 leading-relaxed max-w-3xl">
+                Current work — the products I design and engineer at BuildwellAI, my own
+                venture, and the platform behind my master's thesis.
+              </p>
+            </div>
+
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
+                }`}
+              style={{ transitionDelay: isLoaded ? '0.4s' : '0s' }}
+            >
+              {flagshipProjects.map((project, index) => renderProjectCard(project, index, 'flagship'))}
             </div>
           </div>
 
@@ -337,112 +325,7 @@ const SimplifiedPortfolio = () => {
                 }`}
               style={{ transitionDelay: isLoaded ? '0.4s' : '0s' }}
             >
-              {featuredProjects.map((project, index) => (
-                <div
-                  key={index}
-                  className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                    }`}
-                  onClick={() => handleProjectClick(project.url)}
-                  onMouseEnter={() => setHoveredProject(index)}
-                  onMouseLeave={() => setHoveredProject(null)}
-                  style={{
-                    transitionDelay: isLoaded ? `${index * 0.1}s` : '0s',
-                  }}
-                >
-                  {/* Project Screenshot Preview */}
-                  <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-
-                    {/* Screenshot Preview */}
-                    {project.screenshot ? (
-                      <div className="absolute inset-0">
-                        <img
-                          src={project.screenshot}
-                          alt={`${project.title} preview`}
-                          className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-                          onError={(e) => {
-                            // Fallback to icon if screenshot doesn't load
-                            e.target.style.display = 'none';
-                            e.target.parentElement.nextElementSibling.style.display = 'flex';
-                          }}
-                        />
-
-                        {/* Gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-
-                        {/* Type indicator */}
-                        <div className="absolute top-4 right-4">
-                          <div className="p-2 backdrop-blur-sm bg-white/20 border border-white/30">
-                            <Globe className="w-4 h-4 text-white" />
-                          </div>
-                        </div>
-
-                        {/* Hover overlay - Centered */}
-                        <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === index ? 'bg-[#0a0100]/40' : ''
-                          }`}>
-                          <div className={`transition-all duration-300 text-center transform ${hoveredProject === index ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-                            }`}>
-                            <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                              <span>VIEW PROJECT</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      /* Fallback if no screenshot */
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="text-center">
-                          <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
-                            <Globe className="w-8 h-8 text-[#0a0100]/70" />
-                          </div>
-                          <h3 className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</h3>
-                          <p className="text-[#0a0100]/70">{project.subtitle}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Project Info */}
-                  <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
-                    <div className="mb-4 flex-grow">
-                      <div className="mb-3">
-                        <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
-                          {project.category}
-                        </div>
-                        <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
-                          {project.title}
-                        </h3>
-                        <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>
-                      </div>
-                      <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      {/* Tech Stack */}
-                      <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
-                        {project.tech.map((tech, techIndex) => (
-                          <span
-                            key={techIndex}
-                            className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
-                          >
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* View Project Link */}
-                    <div className="flex items-center justify-between mt-auto">
-                      <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
-                        View Project
-                      </span>
-                      <ArrowUpRight
-                        className={`w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 ${hoveredProject === index ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                          }`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
+              {portfolioWebProjects.map((project, index) => renderProjectCard(project, index, 'web'))}
             </div>
           </div>
 
@@ -477,7 +360,7 @@ const SimplifiedPortfolio = () => {
             >
               {designConcepts.map((design, index) => (
                 <div
-                  key={index}
+                  key={design.slug}
                   className={`group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/30 transition-all duration-500 cursor-pointer overflow-hidden transform ${isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                     }`}
                   onClick={() => handleDesignClick(design)}
@@ -498,9 +381,8 @@ const SimplifiedPortfolio = () => {
                           alt={`${design.title} design preview`}
                           className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                           onError={(e) => {
-                            // Fallback to icon if screenshot doesn't load
+                            // Hide the broken image; the gradient panel behind it stands in.
                             e.target.style.display = 'none';
-                            e.target.parentElement.nextElementSibling.style.display = 'flex';
                           }}
                         />
 
@@ -660,116 +542,6 @@ const SimplifiedPortfolio = () => {
             </div>
           </div>
 
-          {/* Passion Projects Section */}
-          <div
-            className={`mb-32 transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
-              }`}
-            style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
-          >
-            <div
-              className={`mb-16 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-                }`}
-              style={{ transitionDelay: isLoaded ? '0.5s' : '0s' }}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <Code className="w-8 h-8 text-[#e61f00]" />
-                <h3 className="font-erstoria text-3xl md:text-4xl text-[#0a0100] tracking-wide">
-                  PASSION PROJECTS
-                </h3>
-              </div>
-              <p className="text-lg text-[#0a0100]/70 leading-relaxed max-w-3xl">
-                Personal ventures where I explore new technologies and build business ideas.
-              </p>
-            </div>
-
-            {/* TRCKS Card - Same style as other project cards */}
-            <div
-              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 transition-all duration-700 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-8'
-                }`}
-              style={{ transitionDelay: isLoaded ? '0.6s' : '0s' }}
-            >
-              <Link
-                to="/portfolio/trcks"
-                className="group relative bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg"
-              >
-                {/* Project Screenshot Preview */}
-                <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
-                  <img
-                    src="/imgs/Screenshot 2026-01-05 040627.png"
-                    alt="TRCKS preview"
-                    className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                    }}
-                  />
-
-                  {/* Fallback */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
-                    <span className="font-erstoria text-4xl text-[#0a0100]/20">TRCKS</span>
-                  </div>
-
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/30 via-transparent to-transparent" />
-
-                  {/* Type indicator */}
-                  <div className="absolute top-4 right-4">
-                    <div className="p-2 backdrop-blur-sm bg-[#e61f00]/20 border border-[#e61f00]/30">
-                      <Globe className="w-4 h-4 text-white" />
-                    </div>
-                  </div>
-
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center group-hover:bg-[#0a0100]/40">
-                    <div className="transition-all duration-300 text-center transform opacity-0 scale-95 group-hover:opacity-100 group-hover:scale-100">
-                      <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                        <span>VIEW CASE STUDY</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Project Info */}
-                <div className="p-4 sm:p-6 md:p-8 flex-grow flex flex-col">
-                  <div className="mb-4 flex-grow">
-                    <div className="mb-3">
-                      <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#e61f00]/10 text-[#e61f00] border border-[#e61f00]/20">
-                        Personal Business
-                      </div>
-                      <h3 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
-                        TRCKS
-                      </h3>
-                      <p className="text-sm text-[#0a0100]/60 mb-3">Gym Progress Tracking Platform</p>
-                    </div>
-                    <p className="text-[#0a0100]/70 text-sm leading-relaxed mb-4 line-clamp-3">
-                      AI-powered gym tracking with natural language workout logging. Describe your workout and let the AI handle the rest.
-                    </p>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
-                      {['React', 'TypeScript', 'Supabase', 'AI MCPs'].map((tech, techIndex) => (
-                        <span
-                          key={techIndex}
-                          className="px-2 py-1 text-xs bg-[#0a0100]/5 text-[#0a0100]/60 font-medium border border-[#0a0100]/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* View Project Link */}
-                  <div className="flex items-center justify-between mt-auto">
-                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
-                      View Case Study
-                    </span>
-                    <ArrowUpRight
-                      className="w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/40 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#e61f00]"
-                    />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
           {/* Call to Action */}
           <div
             className={`text-center transition-all duration-1000 ${isLoaded ? 'opacity-100 transform-none' : 'opacity-0 translate-y-12'
@@ -802,7 +574,7 @@ const SimplifiedPortfolio = () => {
             transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
                        opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           }
-          
+
           /* Line clamp utility */
           .line-clamp-3 {
             display: -webkit-box;
@@ -810,13 +582,13 @@ const SimplifiedPortfolio = () => {
             -webkit-box-orient: vertical;
             overflow: hidden;
           }
-          
+
           /* Ensure smooth rendering on all devices */
           .group {
             will-change: transform, opacity;
             backface-visibility: hidden;
           }
-          
+
           /* Mobile optimizations */
           @media (max-width: 768px) {
             .group {
@@ -887,7 +659,7 @@ const SimplifiedPortfolio = () => {
                       </Link>
 
                       <button
-                        onClick={() => window.open('mailto:your-email@domain.com?subject=Design%20File%20Request:%20' + encodeURIComponent(currentPdf.title))}
+                        onClick={() => window.open(`mailto:${CONTACT.emailPrimary}?subject=Design%20File%20Request:%20` + encodeURIComponent(currentPdf.title))}
                         className="inline-flex items-center gap-3 bg-[#0a0100] text-white px-6 py-3 font-erstoria tracking-wide uppercase text-sm hover:bg-[#0a0100]/80 transition-colors duration-300"
                       >
                         <span>📧</span>
@@ -956,7 +728,6 @@ const SimplifiedPortfolio = () => {
                         src={`/pdfs/${currentPdf.filename}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
                         className="w-full h-full border-none"
                         title={`${currentPdf.title} - Design PDF`}
-                        onLoad={() => console.log(`PDF loaded: ${currentPdf.filename}`)}
                       />
                     )}
                   </div>

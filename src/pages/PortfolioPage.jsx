@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { EnhancedNavbar } from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import HeroPortfolio from '../components/portfoliopage/HeroPortfolio';
 import Lenis from 'lenis';
 import ThinkPortfolio from '../components/portfoliopage/ThinkPortfolio';
+import ExperienceTimeline from '../components/portfoliopage/ExperienceTimeline';
 import SimplifiedPortfolio from '../components/portfoliopage/DisplayPortfolio';
 
 const PortfolioPage = () => {
@@ -55,9 +55,7 @@ const PortfolioPage = () => {
         />
       </div>
 
-      {/* Navbar */}
-      <EnhancedNavbar />
-
+      {/* Navbar is rendered once globally in AppRouter — do not add a second one here. */}
 
       {/* Main Content */}
       <main className="relative z-10">
@@ -65,6 +63,8 @@ const PortfolioPage = () => {
         <HeroPortfolio />
 
         <ThinkPortfolio/>
+
+        <ExperienceTimeline/>
 
           <SimplifiedPortfolio/>
       </main>

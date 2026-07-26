@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Mail, Phone, Github, Linkedin, MapPin, Clock, Download, X } from 'lucide-react';
+import { ArrowUpRight, Mail, Github, Linkedin, MapPin, Clock, Download, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Footer from '../components/common/Footer';
 import Lenis from 'lenis';
+import { CONTACT, CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../data/projects';
 
 const ContactPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hoveredContact, setHoveredContact] = useState(null);
   const [showCV, setShowCV] = useState(false);
-  const [cvLanguage, setCvLanguage] = useState('english');
   const [isSafari, setIsSafari] = useState(false);
 
   const sectionRef = useRef(null);
@@ -63,32 +63,32 @@ const ContactPage = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "oussama.alouche@outlook.com",
-      href: "mailto:oussama.alouche@outlook.com",
+      value: CONTACT.emailPrimary,
+      href: `mailto:${CONTACT.emailPrimary}`,
       color: "text-[#e61f00]",
       description: "Send me an email anytime"
     },
     {
-      icon: Phone,
-      label: "Phone",
-      value: "+212 7 20 14 88 07",
-      href: "tel:+212720148807",
+      icon: Mail,
+      label: "Email (Alternate)",
+      value: CONTACT.emailSecondary,
+      href: `mailto:${CONTACT.emailSecondary}`,
       color: "text-[#0a0100]",
-      description: "Call me during business hours"
+      description: "A second inbox, equally watched"
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "github.com/IAMTHEWONDERER",
-      href: "https://github.com/IAMTHEWONDERER",
+      value: CONTACT.githubLabel,
+      href: CONTACT.github,
       color: "text-[#e61f00]",
       description: "Check out my repositories"
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "linkedin.com/in/oussama-alouche",
-      href: "https://linkedin.com/in/oussama-alouche",
+      value: CONTACT.linkedinLabel,
+      href: CONTACT.linkedin,
       color: "text-[#0a0100]",
       description: "Connect with me professionally"
     }
@@ -109,15 +109,10 @@ const ContactPage = () => {
     }
   ];
 
-  const cvFiles = {
-    english: '/pdfs/updated_Oussama_Alouche.pdf',
-    french: '/pdfs/french_Oussama_Alouche.pdf'
-  };
-
   const handleDownloadCV = () => {
     const link = document.createElement('a');
-    link.href = cvFiles[cvLanguage];
-    link.download = `OussamaAlouche_CV_${cvLanguage.toUpperCase()}.pdf`;
+    link.href = CV_FILE;
+    link.download = CV_DOWNLOAD_NAME;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -289,7 +284,7 @@ const ContactPage = () => {
             </h4>
             <p className="text-[#0a0100]/70 leading-relaxed max-w-2xl mx-auto">
               I typically respond to all messages within 24 hours during business days.
-              For urgent matters, feel free to call or text me directly. Let's start building
+              Either inbox reaches me — use whichever you prefer. Let's start building
               something amazing together!
             </p>
           </div>
@@ -316,7 +311,7 @@ const ContactPage = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="mailto:oussama.alouche@outlook.com"
+              href={`mailto:${CONTACT.emailPrimary}`}
               className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
             >
               <Mail className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
@@ -395,7 +390,7 @@ const ContactPage = () => {
 
                       <div className="flex flex-col gap-3">
                         <a
-                          href={cvFiles[cvLanguage]}
+                          href={CV_FILE}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-all duration-300 cursor-pointer active:scale-95"
@@ -416,11 +411,9 @@ const ContactPage = () => {
                   ) : (
                     /* Standard iframe for other browsers */
                     <iframe
-                      key={cvLanguage}
-                      src={`${cvFiles[cvLanguage]}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
+                      src={`${CV_FILE}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
                       className="w-full h-full border-none"
-                      title={`CV - ${cvLanguage === 'english' ? 'English' : 'Français'}`}
-                      onLoad={() => console.log(`CV loaded: ${cvLanguage}`)}
+                      title="CV - Oussama Alouche"
                     />
                   )}
                 </div>
@@ -429,27 +422,9 @@ const ContactPage = () => {
               {/* Modal Footer - Responsive Controls */}
               <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
                 <div className="flex items-center justify-between gap-2">
-                  {/* Language Toggle */}
-                  <div className="flex items-center gap-1 bg-white border border-[#0a0100]/20">
-                    <button
-                      onClick={() => setCvLanguage('english')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'english'
-                          ? 'bg-[#0a0100] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                        }`}
-                    >
-                      EN
-                    </button>
-                    <button
-                      onClick={() => setCvLanguage('french')}
-                      className={`px-3 sm:px-4 py-2 text-xs sm:text-sm font-erstoria tracking-wide transition-all duration-300 cursor-pointer active:scale-95 ${cvLanguage === 'french'
-                          ? 'bg-[#0a0100] text-white'
-                          : 'text-[#0a0100]/70 hover:text-[#0a0100] hover:bg-[#0a0100]/5'
-                        }`}
-                    >
-                      FR
-                    </button>
-                  </div>
+                  <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+                    Updated {CV_LAST_UPDATED}
+                  </span>
 
                   {/* Action Buttons Group */}
                   <div className="flex items-center gap-1">

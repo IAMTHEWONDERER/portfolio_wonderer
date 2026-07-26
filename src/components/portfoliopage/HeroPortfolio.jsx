@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { portfolioHeroProjects } from '../../data/projects';
 import { ArrowUpRight, ExternalLink, Globe, Code, Palette, Zap, Figma, Monitor, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useDragControls } from 'framer-motion';
 
@@ -15,59 +16,16 @@ const HeroPortfolio = () => {
   const x = useMotionValue(0);
   const dragControls = useDragControls();
 
-  const featuredProjects = [
-   
-    {
-      title: "WorkWhile",
-      subtitle: "Workspace Innovation", 
-      description: "Innovative platform with clean interface and powerful functionality",
-      url: "https://workwhile.vercel.app",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "Platform",
-      type: "website",
-      screenshot: "/imgs/screenshots/workwhile.png"
-    },
-    {
- 
-      title: "Appart9 Platform",
-      subtitle: "Real Estate Solution",
-      description: "Modern real estate platform with advanced property search, virtual tours, and comprehensive listing management.",
-      url: "https://appartement9.com/",
-      tech: ["React", "Node.js", "PostgreSQL"],
-      category: "Real Estate Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/appart9.png"
-    
-    },
-    {
-      title: "Wonderer Portfolio",
-      subtitle: "Personal Showcase",
-      description: "My personal portfolio showcasing my skills, projects, and creative journey",
-      url: "https://wondererme.vercel.app",
-      tech: ["React", "Tailwind CSS", "Vite"],
-      category: "Personal Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/wonderer.png"
-    },
-    {
-      title: "Asanada",
-      subtitle: "Digital Beauty",
-      description: "Beautiful responsive website with exceptional user experience",
-      url: "https://asanada-website.vercel.app",
-      tech: ["React", "Framer Motion"],
-      category: "Website",
-      type: "website",
-      screenshot: "/imgs/screenshots/asanada.png"
-    }
-  ];
+  const featuredProjects = portfolioHeroProjects;
 
   // Create infinite carousel array
   const infiniteProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
 
+  // Proficiency indicators, not counts of shipped projects.
   const skills = [
-    { icon: Code, label: "Development", count: "15+" },
-    { icon: Palette, label: "Design", count: "10+" },
-    { icon: Zap, label: "Optimization", count: "100%" }
+    { icon: Code, label: "Development", level: "Expert" },
+    { icon: Palette, label: "Design Systems", level: "Expert" },
+    { icon: Zap, label: "Performance", level: "Core Focus" }
   ];
 
   useEffect(() => {
@@ -122,8 +80,12 @@ const HeroPortfolio = () => {
     return () => clearInterval(interval);
   }, [isDragging]); // Removed currentIndex dependency for infinite scroll
 
-  const handleProjectClick = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+  const handleProjectClick = (project) => {
+    if (project.to) {
+      navigate(project.to);
+    } else if (project.url) {
+      window.open(project.url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   const handleViewAllClick = () => {
@@ -230,7 +192,7 @@ const HeroPortfolio = () => {
                       <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-[#0a0100]/60" />
                     </div>
                     <div>
-                      <div className="font-erstoria text-base sm:text-lg text-[#0a0100] font-bold">{skill.count}</div>
+                      <div className="font-erstoria text-base sm:text-lg text-[#0a0100] font-bold">{skill.level}</div>
                       <div className="text-xs text-[#0a0100]/60 uppercase tracking-wide">{skill.label}</div>
                     </div>
                   </div>
@@ -273,7 +235,7 @@ const HeroPortfolio = () => {
                       <div
                         key={index}
                         className="w-full flex-shrink-0 cursor-pointer"
-                        onClick={() => handleProjectClick(project.url)}
+                        onClick={() => handleProjectClick(project)}
                         onMouseEnter={() => setHoveredProject(actualIndex)}
                         onMouseLeave={() => setHoveredProject(null)}
                       >
@@ -288,9 +250,8 @@ const HeroPortfolio = () => {
                                 alt={`${project.title} preview`}
                                 className="w-full h-full object-cover transition-all duration-500 hover:scale-105"
                                 onError={(e) => {
-                                  // Fallback to icon if screenshot doesn't load
+                                  // Hide the broken image; the gradient panel behind it stands in.
                                   e.target.style.display = 'none';
-                                  e.target.parentElement.nextElementSibling.style.display = 'flex';
                                 }}
                               />
                               
@@ -340,17 +301,19 @@ const HeroPortfolio = () => {
                               </div>
 
                               {/* Hover overlay - Centered */}
-                              <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
-                                hoveredProject === actualIndex ? 'bg-[#0a0100]/40' : ''
-                              }`}>
-                                <div className={`transition-all duration-300 text-center transform ${
-                                  hoveredProject === actualIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                              {(project.to || project.url) && (
+                                <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${
+                                  hoveredProject === actualIndex ? 'bg-[#0a0100]/40' : ''
                                 }`}>
-                                  <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                                    <span>{project.type === 'design' ? 'VIEW DESIGN' : 'VIEW PROJECT'}</span>
+                                  <div className={`transition-all duration-300 text-center transform ${
+                                    hoveredProject === actualIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                                  }`}>
+                                    <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                                      <span>{project.to ? 'VIEW CASE STUDY' : 'VIEW PROJECT'}</span>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
+                              )}
                             </div>
                           ) : (
                             /* Fallback if no screenshot */

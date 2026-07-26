@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ArrowLeft, Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { EnhancedNavbar } from '../components/common/Navbar';
 import Footer from '../components/common/Footer';
 import Lenis from 'lenis';
+import { caseStudies } from '../data/projects';
 
 const ProjectDetailPage = () => {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -39,71 +39,7 @@ const ProjectDetailPage = () => {
         };
     }, []);
 
-    const projectsData = {
-        trcks: {
-            id: 'trcks',
-            title: "TRCKS",
-            subtitle: "Gym Progress Tracking Platform",
-            tagline: "Train Smarter. Track Better.",
-            status: "In Development",
-            timeline: "November 2025 – Present",
-            category: "Personal Business",
-            description: "A comprehensive gym progress tracking platform designed for workout, performance, and body metrics logging. Built as a long-term personal business initiative with AI-powered coaching features that let you log workouts through natural conversation.",
-            longDescription: `TRCKS was born from a personal need - I wanted a gym tracking app that truly understood how I work out. Most apps force you into rigid structures, but real gym sessions are fluid. You superset, you adjust on the fly, you want to quickly log and get back to lifting.
-
-That's why I built TRCKS with an AI-powered coach that understands natural language. Just tell it "Did 4 sets of bench press, started at 80kg and worked up to 100kg" and it logs everything perfectly. No clicking through menus, no counting reps on your phone.`,
-            screenshot: "/imgs/Screenshot 2026-01-05 040627.png",
-            screenshots: [
-                "/imgs/Screenshot 2026-01-05 040627.png",
-                "/imgs/Screenshot 2026-01-05 040648.png",
-                "/imgs/Screenshot 2026-01-05 040711.png",
-                "/imgs/Screenshot 2026-01-05 040731.png"
-            ],
-            color: "#e61f00",
-            technologies: [
-                { name: "React.js", category: "Frontend" },
-                { name: "TypeScript", category: "Language" },
-                { name: "Tailwind CSS", category: "Styling" },
-                { name: "Supabase", category: "Backend" },
-                { name: "AI MCPs", category: "AI Integration" },
-                { name: "Vercel", category: "Deployment" }
-            ],
-            features: [
-                {
-                    title: "AI-Powered Workout Logging",
-                    description: "Describe your workout naturally and let AI parse and log everything automatically"
-                },
-                {
-                    title: "Comprehensive Progress Tracking",
-                    description: "Track weight, reps, sets, and body metrics with beautiful visualizations"
-                },
-                {
-                    title: "Real-time Sync",
-                    description: "Your data syncs instantly across all devices using Supabase's real-time features"
-                },
-                {
-                    title: "Smart Analytics",
-                    description: "Get insights into your progress with AI-generated analysis and recommendations"
-                }
-            ],
-            challenges: [
-                {
-                    challenge: "Natural Language Understanding",
-                    solution: "Implemented Model Context Protocols (MCPs) to enable the AI to understand varied workout descriptions. The system can parse complex sentences like 'I did 5x5 squats at 120, then dropped to 100 for burnout sets' and correctly log all the data."
-                },
-                {
-                    challenge: "Real-time Data Sync",
-                    solution: "Leveraged Supabase's real-time subscriptions to create a seamless experience where data updates instantly across devices. Implemented optimistic updates for immediate UI feedback."
-                },
-                {
-                    challenge: "Scalable Architecture",
-                    solution: "Designed a component-driven React architecture with clear separation of concerns. The AI layer, data layer, and UI layer are decoupled, making the codebase maintainable and testable."
-                }
-            ]
-        }
-    };
-
-    const project = projectsData[slug];
+    const project = caseStudies[slug];
 
     if (!project) {
         return (
@@ -134,7 +70,7 @@ That's why I built TRCKS with an AI-powered coach that understands natural langu
                 />
             </div>
 
-            <EnhancedNavbar />
+            {/* Navbar is rendered once globally in AppRouter — do not add a second one here. */}
 
             {/* Hero Section */}
             <section ref={heroRef} className="relative pt-24 md:pt-32 pb-16 md:pb-20">
@@ -187,28 +123,45 @@ That's why I built TRCKS with an AI-powered coach that understands natural langu
                                 ))}
                             </div>
 
-                            <div className="flex items-center gap-2 text-sm text-[#0a0100]/50">
+                            <div className="flex items-center gap-2 text-sm text-[#0a0100]/50 mb-8">
                                 <Calendar className="w-4 h-4" />
                                 <span>{project.timeline}</span>
                             </div>
+
+                            {project.liveUrl && (
+                                <a
+                                    href={project.liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 cursor-pointer"
+                                >
+                                    <span className="font-erstoria text-base tracking-wide">
+                                        VISIT {project.liveUrlLabel.toUpperCase()}
+                                    </span>
+                                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                </a>
+                            )}
                         </div>
 
                         {/* Right - Hero Image */}
                         <div className="relative">
                             <div className="relative aspect-[4/3] bg-white border border-[#0a0100]/10 overflow-hidden">
-                                <img
-                                    src={project.screenshot}
-                                    alt={`${project.title} preview`}
-                                    className="w-full h-full object-cover"
-                                    onError={(e) => {
-                                        e.target.style.display = 'none';
-                                    }}
-                                />
-
-                                {/* Fallback */}
+                                {/* Fallback sits behind the screenshot */}
                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
                                     <span className="font-erstoria text-4xl text-[#0a0100]/20">{project.title}</span>
                                 </div>
+
+                                {project.screenshot && (
+                                    <img
+                                        src={project.screenshot}
+                                        alt={`${project.title} preview`}
+                                        className="relative w-full h-full object-cover object-top"
+                                        onError={(e) => {
+                                            e.target.style.display = 'none';
+                                        }}
+                                    />
+                                )}
                             </div>
 
                             {/* Decorative element */}

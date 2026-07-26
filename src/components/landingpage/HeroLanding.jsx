@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ChevronLeft, ChevronRight, Globe, Palette } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { heroCarouselProjects } from '../../data/projects';
 import { ContainerScroll } from '../ui/container-scroll-animation';
 import { motion, useMotionValue } from 'framer-motion';
 
@@ -12,61 +13,11 @@ const HeroLanding = () => {
   const [hoveredProject, setHoveredProject] = useState(null);
   const carouselRef = useRef(null);
   const x = useMotionValue(0);
+  const navigate = useNavigate();
 
   const rotatingTexts = ['ENGINEER', 'DESIGNER', 'LEADER'];
 
-  const featuredProjects = [
-    {
-      title: "TRCKS",
-      subtitle: "Gym Progress Tracking",
-      description: "AI-powered gym progress tracking platform with conversational workout logging",
-      url: "#",
-      tech: ["React", "TypeScript", "Supabase", "AI MCPs"],
-      category: "Personal Business",
-      type: "website",
-      screenshot: "/imgs/Screenshot 2026-01-05 040627.png"
-    },
-    {
-      title: "WorkWhile",
-      subtitle: "Workspace Innovation",
-      description: "Innovative platform with clean interface and powerful functionality",
-      url: "https://workwhile.vercel.app",
-      tech: ["React", "Node.js", "MongoDB"],
-      category: "Platform",
-      type: "website",
-      screenshot: "/imgs/screenshots/workwhile.png"
-    },
-    {
-      title: "ASANADA LMS",
-      subtitle: "Learning Platform",
-      description: "Full learning management system with courses, quizzes, and forums",
-      url: "https://eduk.asanada.org",
-      tech: ["React", "TypeScript", "Tailwind CSS"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/asanada.png"
-    },
-    {
-      title: "FOSTP Platform",
-      subtitle: "Organization Portal",
-      description: "High-performance SSR website with real-time member management",
-      url: "#",
-      tech: ["Next.js", "Tailwind CSS", "Firebase"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/fostp.png"
-    },
-    {
-      title: "RMA-connect",
-      subtitle: "IoT Management",
-      description: "Electric charging station management with real-time monitoring dashboards",
-      url: "#",
-      tech: ["React", "Angular", "Flutter"],
-      category: "Work Project",
-      type: "website",
-      screenshot: "/imgs/screenshots/rma.png"
-    }
-  ];
+  const featuredProjects = heroCarouselProjects;
 
   const infiniteProjects = [...featuredProjects, ...featuredProjects, ...featuredProjects];
 
@@ -128,8 +79,12 @@ const HeroLanding = () => {
     return () => clearInterval(interval);
   }, [isDragging]);
 
-  const handleProjectClick = (url) => {
-    window.open(url, '_blank', 'noopener,noreferrer');
+  const handleProjectClick = (project) => {
+    if (project.to) {
+      navigate(project.to);
+    } else if (project.url) {
+      window.open(project.url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   return (
@@ -223,8 +178,8 @@ const HeroLanding = () => {
               }}
             >
               <p className="text-sm md:text-base lg:text-lg xl:text-xl text-[#0a0100]/70 font-light max-w-2xl lg:max-w-3xl mx-auto leading-relaxed px-4">
-                Frontend Engineer crafting scalable, high-performance web experiences.
-                Specializing in design systems, AI integration, and exceptional user interfaces.
+                Full-Stack Engineer & Frontend Architect building products end to end.
+                Design systems, product frontends, and the AI-powered services behind them.
               </p>
             </div>
           </div>
@@ -254,9 +209,9 @@ const HeroLanding = () => {
                   <div
                     key={index}
                     className="w-full h-full flex-shrink-0 cursor-pointer"
-                    onClick={(e) => {
+                    onClick={() => {
                       if (!isDragging) {
-                        handleProjectClick(project.url);
+                        handleProjectClick(project);
                       }
                     }}
                     onMouseEnter={() => setHoveredProject(actualIndex)}
@@ -320,15 +275,17 @@ const HeroLanding = () => {
                           </div>
 
                           {/* Hover overlay */}
-                          <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === actualIndex ? 'bg-[#0a0100]/40' : ''
-                            }`}>
-                            <div className={`transition-all duration-300 text-center transform ${hoveredProject === actualIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                          {(project.to || project.url) && (
+                            <div className={`absolute inset-0 bg-[#0a0100]/0 transition-all duration-300 flex items-center justify-center ${hoveredProject === actualIndex ? 'bg-[#0a0100]/40' : ''
                               }`}>
-                              <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
-                                <span>{project.type === 'design' ? 'VIEW DESIGN' : 'VIEW PROJECT'}</span>
+                              <div className={`transition-all duration-300 text-center transform ${hoveredProject === actualIndex ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                                }`}>
+                                <div className="text-white font-erstoria tracking-wide text-sm lg:text-base bg-[#0a0100]/90 px-6 py-3 backdrop-blur-sm border border-white/20 shadow-lg">
+                                  <span>{project.to ? 'VIEW CASE STUDY' : 'VIEW PROJECT'}</span>
+                                </div>
                               </div>
                             </div>
-                          </div>
+                          )}
                         </div>
                       ) : (
                         <div className="absolute inset-0 flex items-center justify-center">
