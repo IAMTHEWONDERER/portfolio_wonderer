@@ -50,7 +50,7 @@ export const experience = [
       'Sole designer and frontend engineer for the complete UI/UX function — brand identity, design system and visual consistency across the product suite.',
       'Standardised UI components, colours, typography and design patterns in Figma for a consistent experience across all products and platforms.',
       'Took product ownership of an internal AI platform.',
-      'Engineered the BuildWell Inspect property app: bug documentation, photo capture, structured report generation and iterative UX improvements driven by research and prototyping.',
+      'Engineered a field-facing property inspection app: structured issue documentation, photo capture, automated report generation and iterative UX improvements driven by user research and prototyping.',
     ],
   },
   {
@@ -106,18 +106,17 @@ export const education = [
 
 export const webProjects = [
   {
-    slug: 'buildwell-eye',
-    title: 'BuildwellEYE',
-    subtitle: 'AI-Powered Property Intelligence',
+    slug: 'buildwellai-com',
+    title: 'BuildwellAI.com',
+    subtitle: 'Company Platform & Brand Site',
     description:
-      'Full UI for a computer-vision property inspection tool, with data-rich dashboards for defect detection results and report exports.',
+      'The public BuildwellAI platform — brand identity, design system and marketing experience for a UK construction technology company, built as a Next.js application with a motion-led interface.',
     period: 'Sept 2025 – Present',
-    role: 'UI/UX Engineer & Frontend Developer',
-    linkNote: 'Internal Product',
-    url: null,
+    role: 'Design Systems & Frontend Experience Lead',
+    url: 'https://buildwellai.com',
     to: null,
-    tech: ['React', 'Next.js', 'TypeScript', 'Figma', 'Tailwind CSS'],
-    category: 'BuildwellAI Product',
+    tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
+    category: 'BuildwellAI',
     type: 'website',
     screenshot: null,
   },
@@ -129,22 +128,6 @@ export const webProjects = [
       'UI/UX lead on two complementary products — a threaded project communication tool and an AI-assisted chat interface for property teams — covering conversation flows, notification systems and role-based access views.',
     period: 'Sept 2025 – Present',
     role: 'UI/UX Lead & Frontend Developer',
-    linkNote: 'Internal Product',
-    url: null,
-    to: null,
-    tech: ['React', 'Next.js', 'TypeScript', 'Figma', 'Tailwind CSS'],
-    category: 'BuildwellAI Product',
-    type: 'website',
-    screenshot: null,
-  },
-  {
-    slug: 'buildwell-inspect',
-    title: 'BuildWell Inspect',
-    subtitle: 'Property Inspection App',
-    description:
-      'Field-facing inspection app for property surveyors with structured bug logging, annotated photo capture and automated PDF report generation.',
-    period: 'Sept 2025 – Present',
-    role: 'UI/UX Engineer & Frontend Developer',
     linkNote: 'Internal Product',
     url: null,
     to: null,
@@ -181,9 +164,7 @@ export const webProjects = [
     tech: ['Flutter', 'React', 'TypeScript', 'FastAPI', 'PyTorch', 'Supabase'],
     category: 'Personal Business',
     type: 'website',
-    screenshot: '/imgs/screenshots/trcks/home.png',
-    // Portrait phone capture — contained rather than cropped. See ProjectCard.
-    screenshotFit: 'contain',
+    screenshot: '/imgs/screenshots/trcks/site.png',
   },
   {
     slug: 'asanada-lms',
@@ -342,7 +323,7 @@ export const pickProjects = (...slugs) =>
 export const heroCarouselProjects = pickProjects(
   'trcks',
   'competency-ledger',
-  'buildwell-eye',
+  'buildwellai-com',
   'asanada-lms',
   'fostp',
 );
@@ -360,8 +341,8 @@ export const portfolioHeroProjects = pickProjects(
 export const landingProjects = pickProjects(
   'trcks',
   'competency-ledger',
+  'buildwellai-com',
   'asanada-lms',
-  'buildwell-inspect',
   'fostp',
   'workwhile',
 );
@@ -382,9 +363,8 @@ export const portfolioWebProjects = pickProjects(
 export const flagshipProjects = pickProjects(
   'trcks',
   'competency-ledger',
-  'buildwell-eye',
+  'buildwellai-com',
   'buildwell-thread-chat',
-  'buildwell-inspect',
   'nda-design-system',
 );
 
@@ -531,8 +511,9 @@ export const caseStudies = {
     longDescription: `TRCKS turns raw session data into sports science that a coach can actually act on. GPS traces are smoothed with a Kalman filter before anything is derived from them, then broken down into a 7-zone speed profile alongside PlayerLoad and ACWR injury-risk flags. Custom PyTorch models, trained and integrated into the same pipeline, handle movement classification and performance trend prediction.
 
 The product also ships Elis, an AI coaching assistant running on a self-hosted, fine-tuned Qwen 2.5 3B model, GGUF-quantized through llama.cpp, with a cloud provider kept behind a swappable interface as a fallback. The complete UX — onboarding, dashboards, team management and the AI coach flows — was designed in Figma, and the mobile experience is offline-first with background sync, notifications, JWT auth and row-level security. It runs on a freemium model: Pro at €6/month, a Founding Member tier at €29 for two years capped at 500 users, and Club at €35/month.`,
-    screenshot: '/imgs/screenshots/trcks/home.png',
-    screenshotFit: 'contain',
+    // Landscape hero (the marketing site), portrait app captures below it.
+    screenshot: '/imgs/screenshots/trcks/site.png',
+    galleryPortrait: true,
     screenshots: [
       '/imgs/screenshots/trcks/home.png',
       '/imgs/screenshots/trcks/train.png',

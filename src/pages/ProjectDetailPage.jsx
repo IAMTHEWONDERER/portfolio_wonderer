@@ -17,7 +17,10 @@ const ProjectDetailPage = () => {
     const { slug } = useParams();
 
     const project = caseStudies[slug];
-    const isPortraitGallery = project?.screenshotFit === 'contain';
+    // The hero and the gallery can disagree: TRCKS pairs a landscape marketing
+    // capture with portrait app screens.
+    const isPortraitGallery = Boolean(project?.galleryPortrait);
+    const heroContained = project?.screenshotFit === 'contain';
 
     if (!project) {
         return (
@@ -126,7 +129,7 @@ const ProjectDetailPage = () => {
 
                         {/* Right - Hero Image */}
                         <div className="relative isolate">
-                            <div className={`relative ${isPortraitGallery ? 'aspect-[4/3] bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4]' : 'aspect-[4/3] bg-white'} border border-[#0a0100]/10 overflow-hidden`}>
+                            <div className={`relative aspect-[4/3] ${heroContained ? 'bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4]' : 'bg-white'} border border-[#0a0100]/10 overflow-hidden`}>
                                 {/* Fallback sits behind the screenshot */}
                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
                                     <span className="font-erstoria text-4xl text-[#0a0100]/20">{project.title}</span>
@@ -136,7 +139,7 @@ const ProjectDetailPage = () => {
                                     <img
                                         src={project.screenshot}
                                         alt={`${project.title} preview`}
-                                        className={`relative w-full h-full ${isPortraitGallery ? 'object-contain p-4' : 'object-cover object-top'}`}
+                                        className={`relative w-full h-full ${heroContained ? 'object-contain p-4' : 'object-cover object-top'}`}
                                         onError={(e) => {
                                             e.target.style.display = 'none';
                                         }}
