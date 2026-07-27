@@ -37,7 +37,7 @@ const DesignCard = ({ design, onOpen }) => {
         className="focus-ring group relative flex flex-col w-full text-left bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-sm hover:shadow-lg active:scale-[0.98]"
       >
         {/* Preview */}
-        <div className="relative w-full h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
+        <div className="relative w-full aspect-video bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
           {showImage ? (
             <>
               <div ref={ref} className="absolute inset-0 overflow-hidden">

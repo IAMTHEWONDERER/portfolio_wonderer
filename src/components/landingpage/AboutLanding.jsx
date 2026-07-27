@@ -28,14 +28,6 @@ const artisticImages = [
     size: 'w-64 h-80',
     delay: '1s',
   },
-  {
-    id: 3,
-    src: '/imgs/im5.jpg',
-    alt: 'A sketchbook page of interface studies',
-    position: 'bottom-12 left-6',
-    size: 'w-64 h-80',
-    delay: '1.5s',
-  },
 ];
 
 const skills = [

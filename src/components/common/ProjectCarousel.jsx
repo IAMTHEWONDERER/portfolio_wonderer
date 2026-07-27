@@ -20,7 +20,9 @@ import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
  */
 const ProjectCarousel = ({
   projects,
-  slideHeightClass = 'h-64 sm:h-72 md:h-80 lg:h-96',
+  // 16:9 to match the website screenshots these slides carry; the old fixed
+  // heights produced a near-square frame that cropped headlines mid-word.
+  slideHeightClass = 'aspect-video',
   autoAdvanceMs = 5000,
   arrowClassName = 'left-2',
   arrowClassNameRight = 'right-2',
@@ -93,7 +95,14 @@ const ProjectCarousel = ({
               loading="lazy"
               className="w-full h-full object-cover object-top"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/70 via-[#0a0100]/10 to-transparent" />
+            {/*
+              The slide carries a title, subtitle and tech chips over the
+              capture. A light scrim was not enough: screenshots of marketing
+              sites have their own headlines and buttons in exactly this band,
+              and the two sets of text collided. This is opaque enough at the
+              base to guarantee the card's own text always wins.
+            */}
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0a0100]/95 via-[#0a0100]/55 to-transparent" />
           </div>
         ) : (
           <div className="absolute inset-0 flex items-center justify-center">
@@ -206,7 +215,7 @@ const ProjectCarousel = ({
           type="button"
           onClick={prev}
           aria-label="Previous project"
-          className={`focus-ring absolute ${arrowClassName} top-1/2 cursor-pointer -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm border border-[#0a0100]/20 hover:bg-white hover:border-[#0a0100]/40 transition-all duration-300 flex items-center justify-center group z-20 active:scale-95`}
+          className={`focus-ring absolute ${arrowClassName} top-[38%] cursor-pointer -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm border border-[#0a0100]/20 hover:bg-white hover:border-[#0a0100]/40 transition-all duration-300 flex items-center justify-center group z-20 active:scale-95`}
         >
           <ChevronLeft
             aria-hidden="true"
@@ -218,7 +227,7 @@ const ProjectCarousel = ({
           type="button"
           onClick={next}
           aria-label="Next project"
-          className={`focus-ring absolute ${arrowClassNameRight} top-1/2 cursor-pointer -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm border border-[#0a0100]/20 hover:bg-white hover:border-[#0a0100]/40 transition-all duration-300 flex items-center justify-center group z-20 active:scale-95`}
+          className={`focus-ring absolute ${arrowClassNameRight} top-[38%] cursor-pointer -translate-y-1/2 w-10 h-10 bg-white/80 backdrop-blur-sm border border-[#0a0100]/20 hover:bg-white hover:border-[#0a0100]/40 transition-all duration-300 flex items-center justify-center group z-20 active:scale-95`}
         >
           <ChevronRight
             aria-hidden="true"

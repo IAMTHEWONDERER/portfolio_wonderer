@@ -24,6 +24,20 @@ export const EnhancedNavbar = () => {
   const { startNavbarTransition } = useNavbarTransition();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClosingForTransition, setIsClosingForTransition] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  /*
+   * The bar is fixed and was fully transparent at every scroll position, so
+   * the wordmark sat directly on whatever passed beneath it — illegible over
+   * dark project screenshots. It stays transparent over the top of a page and
+   * picks up a surface once anything is scrolled under it.
+   */
+  useEffect(() => {
+    const onScroll = () => setIsScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Listen for navbar transition events
   useEffect(() => {
@@ -84,9 +98,21 @@ export const EnhancedNavbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-40">
+    <nav
+      className={cn(
+        'fixed top-0 left-0 w-full z-40 transition-all duration-300',
+        isScrolled && !isMobileMenuOpen
+          ? 'bg-[#f5f5f0]/85 backdrop-blur-md border-b border-[#0a0100]/10'
+          : 'bg-transparent border-b border-transparent',
+      )}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
-        <div className="flex justify-between items-center h-26">
+        <div
+          className={cn(
+            'flex justify-between items-center transition-all duration-300',
+            isScrolled ? 'h-20' : 'h-26',
+          )}
+        >
           {/* Logo */}
           <div className="flex items-center">
             <button

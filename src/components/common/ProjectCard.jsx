@@ -5,7 +5,10 @@ import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion
 import { RevealItem } from '../../utils/motion';
 
 const SURFACE =
-  'group relative flex flex-col bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-lg';
+  // h-full so every card in a grid row ends on the same line. The grid
+  // stretches the RevealItem wrapper, but the surface inside it used to size
+  // to its own content, leaving ragged card bottoms across a row.
+  'group relative h-full flex flex-col bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-lg';
 
 /**
  * Screenshot with a small scroll-driven parallax offset, replacing the
@@ -80,7 +83,12 @@ const ProjectCard = ({ project }) => {
   const inner = (
     <>
       {/* Preview */}
-      <div className="relative h-64 sm:h-72 md:h-80 bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
+      {/*
+        16:9. These are website screenshots, and the old near-square box made
+        object-cover discard the left and right thirds — headlines came out
+        sliced mid-word. Matching the source aspect shows the whole capture.
+      */}
+      <div className="relative aspect-video bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] overflow-hidden">
         {showImage ? (
           <>
             <div className="absolute inset-0" onError={() => setFailed(true)}>
@@ -115,8 +123,11 @@ const ProjectCard = ({ project }) => {
               <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
                 <Globe className="w-8 h-8 text-[#0a0100]/70" aria-hidden="true" />
               </div>
-              <p className="font-erstoria text-xl text-[#0a0100] mb-2">{project.title}</p>
-              <p className="text-[#0a0100]/70">{project.subtitle}</p>
+              {/*
+                Icon only. The card body directly below already states the
+                title and subtitle, so repeating them here printed every
+                imageless card's name twice, one above the other.
+              */}
             </div>
           </div>
         )}
@@ -169,7 +180,7 @@ const ProjectCard = ({ project }) => {
 
   if (hasCaseStudy) {
     return (
-      <RevealItem>
+      <RevealItem className="h-full">
         <Link to={project.to} className={surface}>
           {inner}
         </Link>
@@ -179,7 +190,7 @@ const ProjectCard = ({ project }) => {
 
   if (project.url) {
     return (
-      <RevealItem>
+      <RevealItem className="h-full">
         <a
           href={project.url}
           target="_blank"

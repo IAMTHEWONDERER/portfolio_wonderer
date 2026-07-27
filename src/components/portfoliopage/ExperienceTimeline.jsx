@@ -26,7 +26,7 @@ import {
 const TimelineRail = ({ progress, reduced }) => (
   <motion.div
     aria-hidden="true"
-    className="absolute left-[7px] top-2 bottom-2 w-px bg-[#0a0100]/20 origin-top"
+    className="absolute left-[7px] top-2 bottom-2 w-px bg-[#0a0100]/30 origin-top"
     style={reduced ? undefined : { scaleY: progress }}
   />
 );
@@ -36,8 +36,14 @@ const TimelineNode = ({ current, reduced }) => {
   const observed = useInView(ref, VIEWPORT);
   const fallback = useObserverFallback();
   const inView = observed || fallback;
-  const shape = `absolute left-0 top-8 w-[15px] h-[15px] border-2 ${
-    current ? 'bg-[#e61f00] border-[#e61f00]' : 'bg-[#f5f5f0] border-[#0a0100]/30'
+  /*
+   * The node sits in the gutter beside the card. A hollow 15px square on a
+   * hairline rail read as debris floating in whitespace rather than as a
+   * point on a spine, so it is filled, and a short rule reaches across the
+   * gutter to physically connect it to the card.
+   */
+  const shape = `absolute left-0 top-9 w-[15px] h-[15px] border-2 ${
+    current ? 'bg-[#e61f00] border-[#e61f00]' : 'bg-[#0a0100]/25 border-[#0a0100]/25'
   }`;
 
   if (reduced) return <div aria-hidden="true" className={shape} />;
@@ -117,6 +123,12 @@ const ExperienceTimeline = () => {
                 className="relative pl-10 md:pl-14"
               >
                 <TimelineNode current={role.current} reduced={reduced} />
+
+                {/* Connector: ties the node to the card across the gutter. */}
+                <div
+                  aria-hidden="true"
+                  className="absolute left-[15px] top-[46px] h-px w-[25px] md:w-[41px] bg-[#0a0100]/20"
+                />
 
                 <div className="bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 p-6 md:p-8">
                   {/* Period + location */}

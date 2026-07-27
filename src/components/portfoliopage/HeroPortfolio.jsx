@@ -69,7 +69,10 @@ const HeroPortfolio = () => {
               {skills.map((skill) => {
                 const Icon = skill.icon;
                 return (
-                  <RevealItem key={skill.label} className="flex items-center gap-3">
+                  // items-start, not items-center: "Design Systems" wraps to a
+                  // second line, and centring pushed that item's value out of
+                  // line with its neighbours.
+                  <RevealItem key={skill.label} className="flex items-start gap-3">
                     <div
                       aria-hidden="true"
                       className="w-8 h-8 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center bg-[#0a0100]/5"
@@ -80,7 +83,7 @@ const HeroPortfolio = () => {
                       <div className="font-erstoria text-base sm:text-lg text-[#0a0100] font-bold">
                         {skill.level}
                       </div>
-                      <div className="text-xs text-[#0a0100]/60 uppercase tracking-wide">
+                      <div className="text-xs text-[#0a0100]/60 uppercase tracking-wide whitespace-nowrap">
                         {skill.label}
                       </div>
                     </div>
