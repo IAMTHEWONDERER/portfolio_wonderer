@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Globe } from 'lucide-react';
 import { motion, useMotionValue, useReducedMotion } from 'framer-motion';
 
 /**
- * The one project carousel, shared by HeroLanding and HeroPortfolio.
+ * The one project carousel, used by the landing hero.
  *
  * Infinite scrolling works off a tripled array. Two things were wrong
  * before and are fixed here:

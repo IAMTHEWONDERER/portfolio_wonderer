@@ -9,13 +9,8 @@ import {
 } from 'framer-motion';
 import { experience, education } from '../../data/projects';
 import { EASE, VIEWPORT, useObserverFallback } from '../../utils/hooks';
-import {
-  MaskedLines,
-  Reveal,
-  RevealGroup,
-  RevealItem,
-  SectionLabel,
-} from '../../utils/motion';
+import { Reveal, RevealGroup, RevealItem } from '../../utils/motion';
+import SectionHead from './SectionHead';
 
 /**
  * The vertical rail draws itself in as the section scrolls past, and each
@@ -77,7 +72,8 @@ const ExperienceTimeline = () => {
   return (
     <section
       data-section="experience-timeline"
-      className="relative py-16 md:py-24 bg-[#f5f5f0] overflow-hidden"
+      className="relative py-16 md:py-24"
+      aria-labelledby="experience-heading"
     >
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
@@ -94,23 +90,12 @@ const ExperienceTimeline = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
-        {/* Section Header */}
-        <div className="text-center mb-12 md:mb-14">
-          <SectionLabel className="mb-8">Experience</SectionLabel>
-
-          <MaskedLines
-            as="h2"
-            lines={['PROFESSIONAL', 'JOURNEY']}
-            className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-12"
-          />
-
-          <Reveal delay={0.1}>
-            <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
-              Full-Stack Engineer &amp; Frontend Architect — building design systems,
-              product frontends and the services behind them.
-            </p>
-          </Reveal>
-        </div>
+        {/* Was a centred masthead, the second of ten on the site. Now the
+            shared numbered head, so the hero keeps the only poster treatment. */}
+        <SectionHead index={2} title="Where I&rsquo;ve built it" id="experience-heading">
+          Three engineering roles, newest first, and the qualifications behind
+          them.
+        </SectionHead>
 
         {/* Work Timeline */}
         <div ref={railRef} className="relative mb-20 md:mb-28">
