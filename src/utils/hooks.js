@@ -1,6 +1,113 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
 
+/* ------------------------------------------------------------------ */
+/* Motion constants                                                    */
+/* ------------------------------------------------------------------ */
+/* Live here rather than beside the motion components so that file can
+   export components only, which is what react-refresh wants. */
+
+export const EASE = [0.25, 0.46, 0.45, 0.94];
+
+/**
+ * Fire once, as soon as a slice of the element is on screen.
+ *
+ * Deliberately uses `amount` rather than a negative `margin`: with a
+ * rootMargin the observer never fired for tall grid items here, which
+ * left whole sections stuck at opacity 0.
+ */
+export const VIEWPORT = { once: true, amount: 0.15 };
+
+/* ------------------------------------------------------------------ */
+/* IntersectionObserver health probe                                   */
+/* ------------------------------------------------------------------ */
+/**
+ * Every reveal holds its content at `opacity: 0` until an
+ * IntersectionObserver reports it on screen. That is the behaviour we
+ * want, but it puts the visibility of the entire site behind one browser
+ * API: anything that never delivers a callback renders a blank page
+ * rather than an unanimated one.
+ *
+ * So we probe it once with a 1px sentinel. If no callback arrives,
+ * `useObserverFallback` flips every reveal to visible, and the worst case
+ * degrades to "no animation" instead of "no content".
+ */
+
+const fallbackListeners = new Set();
+let observerBroken = false;
+
+const markObserverBroken = () => {
+  if (observerBroken) return;
+  observerBroken = true;
+  fallbackListeners.forEach((notify) => notify());
+};
+
+if (typeof window !== 'undefined') {
+  if (typeof IntersectionObserver === 'undefined') {
+    observerBroken = true;
+  } else {
+    const startProbe = () => {
+      const sentinel = document.createElement('div');
+      sentinel.setAttribute('aria-hidden', 'true');
+      sentinel.style.cssText =
+        'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0;pointer-events:none';
+      document.body.appendChild(sentinel);
+
+      let delivered = false;
+      const observer = new IntersectionObserver(() => {
+        delivered = true;
+        observer.disconnect();
+        sentinel.remove();
+      });
+      observer.observe(sentinel);
+
+      window.setTimeout(() => {
+        if (delivered) return;
+        observer.disconnect();
+        sentinel.remove();
+        markObserverBroken();
+      }, 3000);
+    };
+
+    if (document.body) startProbe();
+    else window.addEventListener('DOMContentLoaded', startProbe, { once: true });
+  }
+}
+
+/**
+ * True once IntersectionObserver has proven unusable. Reveals OR this with
+ * their own in-view state, so they can only ever fail open.
+ */
+export const useObserverFallback = () => {
+  const [broken, setBroken] = useState(observerBroken);
+
+  useEffect(() => {
+    if (broken) return undefined;
+    const notify = () => setBroken(true);
+    fallbackListeners.add(notify);
+    return () => {
+      fallbackListeners.delete(notify);
+    };
+  }, [broken]);
+
+  return broken;
+};
+
+/** Magnetic hover and other cursor effects are pointer-fine only. */
+export const useFinePointer = () => {
+  const [fine, setFine] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia('(pointer: fine)');
+    const update = () => setFine(query.matches);
+    update();
+    query.addEventListener('change', update);
+    return () => query.removeEventListener('change', update);
+  }, []);
+
+  return fine;
+};
+
 /**
  * Safari sniff, previously duplicated in seven components.
  * Safari refuses to render PDFs in a same-origin iframe reliably, so the

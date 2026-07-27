@@ -24,7 +24,7 @@ const VisitorTracker = () => {
               locationData = `${getCountryFlag(location.country_code)} ${location.country_name}`;
             }
           }
-        } catch (locationError) {
+        } catch {
           // Fallback: try a different service
           try {
             const fallbackResponse = await fetch('https://api.country.is/', {

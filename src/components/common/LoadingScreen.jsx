@@ -18,7 +18,11 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
 
     detectSafari();
 
-    // Ensure scrolling is disabled when component mounts
+    // Ensure scrolling is disabled while the loader is up. Restored in
+    // this component's own cleanup so an unmount by any other path
+    // cannot strand the page in `overflow: hidden`.
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousRootOverflow = document.documentElement.style.overflow;
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     
@@ -52,6 +56,8 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousRootOverflow;
     };
   }, []);
 

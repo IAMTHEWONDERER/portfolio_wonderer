@@ -17,7 +17,7 @@ const Footer = () => {
               WONDERER
             </h3>
             <div className="w-8 h-px bg-[#e61f00]" />
-            <p className="text-[#0a0100]/50 text-xs font-erstoria tracking-widest">
+            <p className="text-[#0a0100]/60 text-xs font-erstoria tracking-widest">
               © {currentYear} ALL RIGHTS RESERVED
             </p>
           </div>
@@ -26,19 +26,19 @@ const Footer = () => {
           <div className="flex gap-6 text-sm">
             <Link 
               to="/" 
-              className="text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
+              className="focus-ring text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
             >
               HOME
             </Link>
             <Link 
               to="/portfolio" 
-              className="text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
+              className="focus-ring text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
             >
               PORTFOLIO
             </Link>
             <Link 
               to="/contact" 
-              className="text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
+              className="focus-ring text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 font-erstoria tracking-wide"
             >
               CONTACT
             </Link>
@@ -51,7 +51,7 @@ const Footer = () => {
               
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
+              className="focus-ring group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00] active:scale-95"
               aria-label="GitHub"
             >
               <Github className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
@@ -60,14 +60,14 @@ const Footer = () => {
               href={CONTACT.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
+              className="focus-ring group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00] active:scale-95"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
             </a>
             <a 
               href={`mailto:${CONTACT.emailPrimary}`}
-              className="group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00]"
+              className="focus-ring group p-2 bg-[#0a0100]/5 hover:bg-[#e61f00] transition-all duration-300 border border-[#0a0100]/10 hover:border-[#e61f00] active:scale-95"
               aria-label="Email"
             >
               <Mail className="w-4 h-4 text-[#0a0100]/60 group-hover:text-white transition-colors duration-300" />
@@ -78,7 +78,7 @@ const Footer = () => {
 
         {/* Privacy Notice */}
         <div className="mt-6 pt-4 border-t border-[#0a0100]/5 text-center">
-          <p className="text-[#0a0100]/40 text-xs leading-relaxed max-w-4xl mx-auto">
+          <p className="text-[#0a0100]/60 text-xs leading-relaxed max-w-4xl mx-auto">
             This website tracks visitor engagement for analytics purposes. We only collect anonymous usage data to improve user experience. 
             No personal information, IP addresses, or identifying data is collected or stored.
           </p>

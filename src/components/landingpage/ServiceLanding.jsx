@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowUpRight, Code, Palette, Globe, Database, Smartphone, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-const ServiceLanding = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [activeService, setActiveService] = useState(null);
+import {
+  Magnetic,
+  MaskedLines,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  SectionLabel,
+} from '../../utils/motion';
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+const ServiceLanding = () => {
+  const [activeService, setActiveService] = useState(null);
 
   const services = [
     {
@@ -85,11 +89,9 @@ const ServiceLanding = () => {
   ];
 
   return (
-    <section
-      className="relative min-h-screen py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
-    >
+    <section className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden">
       {/* Background Grid */}
-      <div className="absolute inset-0 opacity-[0.02]">
+      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
@@ -101,76 +103,38 @@ const ServiceLanding = () => {
           }}
         />
       </div>
-      <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
         {/* Section Header */}
         <div className="text-center mb-16 md:mb-24">
-          <div
-            className="overflow-hidden mb-8"
-            style={{
-              animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
-              transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-              opacity: isLoaded ? 1 : 0,
-            }}
-          >
-            <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
-              <div className="w-12 h-px bg-[#0a0100]/30" />
-              <span className="font-erstoria">Services</span>
-              <div className="w-12 h-px bg-[#0a0100]/30" />
-            </div>
-          </div>
+          <SectionLabel className="mb-8">Services</SectionLabel>
 
-          <div className="overflow-hidden mb-12">
-            <h2
-              className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
-              style={{
-                animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
-              WHAT I
-              <span className="block text-[#e61f00]">DELIVER</span>
-            </h2>
-          </div>
+          <MaskedLines
+            as="h2"
+            lines={['WHAT I', 'DELIVER']}
+            className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-12"
+          />
 
-          <div
-            className="overflow-hidden mb-16"
-            style={{
-              animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
-              transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-              opacity: isLoaded ? 1 : 0,
-            }}
-          >
+          <Reveal className="mb-16" delay={0.1}>
             <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
               Comprehensive digital solutions tailored to transform your vision into
               exceptional user experiences that drive results.
             </p>
-          </div>
+          </Reveal>
         </div>
 
         {/* Services Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          style={{
-            animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => {
             const Icon = service.icon;
             const isActive = activeService === index;
 
             return (
-              <div
-                key={index}
-                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
+              <RevealItem key={service.title}>
+              <button
+                type="button"
+                aria-expanded={isActive}
+                className="focus-ring group relative w-full h-full text-left border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden active:scale-[0.98]"
                 onClick={() => setActiveService(isActive ? null : index)}
-                style={{
-                  animation: isLoaded ? `slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${1 + index * 0.1}s forwards` : 'none',
-                  transform: isLoaded ? 'translateY(0)' : 'translateY(50px)',
-                  opacity: isLoaded ? 1 : 0,
-                }}
               >
                 {/* Hover Background Effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#e61f00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -178,13 +142,13 @@ const ServiceLanding = () => {
                 <div className="relative p-8">
                   {/* Icon */}
                   <div className="mb-6">
-                    <div className="w-12 h-12 flex items-center justify-center bg-[#0a0100]/5 group-hover:bg-[#e61f00]/10 transition-colors duration-500">
+                    <div aria-hidden="true" className="w-12 h-12 flex items-center justify-center bg-[#0a0100]/5 group-hover:bg-[#e61f00]/10 transition-colors duration-500">
                       <Icon className={`w-6 h-6 ${service.color} transition-transform duration-300 group-hover:scale-110`} />
                     </div>
                   </div>
 
                   {/* Content */}
-                  <h3 className="font-erstoria text-xl lg:text-2xl text-[#0a0100] tracking-wide mb-4 group-hover:text-[#e61f00] transition-colors duration-300">
+                  <h3 className="font-erstoria text-xl md:text-2xl text-[#0a0100] tracking-wide mb-4 group-hover:text-[#e61f00] transition-colors duration-300">
                     {service.title}
                   </h3>
 
@@ -194,10 +158,11 @@ const ServiceLanding = () => {
 
                   {/* Expand Indicator */}
                   <div className="flex items-center justify-between">
-                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+                    <span className="text-xs uppercase tracking-widest text-[#0a0100]/60 font-erstoria">
                       Learn More
                     </span>
                     <ArrowUpRight
+                      aria-hidden="true"
                       className={`w-4 h-4 text-[#0a0100]/40 transition-all duration-300 ${isActive ? 'rotate-45' : 'group-hover:translate-x-1 group-hover:-translate-y-1'
                         }`}
                     />
@@ -221,20 +186,14 @@ const ServiceLanding = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </button>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         {/* Call to Action */}
-        <div
-          className="text-center mt-20 overflow-hidden"
-          style={{
-            animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
+        <Reveal className="text-center mt-20">
           <div className="mb-8">
             <h3 className="font-erstoria text-2xl md:text-3xl text-[#0a0100] mb-4">
               Ready to bring your project to life?
@@ -246,31 +205,26 @@ const ServiceLanding = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Link to="/contact">
-              <button className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer">
+            <Magnetic>
+              <Link
+                to="/contact"
+                className="focus-ring group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+              >
                 <span className="font-erstoria text-base tracking-wide">START A PROJECT</span>
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-              </button>
-            </Link>
-            <Link to="/portfolio">
-              <button className="group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer">
-                <span className="font-erstoria text-base tracking-wide">VIEW PORTFOLIO</span>
-                <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </button>
+              </Link>
+            </Magnetic>
+            <Link
+              to="/portfolio"
+              className="focus-ring group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer"
+            >
+              <span className="font-erstoria text-base tracking-wide">VIEW PORTFOLIO</span>
+              <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
             </Link>
           </div>
-        </div>
+        </Reveal>
       </div>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </section>
   );
 };

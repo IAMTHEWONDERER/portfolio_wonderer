@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ArrowUpRight, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence, useMotionValue, useTransform, useDragControls } from 'framer-motion';
-import { Github, Linkedin, Mail, Download, X, Globe } from 'lucide-react';
+import { motion, useMotionValue, useDragControls, useReducedMotion } from 'framer-motion';
 import { CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../../data/projects';
+import PdfModal from '../common/PdfModal';
+import { Magnetic, MaskedLines, Reveal, SectionLabel } from '../../utils/motion';
 
 const TechStackLanding = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
   const [activeCategory, setActiveCategory] = useState(null);
   const [showCV, setShowCV] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [isSafari, setIsSafari] = useState(false);
+  const reduced = useReducedMotion();
 
   const carouselRef = useRef(null);
   const x = useMotionValue(0);
@@ -137,34 +137,14 @@ const TechStackLanding = () => {
   ];
 
   useEffect(() => {
-    // Load immediately when component mounts
-    setIsLoaded(true);
-
-    // Detect Safari browser
-    const detectSafari = () => {
-      const userAgent = navigator.userAgent;
-      const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/Chromium/.test(userAgent);
-      setIsSafari(isSafariBrowser);
-    };
-
-    detectSafari();
-
-    const handleNavbarMenuOpen = () => {
-      if (showCV) {
-        setShowCV(false);
-      }
-    };
-
+    const handleNavbarMenuOpen = () => setShowCV(false);
     window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
-
-    return () => {
-      window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
-    };
-  }, [showCV]);
+    return () => window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+  }, []);
 
   // Continuous smooth animation when not dragging
   useEffect(() => {
-    if (isDragging) return;
+    if (isDragging || reduced) return;
 
     const itemWidth = 120; // 80px icon + 40px gap
     const totalWidth = techLogos.length * itemWidth;
@@ -192,16 +172,7 @@ const TechStackLanding = () => {
         cancelAnimationFrame(animationId);
       }
     };
-  }, [x, isDragging, techLogos.length]);
-
-  const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = CV_FILE;
-    link.download = CV_DOWNLOAD_NAME;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
+  }, [x, isDragging, reduced, techLogos.length]);
 
   const getLevelIndicator = (level) => {
     switch (level) {
@@ -234,9 +205,9 @@ const TechStackLanding = () => {
     <>
       <section
         id="tech-stack"
-        className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#f5f5f0] py-20"
+        className="relative overflow-hidden bg-[#f5f5f0] py-20 md:py-32"
       >
-        <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
           <div
             className="absolute inset-0"
             style={{
@@ -249,60 +220,25 @@ const TechStackLanding = () => {
           />
         </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-12 lg:px-16">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           <div className="text-center">
-            <div
-              className="overflow-hidden mb-8"
-              style={{
-                animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
-              <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
-                <div className="w-12 h-px bg-[#0a0100]/30" />
-                <span className="font-erstoria">Tech Stack</span>
-                <div className="w-12 h-px bg-[#0a0100]/30" />
-              </div>
-            </div>
+            <SectionLabel className="mb-8">Tech Stack</SectionLabel>
 
-            <div className="overflow-hidden mb-12">
-              <h2
-                className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
-                style={{
-                  animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
-                  transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                  opacity: isLoaded ? 1 : 0,
-                }}
-              >
-                TECHNICAL
-                <span className="block text-[#e61f00]">EXPERTISE</span>
-              </h2>
-            </div>
+            <MaskedLines
+              as="h2"
+              lines={['TECHNICAL', 'EXPERTISE']}
+              className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-12"
+            />
 
-            <div
-              className="overflow-hidden mb-12"
-              style={{
-                animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
+            <Reveal className="mb-12" delay={0.1}>
               <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
                 A comprehensive overview of my technical skills and the technologies I work with
                 to bring innovative ideas to life.
               </p>
-            </div>
+            </Reveal>
 
             {/* Tech Icons Carousel */}
-            <div
-              className="overflow-hidden mb-16"
-              style={{
-                animation: isLoaded ? 'slideUp 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
+            <Reveal className="overflow-hidden mb-16">
               <div className="relative w-full h-32 flex items-center justify-center mb-6">
                 {/* Carousel Container */}
                 <div className="relative w-full max-w-4xl overflow-hidden">
@@ -357,21 +293,14 @@ const TechStackLanding = () => {
 
               {/* Instructions */}
               <div className="flex justify-center">
-                <span className="text-sm text-[#0a0100]/40 font-erstoria tracking-widest">
+                <span className="text-sm text-[#0a0100]/60 font-erstoria tracking-widest">
                   <span className="hidden md:inline">TECH STACK</span>
                   <span className="md:hidden">DRAG TO EXPLORE</span>
                 </span>
               </div>
-            </div>
+            </Reveal>
 
-            <div
-              className="overflow-hidden"
-              style={{
-                animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
+            <Reveal>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-6 max-w-[400px] sm:max-w-2xl md:max-w-[650px] lg:max-w-5xl mx-auto px-2 sm:px-4 md:px-0">
                 {techCategories.map((category, index) => {
                   const levelInfo = getLevelIndicator(category.level);
@@ -379,12 +308,15 @@ const TechStackLanding = () => {
 
                   return (
                     <div
-                      key={index}
-                      className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer active:scale-[0.99]"
-                      onClick={() => setActiveCategory(isActive ? null : index)}
+                      key={category.category}
+                      className="border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500"
                     >
                       {/* Card Header */}
-                      <div className="p-3 sm:p-4 md:p-6">
+                      <button
+                        type="button"
+                        aria-expanded={isActive}
+                        onClick={() => setActiveCategory(isActive ? null : index)}
+                        className="focus-ring w-full text-left p-3 sm:p-4 md:p-6 cursor-pointer active:scale-[0.98] transition-transform duration-300">
                         <div className="flex items-center justify-between mb-2 sm:mb-3 md:mb-4">
                           <div className="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
                             <h3 className="font-erstoria text-sm sm:text-base md:text-lg lg:text-xl text-[#0a0100] tracking-wide truncate">
@@ -410,11 +342,11 @@ const TechStackLanding = () => {
                           <p className="text-[#0a0100]/60 text-xs sm:text-sm leading-relaxed flex-grow">
                             {category.description}
                           </p>
-                          <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria sm:ml-4 flex-shrink-0">
+                          <span className="text-xs uppercase tracking-widest text-[#0a0100]/60 font-erstoria sm:ml-4 flex-shrink-0">
                             {category.level}
                           </span>
                         </div>
-                      </div>
+                      </button>
 
                       {/* Expandable Technology List */}
                       <div className={`overflow-hidden transition-all duration-500 ${isActive ? 'max-h-80 opacity-100' : 'max-h-0 opacity-0'
@@ -424,11 +356,12 @@ const TechStackLanding = () => {
                             {category.technologies.map((tech, techIndex) => (
                               <div
                                 key={techIndex}
-                                className="flex items-center gap-2 sm:gap-3 py-1.5 sm:py-2 transition-all duration-300 hover:bg-[#0a0100]/5 rounded-sm px-1 sm:px-2 cursor-pointer"
+                                className="flex items-center gap-2 sm:gap-3 py-1.5 sm:py-2 rounded-sm px-1 sm:px-2"
                               >
                                 <img
                                   src={tech.logo}
-                                  alt={tech.name}
+                                  alt=""
+                                  aria-hidden="true"
                                   className="w-4 h-4 sm:w-5 sm:h-5 object-contain flex-shrink-0"
                                 />
                                 <span className="text-xs sm:text-sm text-[#0a0100]/70 font-medium truncate">
@@ -443,167 +376,38 @@ const TechStackLanding = () => {
                   );
                 })}
               </div>
-            </div>
+            </Reveal>
 
-            <div
-              className="overflow-hidden mt-16"
-              style={{
-                animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.2s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
+            <Reveal className="mt-16">
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button
-                  onClick={() => setShowCV(true)}
-                  className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
-                >
-                  <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
-                  <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                </button>
+                <Magnetic>
+                  <button
+                    type="button"
+                    onClick={() => setShowCV(true)}
+                    className="focus-ring group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+                  >
+                    <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
+                    <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                  </button>
+                </Magnetic>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
 
-        <style jsx>{`
-          @keyframes slideUp {
-            to {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-        `}</style>
       </section>
 
-      <AnimatePresence>
-        {showCV && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-2 sm:p-4"
-            onClick={() => setShowCV(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#f5f5f0] shadow-2xl w-full max-w-5xl h-full sm:h-[95vh] sm:max-h-[95vh] overflow-hidden flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header - Responsive */}
-              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
-                <div className="flex items-center gap-2 sm:gap-4">
-                  <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">CV</h2>
-                  <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
-                </div>
-              </div>
-
-              {/* PDF Viewer - Responsive Height */}
-              <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
-                <div className="w-full h-full bg-white shadow-inner overflow-auto">
-                  {isSafari ? (
-                    /* Safari-specific PDF viewer */
-                    <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
-                      <div className="text-center space-y-4">
-                        <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                          <svg
-                            className="w-8 h-8 text-[#0a0100]/60"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={1.5}
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
-                        <h3 className="font-erstoria text-lg text-[#0a0100] tracking-wide">
-                          Safari PDF Viewer
-                        </h3>
-                        <p className="text-[#0a0100]/70 text-sm max-w-md">
-                          Safari has restrictions on embedded PDFs. Click the button below to open the CV in a new tab for the best viewing experience.
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col gap-3">
-                        <a
-                          href={CV_FILE}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-all duration-300 cursor-pointer active:scale-95"
-                        >
-                          <span className="font-erstoria text-sm tracking-wide">OPEN CV IN NEW TAB</span>
-                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                        </a>
-
-                        <button
-                          onClick={handleDownloadCV}
-                          className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100] hover:bg-[#0a0100]/5 transition-all duration-300 cursor-pointer active:scale-95"
-                        >
-                          <Download className="w-4 h-4" />
-                          <span className="font-erstoria text-sm tracking-wide">DOWNLOAD CV</span>
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Standard iframe for other browsers */
-                    <iframe
-                      src={`${CV_FILE}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
-                      className="w-full h-full border-none"
-                      title="CV - Oussama Alouche"
-                    />
-                  )}
-                </div>
-              </div>
-
-              {/* Modal Footer - Responsive Controls */}
-              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
-                    Updated {CV_LAST_UPDATED}
-                  </span>
-
-                  {/* Action Buttons Group */}
-                  <div className="flex items-center gap-1">
-                    {/* Download Button - Icon only */}
-                    <button
-                      onClick={handleDownloadCV}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
-                      title="Download CV"
-                      aria-label="Download CV"
-                    >
-                      <Download size={16} className="sm:w-5 sm:h-5" />
-                    </button>
-
-                    {/* Close Button */}
-                    <button
-                      onClick={() => setShowCV(false)}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
-                      aria-label="Close CV"
-                    >
-                      <X size={16} className="sm:w-5 sm:h-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Loading fallback */}
-              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{ display: 'none' }} id="pdf-loading">
-                <div className="text-center">
-                  <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <PdfModal
+        open={showCV}
+        onClose={() => setShowCV(false)}
+        title="CV"
+        fileUrl={CV_FILE}
+        downloadName={CV_DOWNLOAD_NAME}
+        eyebrow={`Updated ${CV_LAST_UPDATED}`}
+        newTabLabel="OPEN CV IN NEW TAB"
+        downloadLabel="DOWNLOAD CV"
+      />
     </>
   );
 };

@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, Globe } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { RevealItem, useReducedMotion } from '../../utils/motion';
+import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
+import { RevealItem } from '../../utils/motion';
 
 const SURFACE =
   'group relative flex flex-col bg-white border border-[#0a0100]/10 hover:border-[#0a0100]/20 transition-all duration-500 overflow-hidden shadow-sm hover:shadow-lg';

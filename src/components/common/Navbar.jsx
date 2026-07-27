@@ -4,11 +4,20 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useNavbarTransition } from '../../utils/useNavbarTransition';
 
 // Utility function for className merging
-const cn = (...classes) => {
-  return classes.filter(Boolean).join(' ');
-};
+const cn = (...classes) => classes.filter(Boolean).join(' ');
 
-// Enhanced Navbar Component with React Router integration
+const navItems = [
+  { label: 'Home', href: '/' },
+  { label: 'Portfolio', href: '/portfolio' },
+  { label: 'Contact', href: '/contact' },
+];
+
+/**
+ * The site navbar. Rendered exactly once, by AppRouter — PortfolioPage and
+ * ProjectDetailPage used to mount a second copy on top of this one.
+ *
+ * The overlay CSS lives in src/index.css rather than an inline <style>.
+ */
 export const EnhancedNavbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -16,63 +25,14 @@ export const EnhancedNavbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isClosingForTransition, setIsClosingForTransition] = useState(false);
 
-  // Commented out language switching functionality
-  // const [currentLanguage, setCurrentLanguage] = useState('fr');
-
-  // Commented out language definitions
-  // const languages = {
-  //   fr: {
-  //     code: 'fr',
-  //     name: 'FR',
-  //     displayName: 'Français',
-  //     nav: {
-  //       home: 'Accueil',
-  //       about: 'A Propos',
-  //       contact: 'Contact',
-  //       portfolio: 'Portfolio'
-  //     }
-  //   },
-  //   en: {
-  //     code: 'en',
-  //     name: 'EN',
-  //     displayName: 'English',
-  //     nav: {
-  //       home: 'Home',
-  //       about: 'About',
-  //       contact: 'Contact',
-  //       portfolio: 'Portfolio'
-  //     }
-  //   },
-  // };
-
-  // Commented out language change function
-  // const changeLanguage = (langCode) => {
-  //   setCurrentLanguage(langCode);
-  // };
-
-  // Commented out translation function
-  // const t = languages[currentLanguage];
-
-  // Navigation items - 3 items
-  const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Portfolio', href: '/portfolio' },
-    { label: 'Contact', href: '/contact' }
-  ];
-
   // Listen for navbar transition events
   useEffect(() => {
     const handleNavbarTransitionStart = () => {
       setIsClosingForTransition(true);
-      // Start closing animation
-      setTimeout(() => {
-        setIsMobileMenuOpen(false);
-      }, 100);
+      setTimeout(() => setIsMobileMenuOpen(false), 100);
     };
 
-    const handleNavbarTransitionEnd = () => {
-      setIsClosingForTransition(false);
-    };
+    const handleNavbarTransitionEnd = () => setIsClosingForTransition(false);
 
     window.addEventListener('navbarTransitionStart', handleNavbarTransitionStart);
     window.addEventListener('navbarTransitionEnd', handleNavbarTransitionEnd);
@@ -83,283 +43,126 @@ export const EnhancedNavbar = () => {
     };
   }, []);
 
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen && !isClosingForTransition) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen, isClosingForTransition]);
+
   const handleNavItemClick = (href) => {
     if (href === location.pathname) {
       setIsMobileMenuOpen(false);
       return;
     }
 
-    // Use navbar transition for navigation
-    startNavbarTransition(href, () => {
-      navigate(href);
-    });
+    startNavbarTransition(href, () => navigate(href));
   };
 
   const handleHomeClick = () => {
-    if (location.pathname === '/') {
-      return;
-    }
+    if (location.pathname === '/') return;
+    startNavbarTransition('/', () => navigate('/'));
+  };
 
-    startNavbarTransition('/', () => {
-      navigate('/');
+  /**
+   * Open/close the menu. Opening dispatches `hamburgerMenuOpen`, which the
+   * CV/PDF surfaces listen for so an open modal closes behind the menu.
+   * Three components had been listening for this event since it was
+   * written; nothing had ever dispatched it.
+   */
+  const toggleMenu = () => {
+    setIsMobileMenuOpen((open) => {
+      const next = !open;
+      if (next) window.dispatchEvent(new CustomEvent('hamburgerMenuOpen'));
+      return next;
     });
   };
 
-  const handleMobileMenuClose = () => {
-    if (!isClosingForTransition) {
-      setIsMobileMenuOpen(false);
-    }
-  };
-
-  // Close menu on escape key
-  useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === "Escape" && isMobileMenuOpen && !isClosingForTransition) {
-        setIsMobileMenuOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [isMobileMenuOpen, isClosingForTransition]);
-
   return (
-    <>
-      <nav className=" fixed top-0 left-0 w-full z-30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
-          <div className="flex justify-between items-center h-26">
-            {/* Logo */}
-            <div className="flex items-center">
-              <button
-                onClick={handleHomeClick}
-                className="text-2xl font-bold text-[#0a0100]"
-                style={{ fontFamily: 'Erstoria, sans-serif', background: 'none', border: 'none', cursor: 'pointer' }}
-              >
-                WONDERER
-              </button>
-            </div>
+    <nav className="fixed top-0 left-0 w-full z-40">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
+        <div className="flex justify-between items-center h-26">
+          {/* Logo */}
+          <div className="flex items-center">
+            <button
+              type="button"
+              onClick={handleHomeClick}
+              className="focus-ring font-erstoria text-2xl font-bold text-[#0a0100] bg-transparent border-none cursor-pointer"
+            >
+              WONDERER
+            </button>
+          </div>
 
-            {/* Hamburger Menu for All Devices */}
-            <div className="flex items-center">
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={cn(
-                  "p-3 transition-all duration-300 shadow-sm border border-gray-200 relative z-[10002]",
-                  isMobileMenuOpen
-                    ? "text-[#f5f5f0] bg-[#e61f00] border-[#e61f00]"
-                    : "text-[#000000] bg-[#f5f5f0] border-gray-200"
-                )}
-              >
-                <div className="relative w-6 h-6">
-                  <Menu
-                    className={cn(
-                      "absolute inset-0 transition-all duration-300",
-                      isMobileMenuOpen ? "opacity-0 rotate-45 scale-0" : "opacity-100 rotate-0 scale-100"
-                    )}
-                    size={24}
-                  />
-                  <X
-                    className={cn(
-                      "absolute inset-0 transition-all duration-300",
-                      isMobileMenuOpen ? "opacity-100 rotate-0 scale-100" : "opacity-0 -rotate-45 scale-0"
-                    )}
-                    size={24}
-                  />
-                </div>
-              </button>
-            </div>
+          {/* Hamburger */}
+          <div className="flex items-center">
+            <button
+              type="button"
+              onClick={toggleMenu}
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+              className={cn(
+                'focus-ring p-3 transition-all duration-300 shadow-sm border relative z-[2] cursor-pointer active:scale-95',
+                isMobileMenuOpen
+                  ? 'text-[#f5f5f0] bg-[#e61f00] border-[#e61f00]'
+                  : 'text-[#0a0100] bg-[#f5f5f0] border-[#0a0100]/10',
+              )}
+            >
+              <div className="relative w-6 h-6" aria-hidden="true">
+                <Menu
+                  className={cn(
+                    'absolute inset-0 transition-all duration-300',
+                    isMobileMenuOpen
+                      ? 'opacity-0 rotate-45 scale-0'
+                      : 'opacity-100 rotate-0 scale-100',
+                  )}
+                  size={24}
+                />
+                <X
+                  className={cn(
+                    'absolute inset-0 transition-all duration-300',
+                    isMobileMenuOpen
+                      ? 'opacity-100 rotate-0 scale-100'
+                      : 'opacity-0 -rotate-45 scale-0',
+                  )}
+                  size={24}
+                />
+              </div>
+            </button>
+          </div>
 
-            {/* Menu Overlay */}
-            <div className={`hamburger-overlay-custom ${isMobileMenuOpen ? 'open' : ''}`}>
-              <style>{`
-                .hamburger-overlay-custom {
-                  position: fixed;
-                  top: 0;
-                  left: 0;
-                  width: 100vw;
-                  height: 100vh;
-                  display: flex;
-                  justify-content: center;
-                  align-items: center;
-                  background: #f5f5f0;
-                  z-index: 9999;
-                  clip-path: circle(0px at calc(100vw - 60px) 60px);
-                  transition: clip-path 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                  pointer-events: none;
-                }
-                .hamburger-overlay-custom.open {
-                  clip-path: circle(150% at calc(100vw - 60px) 60px);
-                  pointer-events: auto;
-                }
-                .mobile-menu-content {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 0.25rem;
-                  padding: 1rem 2rem;
-                  height: 100vh;
-                  width: 100%;
-                }
-                .menu-items-container {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  width: 100%;
-                  max-width: 600px;
-                }
-                .mobile-nav-item {
-                  font-family: 'Erstoria', sans-serif;
-                  color: #000000;
-                  text-decoration: none;
-                  opacity: 0;
-                  transform: translateX(-200px);
-                  transition: all 0.3s ease;
-                  position: relative;
-                  text-transform: uppercase;
-                  letter-spacing: 0.02em;
-                  text-align: left;
-                  width: 100%;
-                  padding: 0.4rem 0;
-                  margin: 0.05rem 0;
-                  display: block;
-                  cursor: pointer;
-                  background: none;
-                  border: none;
-                  font-weight: 600;
-                }
-                .mobile-nav-item:hover {
-                  color: #e61f00;
-                }
-                .mobile-nav-item.current {
-                  color: #e61f00;
-                }
-                
-                /* Mobile styles */
-                @media (max-width: 768px) {
-                  .mobile-nav-item {
-                    font-size: 1.75rem;
-                    font-weight: normal;
-                    padding: 0.4rem 0;
-                    margin: 0.05rem 0;
-                  }
-                  .hamburger-overlay-custom {
-                    clip-path: circle(0px at calc(100vw - 40px) 40px);
-                  }
-                  .hamburger-overlay-custom.open {
-                    clip-path: circle(150% at calc(100vw - 40px) 40px);
-                  }
-                }
-                
-                /* Desktop styles */
-                @media (min-width: 769px) {
-                  .mobile-nav-item {
-                    font-size: 6rem;
-                    font-weight: normal;
-                    padding: 0.2rem 0;
-                    margin: 0.05rem 0;
-                  }
-                  .mobile-menu-content {
-                    gap: 0.25rem;
-                    padding: 2rem 3rem;
-                  }
-                }
-                
-                .hamburger-overlay-custom.open .mobile-nav-item {
-                  opacity: 1;
-                  transform: translateX(0);
-                }
-                
-                /* Commented out language selector styles */
-                /*
-                .language-selector-custom {
-                  margin-top: 0.5rem;
-                  padding-top: 0.75rem;
-                  border-top: 1px solid rgba(0, 0, 0, 0.2);
-                  width: 100%;
-                  max-width: 600px;
-                }
-                
-                .language-buttons {
-                  display: grid;
-                  grid-template-columns: repeat(2, 1fr);
-                  gap: 0.3rem;
-                  width: 100%;
-                  text-align: center;
-                }
-                
-                .language-button {
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  justify-content: center;
-                  gap: 0.2rem;
-                  padding: 0.75rem 0.4rem;
-                  transition: all 0.3s ease;
-                  cursor: pointer;
-                  background: rgba(255, 255, 255, 0.1);
-                  color: #000000;
-                  border: 2px solid transparent;
-                  font-family: 'Roboto', sans-serif;
-                  min-height: 50px;
-                  text-align: center;
-                  font-weight: 900;
-                }
-                
-                .language-button:hover {
-                  background: rgba(255, 255, 255, 0.2);
-                  color: #e61f00;
-                }
-                
-                .language-button.active {
-                  background: rgba(255, 255, 255, 0.9);
-                  color: #e61f00;
-                  border-color: #e61f00;
-                }
-                
-                .language-button span:first-child {
-                  font-size: 1.1rem;
-                  font-weight: 600;
-                }
-                */
-              `}</style>
-
-              <div className="mobile-menu-content">
-                {/* Menu Items Container - Now only 3 items */}
-                <div className="menu-items-container font-black">
-                  {navItems.map((item, index) => (
-                    <button
-                      key={item.label}
-                      onClick={() => handleNavItemClick(item.href)}
-                      className={`mobile-nav-item ${location.pathname === item.href ? 'current' : ''}`}
-                      style={{ transitionDelay: `${index * 0.1}s` }}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Commented out Language Selector */}
-                {/*
-                <div className="language-selector-custom">
-                  <div className="language-buttons">
-                    {Object.values(languages).map((lang) => (
-                      <div
-                        key={lang.code}
-                        onClick={() => changeLanguage(lang.code)}
-                        className={`language-button ${currentLanguage === lang.code ? 'active' : ''}`}
-                      >
-                        <span>{lang.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                */}
+          {/* Menu Overlay */}
+          <div
+            id="site-menu"
+            className={`hamburger-overlay-custom ${isMobileMenuOpen ? 'open' : ''}`}
+            aria-hidden={!isMobileMenuOpen}
+          >
+            <div className="mobile-menu-content">
+              <div className="menu-items-container font-black">
+                {navItems.map((item, index) => (
+                  <button
+                    key={item.label}
+                    type="button"
+                    tabIndex={isMobileMenuOpen ? 0 : -1}
+                    onClick={() => handleNavItemClick(item.href)}
+                    aria-current={location.pathname === item.href ? 'page' : undefined}
+                    className={`mobile-nav-item ${
+                      location.pathname === item.href ? 'current' : ''
+                    }`}
+                    style={{ transitionDelay: `${index * 0.1}s` }}
+                  >
+                    {item.label}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };

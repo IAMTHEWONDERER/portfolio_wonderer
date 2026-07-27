@@ -18,7 +18,7 @@ export const ContainerScroll = ({ titleComponent, children }) => {
 
   return (
     <div
-      className="h-[60rem] md:h-[70rem] flex items-start justify-center relative p-2 md:p-10 pt-8 md:pt-12"
+      className="h-[46rem] sm:h-[56rem] md:h-[70rem] flex items-start justify-center relative p-2 md:p-10 pt-8 md:pt-12"
       ref={containerRef}
     >
       <div
@@ -56,7 +56,7 @@ export const Card = ({ rotate, scale, children }) => {
         rotateX: rotate,
         scale,
       }}
-      className="max-w-5xl mt-8 md:mt-12 mb-8 md:mb-12 mx-auto h-[30rem] md:h-[40rem] w-full border border-[#0a0100] p-2 md:p-6 bg-[#f5f5f0] rounded-[5px]"
+      className="max-w-5xl mt-8 md:mt-12 mb-8 md:mb-12 mx-auto h-[24rem] sm:h-[30rem] md:h-[40rem] w-full border border-[#0a0100] p-2 md:p-6 bg-[#f5f5f0] rounded-[5px]"
     >
       <div className="h-full w-full overflow-hidden bg-white rounded-[3px]">
         {children}

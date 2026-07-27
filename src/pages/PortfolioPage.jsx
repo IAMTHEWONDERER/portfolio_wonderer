@@ -1,49 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import Footer from '../components/common/Footer';
 import HeroPortfolio from '../components/portfoliopage/HeroPortfolio';
-import Lenis from 'lenis';
 import ThinkPortfolio from '../components/portfoliopage/ThinkPortfolio';
 import ExperienceTimeline from '../components/portfoliopage/ExperienceTimeline';
-import SimplifiedPortfolio from '../components/portfoliopage/DisplayPortfolio';
+import DisplayPortfolio from '../components/portfoliopage/DisplayPortfolio';
+import { useLenis } from '../utils/hooks';
 
 const PortfolioPage = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    setIsLoaded(true);
-
-    // Initialize Lenis smooth scroll
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
-      smoothWheel: true,
-      smoothTouch: false,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Cleanup function
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
+  useLenis();
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
       {/* Background Grid Pattern */}
       <div className="fixed inset-0 opacity-[0.02] pointer-events-none">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
             backgroundImage: `
@@ -57,29 +27,19 @@ const PortfolioPage = () => {
 
       {/* Navbar is rendered once globally in AppRouter — do not add a second one here. */}
 
-      {/* Main Content */}
-      <main className="relative z-10">
-        {/* Hero Section */}
+      {/*
+        `<main>` intentionally has no `z-index`. It used to be `z-10`, which
+        opened a stacking context that pinned this page's modals underneath
+        the fixed navbar.
+      */}
+      <main className="relative">
         <HeroPortfolio />
-
-        <ThinkPortfolio/>
-
-        <ExperienceTimeline/>
-
-          <SimplifiedPortfolio/>
+        <ThinkPortfolio />
+        <ExperienceTimeline />
+        <DisplayPortfolio />
       </main>
 
-      {/* Footer */}
       <Footer />
-
-      <style jsx>{`
-        @keyframes slideUp {
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
     </div>
   );
 };

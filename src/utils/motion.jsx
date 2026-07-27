@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import React, { createContext, useContext, useRef, useState } from 'react';
+import { motion, useInView, useReducedMotion } from 'framer-motion';
+import { EASE, VIEWPORT, useFinePointer, useObserverFallback } from './hooks';
 
 /**
  * Shared motion primitives.
@@ -11,12 +12,37 @@ import { motion, useReducedMotion } from 'framer-motion';
  *      width/height/top/left/margin/filter.
  *   3. Reveals are driven by scroll position, not by a mount timer, so
  *      content below the fold animates when it is actually reached.
+ *
+ * Reveals use the explicit `useInView` hook plus `animate`, rather than
+ * the `whileInView` prop. `whileInView` registered no IntersectionObserver
+ * at all here — every reveal stayed pinned at its `initial` state, i.e.
+ * opacity 0 — so the visibility of the whole site now rests on a hook
+ * whose observer can actually be seen being created.
  */
 
-export const EASE = [0.25, 0.46, 0.45, 0.94];
+/** Shared by every reveal so one ref/observer pattern is used throughout. */
+const useReveal = () => {
+  const ref = useRef(null);
+  const inView = useInView(ref, VIEWPORT);
+  return { ref, inView };
+};
 
-/** Fire once, slightly before the element is fully in view. */
-export const VIEWPORT = { once: true, margin: '-100px 0px -80px 0px' };
+/**
+ * Render as plain markup, with no motion wrapper at all, when the visitor
+ * asked for reduced motion — or when the IntersectionObserver probe failed.
+ *
+ * The second case is the important one. A transition needs
+ * `requestAnimationFrame` to advance, and an environment where the observer
+ * never reports is usually one where frames are suspended too. Merely
+ * flipping the target to `opacity: 1` would never actually arrive there, so
+ * the content has to bypass motion entirely rather than animate toward
+ * being visible. Failure mode is "no animation", never "no content".
+ */
+const useStaticRender = () => {
+  const reduced = useReducedMotion();
+  const observerBroken = useObserverFallback();
+  return reduced || observerBroken;
+};
 
 /* ------------------------------------------------------------------ */
 /* Reveal — a single element sliding up into view                      */
@@ -31,15 +57,25 @@ export const Reveal = ({
   as = 'div',
   ...rest
 }) => {
-  const reduced = useReducedMotion();
+  const reduced = useStaticRender();
+  const { ref, inView } = useReveal();
   const Tag = motion[as] || motion.div;
+
+  if (reduced) {
+    const Plain = as;
+    return (
+      <Plain className={className} {...rest}>
+        {children}
+      </Plain>
+    );
+  }
 
   return (
     <Tag
+      ref={ref}
       className={className}
-      initial={reduced ? false : { opacity: 0, y }}
-      whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-      viewport={VIEWPORT}
+      initial={{ opacity: 0, y }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y }}
       transition={{ duration, ease: EASE, delay }}
       {...rest}
     >
@@ -66,24 +102,29 @@ export const RevealGroup = ({
   as = 'div',
   ...rest
 }) => {
-  const reduced = useReducedMotion();
+  const reduced = useStaticRender();
+  const { ref, inView } = useReveal();
   const Tag = motion[as] || motion.div;
+
+  if (reduced) {
+    const Plain = as;
+    return (
+      <Plain className={className} {...rest}>
+        {children}
+      </Plain>
+    );
+  }
 
   return (
     <StaggerContext.Provider value>
       <Tag
+        ref={ref}
         className={className}
-        initial={reduced ? false : 'hidden'}
-        whileInView={reduced ? undefined : 'show'}
-        viewport={VIEWPORT}
+        initial="hidden"
+        animate={inView ? 'show' : 'hidden'}
         variants={{
           hidden: {},
-          show: {
-            transition: {
-              staggerChildren: stagger,
-              delayChildren,
-            },
-          },
+          show: { transition: { staggerChildren: stagger, delayChildren } },
         }}
         {...rest}
       >
@@ -94,31 +135,37 @@ export const RevealGroup = ({
 };
 
 export const RevealItem = ({ children, className, y = 24, as = 'div', ...rest }) => {
-  const reduced = useReducedMotion();
+  const reduced = useStaticRender();
   const inGroup = useContext(StaggerContext);
+  const standalone = useReveal();
   const Tag = motion[as] || motion.div;
 
-  const variants = reduced
-    ? { hidden: { opacity: 1, y: 0 }, show: { opacity: 1, y: 0 } }
+  if (reduced) {
+    const Plain = as;
+    return (
+      <Plain className={className} {...rest}>
+        {children}
+      </Plain>
+    );
+  }
+
+  const variants = {
+    hidden: { opacity: 0, y },
+    show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+  };
+
+  /* Inside a group the parent drives the variant; standalone items
+     observe themselves. */
+  const control = inGroup
+    ? {}
     : {
-        hidden: { opacity: 0, y },
-        show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
+        ref: standalone.ref,
+        initial: 'hidden',
+        animate: standalone.inView ? 'show' : 'hidden',
       };
 
   return (
-    <Tag
-      className={className}
-      variants={variants}
-      /* Standalone use outside a group still animates on scroll. */
-      {...(inGroup
-        ? {}
-        : {
-            initial: reduced ? false : 'hidden',
-            whileInView: reduced ? undefined : 'show',
-            viewport: VIEWPORT,
-          })}
-      {...rest}
-    >
+    <Tag className={className} variants={variants} {...control} {...rest}>
       {children}
     </Tag>
   );
@@ -139,24 +186,30 @@ export const MaskedLines = ({
   accentLast = true,
   delay = 0,
 }) => {
-  const reduced = useReducedMotion();
+  const reduced = useStaticRender();
+  const { ref, inView } = useReveal();
 
   return (
-    <Tag className={className}>
+    <Tag className={className} ref={reduced ? undefined : ref}>
       {lines.map((line, index) => {
         const isAccent = accentLast && index === lines.length - 1;
+        const accentClass = isAccent ? 'text-[#e61f00]' : '';
+
+        if (reduced) {
+          return (
+            <span key={line} className={`block ${accentClass}`}>
+              {line}
+            </span>
+          );
+        }
+
         return (
           <span key={line} className="block overflow-hidden">
             <motion.span
-              className={`block ${isAccent ? 'text-[#e61f00]' : ''}`}
-              initial={reduced ? false : { y: '110%' }}
-              whileInView={reduced ? undefined : { y: '0%' }}
-              viewport={VIEWPORT}
-              transition={{
-                duration: 0.85,
-                ease: EASE,
-                delay: delay + index * 0.12,
-              }}
+              className={`block ${accentClass}`}
+              initial={{ y: '110%' }}
+              animate={inView ? { y: '0%' } : { y: '110%' }}
+              transition={{ duration: 0.85, ease: EASE, delay: delay + index * 0.12 }}
             >
               {line}
             </motion.span>
@@ -190,20 +243,6 @@ export const SectionLabel = ({ children, className = '', single = false }) => (
  * `via-white/10` sweep rather than replacing it.
  */
 
-const useFinePointer = () => {
-  const [fine, setFine] = useState(false);
-
-  useEffect(() => {
-    const query = window.matchMedia('(pointer: fine)');
-    const update = () => setFine(query.matches);
-    update();
-    query.addEventListener('change', update);
-    return () => query.removeEventListener('change', update);
-  }, []);
-
-  return fine;
-};
-
 export const Magnetic = ({ children, strength = 8, className = '' }) => {
   const reduced = useReducedMotion();
   const fine = useFinePointer();
@@ -235,5 +274,3 @@ export const Magnetic = ({ children, strength = 8, className = '' }) => {
     </motion.div>
   );
 };
-
-export { useReducedMotion };

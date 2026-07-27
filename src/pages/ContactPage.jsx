@@ -1,63 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { ArrowUpRight, Mail, Github, Linkedin, MapPin, Clock, Download, X } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { ArrowUpRight, Mail, Github, Linkedin, MapPin, Clock } from 'lucide-react';
 import Footer from '../components/common/Footer';
-import Lenis from 'lenis';
 import { CONTACT, CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../data/projects';
+import PdfModal from '../components/common/PdfModal';
+import { useLenis } from '../utils/hooks';
+import {
+  Magnetic,
+  MaskedLines,
+  Reveal,
+  RevealGroup,
+  RevealItem,
+  SectionLabel,
+} from '../utils/motion';
 
 const ContactPage = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [hoveredContact, setHoveredContact] = useState(null);
   const [showCV, setShowCV] = useState(false);
-  const [isSafari, setIsSafari] = useState(false);
 
-  const sectionRef = useRef(null);
+  useLenis();
 
   useEffect(() => {
-    setIsLoaded(true);
-
-    // Detect Safari browser
-    const detectSafari = () => {
-      const userAgent = navigator.userAgent;
-      const isSafariBrowser = /Safari/.test(userAgent) && !/Chrome/.test(userAgent) && !/Chromium/.test(userAgent);
-      setIsSafari(isSafariBrowser);
-    };
-
-    detectSafari();
-
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
-      smoothWheel: true,
-      smoothTouch: false,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    const handleNavbarMenuOpen = () => {
-      if (showCV) {
-        setShowCV(false);
-      }
-    };
-
+    const handleNavbarMenuOpen = () => setShowCV(false);
     window.addEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
-
-    // Cleanup function
-    return () => {
-      lenis.destroy();
-      window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
-    };
-  }, [showCV]);
+    return () => window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
+  }, []);
 
   const contactInfo = [
     {
@@ -109,15 +74,6 @@ const ContactPage = () => {
     }
   ];
 
-  const handleDownloadCV = () => {
-    const link = document.createElement('a');
-    link.href = CV_FILE;
-    link.download = CV_DOWNLOAD_NAME;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
       {/* Background Grid */}
@@ -134,115 +90,71 @@ const ContactPage = () => {
         />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 pt-32 pb-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16 pt-32 pb-20">
         {/* Header Section */}
         <div className="text-center mb-20">
-          <div
-            className="overflow-hidden mb-8"
-            style={{
-              animation: isLoaded ? 'slideUp 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards' : 'none',
-              transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-              opacity: isLoaded ? 1 : 0,
-            }}
-          >
-            <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
-              <div className="w-12 h-px bg-[#0a0100]/30" />
-              <span className="font-erstoria">Get In Touch</span>
-              <div className="w-12 h-px bg-[#0a0100]/30" />
-            </div>
-          </div>
+          <SectionLabel className="mb-8">Get In Touch</SectionLabel>
 
-          <div className="overflow-hidden mb-12">
-            <h1
-              className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-6"
-              style={{
-                animation: isLoaded ? 'slideUp 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s forwards' : 'none',
-                transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-                opacity: isLoaded ? 1 : 0,
-              }}
-            >
-              LET'S CREATE
-              <span className="block text-[#e61f00]">TOGETHER</span>
-            </h1>
-          </div>
+          <MaskedLines
+            as="h1"
+            lines={["LET'S CREATE", 'TOGETHER']}
+            className="font-erstoria text-4xl md:text-6xl lg:text-7xl leading-[0.9] tracking-tight text-[#0a0100] mb-12"
+          />
 
-          <div
-            className="overflow-hidden mb-16"
-            style={{
-              animation: isLoaded ? 'slideUp 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.6s forwards' : 'none',
-              transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-              opacity: isLoaded ? 1 : 0,
-            }}
-          >
-            <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-4xl mx-auto leading-relaxed">
+          <Reveal className="mb-16" delay={0.1}>
+            <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light max-w-3xl mx-auto leading-relaxed">
               Have a project in mind? I'd love to hear about it. Whether it's a complete
               digital transformation or a simple website refresh, let's discuss how we can
               bring your vision to life.
             </p>
-          </div>
+          </Reveal>
         </div>
 
         {/* Contact Information Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20"
-          style={{
-            animation: isLoaded ? 'slideUp 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.8s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
-          {contactInfo.map((contact, index) => {
+        <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+          {contactInfo.map((contact) => {
             const Icon = contact.icon;
-            const isHovered = hoveredContact === index;
 
             return (
-              <a
-                key={index}
+              <RevealItem key={contact.label}>
+                <a
                 href={contact.href}
-                target={contact.href.startsWith('http') ? '_blank' : '_self'}
-                rel={contact.href.startsWith('http') ? 'noopener noreferrer' : ''}
-                className="group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden p-8 block active:scale-[0.98]"
-                onMouseEnter={() => setHoveredContact(index)}
-                onMouseLeave={() => setHoveredContact(null)}
+                target={contact.href.startsWith('http') ? '_blank' : undefined}
+                rel={contact.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                className="focus-ring group relative border border-[#0a0100]/10 bg-white/50 backdrop-blur-sm hover:bg-white/80 hover:border-[#0a0100]/20 transition-all duration-500 cursor-pointer overflow-hidden p-6 sm:p-8 block active:scale-[0.98]"
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-transparent via-[#e61f00]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                <div className="relative flex items-center gap-6">
-                  <div className="w-16 h-16 flex items-center justify-center bg-[#0a0100]/5 group-hover:bg-[#e61f00]/10 transition-colors duration-500">
-                    <Icon className={`w-8 h-8 ${contact.color} transition-transform duration-300 group-hover:scale-110`} />
+                <div className="relative flex items-center gap-4 sm:gap-6">
+                  <div className="w-16 h-16 flex-shrink-0 flex items-center justify-center bg-[#0a0100]/5 group-hover:bg-[#e61f00]/10 transition-colors duration-500">
+                    <Icon aria-hidden="true" className={`w-8 h-8 ${contact.color} transition-transform duration-300 group-hover:scale-110`} />
                   </div>
 
-                  <div className="flex-1">
-                    <h3 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+                  <div className="flex-1 min-w-0">
+                    <h2 className="font-erstoria text-xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
                       {contact.label}
-                    </h3>
-                    <p className="text-[#0a0100]/70 text-sm leading-relaxed group-hover:text-[#0a0100]/90 transition-colors duration-300 mb-2">
+                    </h2>
+                    <p className="text-[#0a0100]/70 text-sm leading-relaxed break-words mb-2">
                       {contact.value}
                     </p>
-                    <p className="text-[#0a0100]/50 text-xs">
+                    <p className="text-[#0a0100]/60 text-xs">
                       {contact.description}
                     </p>
                   </div>
 
                   <ArrowUpRight
-                    className={`w-6 h-6 text-[#0a0100]/40 transition-all duration-300 ${isHovered ? 'translate-x-1 -translate-y-1 text-[#e61f00]' : ''
-                      }`}
+                    aria-hidden="true"
+                    className="w-6 h-6 flex-shrink-0 text-[#0a0100]/40 transition-all duration-300 group-hover:translate-x-1 group-hover:-translate-y-1 group-hover:text-[#e61f00]"
                   />
                 </div>
               </a>
+              </RevealItem>
             );
           })}
-        </div>
+        </RevealGroup>
 
         {/* Additional Information Section */}
-        <div
-          className="max-w-4xl mx-auto mb-20"
-          style={{
-            animation: isLoaded ? 'slideUp 1.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
+        <Reveal className="max-w-4xl mx-auto mb-20">
           <div className="text-center mb-12">
             <h2 className="font-erstoria text-2xl md:text-3xl text-[#0a0100] mb-4">
               Additional Information
@@ -253,22 +165,22 @@ const ContactPage = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            {additionalInfo.map((info, index) => {
+            {additionalInfo.map((info) => {
               const Icon = info.icon;
 
               return (
-                <div key={index} className="flex items-center gap-6 p-6 bg-white/30 backdrop-blur-sm border border-[#0a0100]/10">
-                  <div className="w-12 h-12 flex items-center justify-center bg-[#0a0100]/5">
-                    <Icon className="w-6 h-6 text-[#0a0100]/60" />
+                <div key={info.label} className="flex items-center gap-4 sm:gap-6 p-6 bg-white/30 backdrop-blur-sm border border-[#0a0100]/10">
+                  <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center bg-[#0a0100]/5">
+                    <Icon aria-hidden="true" className="w-6 h-6 text-[#0a0100]/60" />
                   </div>
-                  <div className="flex-1">
-                    <h4 className="font-erstoria text-lg text-[#0a0100]/80 tracking-wide mb-2">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-erstoria text-lg text-[#0a0100] tracking-wide mb-2">
                       {info.label}
-                    </h4>
+                    </h3>
                     <p className="text-[#0a0100]/70 text-sm mb-1">
                       {info.value}
                     </p>
-                    <p className="text-[#0a0100]/50 text-xs">
+                    <p className="text-[#0a0100]/60 text-xs">
                       {info.description}
                     </p>
                   </div>
@@ -279,26 +191,19 @@ const ContactPage = () => {
 
           {/* Response Guarantee */}
           <div className="bg-[#e61f00]/5 border border-[#e61f00]/20 p-8 text-center">
-            <h4 className="font-erstoria text-xl text-[#0a0100] mb-4">
+            <h3 className="font-erstoria text-xl text-[#0a0100] mb-4">
               Quick Response Guarantee
-            </h4>
+            </h3>
             <p className="text-[#0a0100]/70 leading-relaxed max-w-2xl mx-auto">
               I typically respond to all messages within 24 hours during business days.
               Either inbox reaches me — use whichever you prefer. Let's start building
               something amazing together!
             </p>
           </div>
-        </div>
+        </Reveal>
 
         {/* Call-to-Action Section */}
-        <div
-          className="text-center"
-          style={{
-            animation: isLoaded ? 'slideUp 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 1.4s forwards' : 'none',
-            transform: isLoaded ? 'translateY(0)' : 'translateY(100%)',
-            opacity: isLoaded ? 1 : 0,
-          }}
-        >
+        <Reveal className="text-center">
           <div className="mb-8">
             <h2 className="font-erstoria text-2xl md:text-3xl text-[#0a0100] mb-4">
               Ready to start your project?
@@ -310,166 +215,43 @@ const ContactPage = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <a
-              href={`mailto:${CONTACT.emailPrimary}`}
-              className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
-            >
-              <Mail className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-              <span className="font-erstoria text-base tracking-wide">SEND EMAIL</span>
-              <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-            </a>
+            <Magnetic>
+              <a
+                href={`mailto:${CONTACT.emailPrimary}`}
+                className="focus-ring group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+              >
+                <Mail aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+                <span className="font-erstoria text-base tracking-wide">SEND EMAIL</span>
+                <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+              </a>
+            </Magnetic>
 
             <button
+              type="button"
               onClick={() => setShowCV(true)}
-              className="group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer"
+              className="focus-ring group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer"
             >
               <span className="font-erstoria text-base tracking-wide">VIEW MY CV</span>
             </button>
           </div>
-        </div>
+        </Reveal>
       </div>
 
       {/* Footer Component */}
       <Footer />
 
       {/* CV Modal */}
-      <AnimatePresence>
-        {showCV && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-[100000] flex items-center justify-center p-2 sm:p-4"
-            onClick={() => setShowCV(false)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              className="bg-[#f5f5f0] shadow-2xl w-full max-w-5xl h-full sm:h-[95vh] sm:max-h-[95vh] overflow-hidden flex flex-col"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Modal Header - Responsive */}
-              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-b border-[#0a0100]/10 flex-shrink-0">
-                <div className="flex items-center gap-2 sm:gap-4">
-                  <h2 className="font-erstoria text-lg sm:text-2xl tracking-wide text-[#0a0100]">CV</h2>
-                  <div className="w-4 sm:w-8 h-px bg-[#e61f00]" />
-                </div>
-              </div>
-
-              {/* PDF Viewer - Responsive Height */}
-              <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
-                <div className="w-full h-full bg-white shadow-inner overflow-auto">
-                  {isSafari ? (
-                    /* Safari-specific PDF viewer */
-                    <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
-                      <div className="text-center space-y-4">
-                        <div className="w-16 h-16 bg-[#0a0100]/10 rounded-full flex items-center justify-center mx-auto">
-                          <svg
-                            className="w-8 h-8 text-[#0a0100]/60"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={1.5}
-                              d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
-                            />
-                          </svg>
-                        </div>
-                        <h3 className="font-erstoria text-lg text-[#0a0100] tracking-wide">
-                          Safari PDF Viewer
-                        </h3>
-                        <p className="text-[#0a0100]/70 text-sm max-w-md">
-                          Safari has restrictions on embedded PDFs. Click the button below to open the CV in a new tab for the best viewing experience.
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col gap-3">
-                        <a
-                          href={CV_FILE}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-all duration-300 cursor-pointer active:scale-95"
-                        >
-                          <span className="font-erstoria text-sm tracking-wide">OPEN CV IN NEW TAB</span>
-                          <ArrowUpRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                        </a>
-
-                        <button
-                          onClick={handleDownloadCV}
-                          className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/30 text-[#0a0100] hover:bg-[#0a0100]/5 transition-all duration-300 cursor-pointer active:scale-95"
-                        >
-                          <Download className="w-4 h-4" />
-                          <span className="font-erstoria text-sm tracking-wide">DOWNLOAD CV</span>
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    /* Standard iframe for other browsers */
-                    <iframe
-                      src={`${CV_FILE}#toolbar=0&navpanes=0&scrollbar=1&zoom=FitH`}
-                      className="w-full h-full border-none"
-                      title="CV - Oussama Alouche"
-                    />
-                  )}
-                </div>
-              </div>
-
-              {/* Modal Footer - Responsive Controls */}
-              <div className="bg-[#f5f5f0] p-3 sm:p-6 border-t border-[#0a0100]/10 flex-shrink-0">
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
-                    Updated {CV_LAST_UPDATED}
-                  </span>
-
-                  {/* Action Buttons Group */}
-                  <div className="flex items-center gap-1">
-                    {/* Download Button - Icon only */}
-                    <button
-                      onClick={handleDownloadCV}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
-                      title="Download CV"
-                      aria-label="Download CV"
-                    >
-                      <Download size={16} className="sm:w-5 sm:h-5" />
-                    </button>
-
-                    {/* Close Button */}
-                    <button
-                      onClick={() => setShowCV(false)}
-                      className="group flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-[#0a0100] hover:bg-[#e61f00] text-white transition-all duration-300 cursor-pointer active:scale-95"
-                      aria-label="Close CV"
-                    >
-                      <X size={16} className="sm:w-5 sm:h-5" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Loading fallback */}
-              <div className="absolute inset-6 flex items-center justify-center bg-white" style={{ display: 'none' }} id="pdf-loading">
-                <div className="text-center">
-                  <div className="w-8 h-8 border-2 border-[#e61f00] border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-[#0a0100]/60 font-erstoria tracking-wide">LOADING CV...</p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <style jsx>{`
-        @keyframes slideUp {
-          to {
-            transform: translateY(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
+      <PdfModal
+        open={showCV}
+        onClose={() => setShowCV(false)}
+        title="CV"
+        fileUrl={CV_FILE}
+        downloadName={CV_DOWNLOAD_NAME}
+        eyebrow={`Updated ${CV_LAST_UPDATED}`}
+        newTabLabel="OPEN CV IN NEW TAB"
+        downloadLabel="DOWNLOAD CV"
+      />
     </div>
   );
 };

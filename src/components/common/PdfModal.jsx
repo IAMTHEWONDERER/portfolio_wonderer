@@ -1,9 +1,8 @@
 import React, { useEffect, useId, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { ArrowUpRight, Download, FileText, X } from 'lucide-react';
 import { useIsSafari, useBodyScrollLock } from '../../utils/hooks';
-import { useReducedMotion } from '../../utils/motion';
 
 /**
  * The one PDF viewer.
@@ -38,6 +37,17 @@ const PdfModal = ({
 
   useBodyScrollLock(open);
 
+  /*
+   * Held in a ref so the effect below depends only on `open`. Callers
+   * pass an inline arrow, so `onClose` gets a fresh identity on every
+   * parent render — depending on it directly tore the listener down and
+   * re-ran focus restoration on every unrelated re-render.
+   */
+  const onCloseRef = useRef(onClose);
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
   /* Escape to close, Tab trapped inside the dialog, focus restored on exit. */
   useEffect(() => {
     if (!open) return undefined;
@@ -48,7 +58,7 @@ const PdfModal = ({
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
         event.stopPropagation();
-        onClose();
+        onCloseRef.current();
         return;
       }
 
@@ -77,7 +87,7 @@ const PdfModal = ({
       document.removeEventListener('keydown', handleKeyDown);
       restoreFocusRef.current?.focus?.();
     };
-  }, [open, onClose]);
+  }, [open]);
 
   const handleDownload = () => {
     const link = document.createElement('a');
@@ -90,19 +100,26 @@ const PdfModal = ({
 
   const overlayMotion = reduced
     ? {}
-    : { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0 } };
+    : { initial: { opacity: 0 }, animate: { opacity: 1 } };
 
   const panelMotion = reduced
     ? {}
     : {
         initial: { scale: 0.96, opacity: 0 },
         animate: { scale: 1, opacity: 1 },
-        exit: { scale: 0.96, opacity: 0 },
       };
 
+  /*
+   * Rendered conditionally rather than through <AnimatePresence>. With
+   * AnimatePresence the exit animation ran to opacity: 0 but the node was
+   * never removed, leaving a focusable `role="dialog"` in the DOM after
+   * close — a worse bug than losing a 200ms fade-out.
+   */
+  if (!open) return null;
+
   return createPortal(
-    <AnimatePresence>
-      {open && (
+    <>
+      {
         <motion.div
           {...overlayMotion}
           className="fixed inset-0 bg-[#0a0100]/90 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4"
@@ -219,8 +236,8 @@ const PdfModal = ({
             </div>
           </motion.div>
         </motion.div>
-      )}
-    </AnimatePresence>,
+      }
+    </>,
     document.body,
   );
 };

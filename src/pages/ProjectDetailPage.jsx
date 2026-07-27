@@ -1,43 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { ArrowUpRight, ArrowLeft, Calendar, ChevronRight, ChevronLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import Footer from '../components/common/Footer';
-import Lenis from 'lenis';
 import { caseStudies } from '../data/projects';
+import { useLenis } from '../utils/hooks';
+import { Magnetic, Reveal, RevealGroup, RevealItem } from '../utils/motion';
+
+const SectionEyebrow = ({ children }) => (
+    <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-xs mb-4">
+        <div className="w-8 h-px bg-[#0a0100]/30" />
+        <span className="font-erstoria">{children}</span>
+    </div>
+);
 
 const ProjectDetailPage = () => {
-    const [isLoaded, setIsLoaded] = useState(false);
     const [activeScreenshot, setActiveScreenshot] = useState(0);
     const { slug } = useParams();
-    const heroRef = useRef(null);
 
-    useEffect(() => {
-        setIsLoaded(true);
-
-        const lenis = new Lenis({
-            lerp: 0.1,
-            duration: 1.2,
-            smoothWheel: true,
-            smoothTouch: false,
-            direction: 'vertical',
-            gestureDirection: 'vertical',
-            smooth: true,
-            mouseMultiplier: 1,
-            touchMultiplier: 2,
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-
-        requestAnimationFrame(raf);
-
-        return () => {
-            lenis.destroy();
-        };
-    }, []);
+    useLenis();
 
     const project = caseStudies[slug];
 
@@ -46,7 +26,7 @@ const ProjectDetailPage = () => {
             <div className="min-h-screen bg-[#f5f5f0] flex items-center justify-center">
                 <div className="text-center">
                     <h1 className="font-erstoria text-4xl text-[#0a0100] mb-4">Project Not Found</h1>
-                    <Link to="/portfolio" className="text-[#e61f00] hover:underline">
+                    <Link to="/portfolio" className="focus-ring text-[#e61f00] underline">
                         Return to Portfolio
                     </Link>
                 </div>
@@ -73,16 +53,16 @@ const ProjectDetailPage = () => {
             {/* Navbar is rendered once globally in AppRouter — do not add a second one here. */}
 
             {/* Hero Section */}
-            <section ref={heroRef} className="relative pt-24 md:pt-32 pb-16 md:pb-20">
+            <section className="relative pt-24 md:pt-32 pb-16 md:pb-20">
                 <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
 
                     {/* Breadcrumb */}
                     <div className="mb-8">
                         <Link
                             to="/portfolio"
-                            className="inline-flex items-center gap-2 text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 group"
+                            className="focus-ring inline-flex items-center gap-2 text-[#0a0100]/60 hover:text-[#e61f00] transition-colors duration-300 group"
                         >
-                            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
+                            <ArrowLeft aria-hidden="true" className="w-4 h-4 transition-transform duration-300 group-hover:-translate-x-1" />
                             <span className="font-erstoria text-sm tracking-wide uppercase">Back to Portfolio</span>
                         </Link>
                     </div>
@@ -99,11 +79,11 @@ const ProjectDetailPage = () => {
                                 </span>
                             </div>
 
-                            <h1 className="font-erstoria text-5xl sm:text-6xl md:text-7xl text-[#0a0100] tracking-tight mb-4">
+                            <h1 className="font-erstoria text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[0.9] text-[#0a0100] tracking-tight mb-4">
                                 {project.title}
                             </h1>
 
-                            <p className="text-xl md:text-2xl text-[#0a0100]/60 font-light mb-6">
+                            <p className="text-xl md:text-2xl text-[#0a0100]/70 font-light mb-6">
                                 {project.subtitle}
                             </p>
 
@@ -123,29 +103,31 @@ const ProjectDetailPage = () => {
                                 ))}
                             </div>
 
-                            <div className="flex items-center gap-2 text-sm text-[#0a0100]/50 mb-8">
-                                <Calendar className="w-4 h-4" />
+                            <div className="flex items-center gap-2 text-sm text-[#0a0100]/60 mb-8">
+                                <Calendar aria-hidden="true" className="w-4 h-4" />
                                 <span>{project.timeline}</span>
                             </div>
 
                             {project.liveUrl && (
-                                <a
-                                    href={project.liveUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 cursor-pointer"
-                                >
-                                    <span className="font-erstoria text-base tracking-wide">
-                                        VISIT {project.liveUrlLabel.toUpperCase()}
-                                    </span>
-                                    <ArrowUpRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
-                                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
-                                </a>
+                                <Magnetic>
+                                    <a
+                                        href={project.liveUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="focus-ring group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 cursor-pointer"
+                                    >
+                                        <span className="font-erstoria text-base tracking-wide">
+                                            VISIT {project.liveUrlLabel.toUpperCase()}
+                                        </span>
+                                        <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                                    </a>
+                                </Magnetic>
                             )}
                         </div>
 
                         {/* Right - Hero Image */}
-                        <div className="relative">
+                        <div className="relative isolate">
                             <div className="relative aspect-[4/3] bg-white border border-[#0a0100]/10 overflow-hidden">
                                 {/* Fallback sits behind the screenshot */}
                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
@@ -180,10 +162,7 @@ const ProjectDetailPage = () => {
             <section className="py-16 md:py-20">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
                     <div className="mb-8">
-                        <div className="inline-flex items-center gap-3 text-[#0a0100]/50 uppercase tracking-widest text-xs mb-4">
-                            <div className="w-8 h-px bg-[#0a0100]/30" />
-                            <span className="font-erstoria">The Story</span>
-                        </div>
+                        <SectionEyebrow>The Story</SectionEyebrow>
                     </div>
 
                     <div className="space-y-6">
@@ -201,10 +180,7 @@ const ProjectDetailPage = () => {
                 <section className="py-16 md:py-20 bg-white/50">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
                         <div className="mb-8">
-                            <div className="inline-flex items-center gap-3 text-[#0a0100]/50 uppercase tracking-widest text-xs mb-4">
-                                <div className="w-8 h-px bg-[#0a0100]/30" />
-                                <span className="font-erstoria">Platform Preview</span>
-                            </div>
+                            <SectionEyebrow>Platform Preview</SectionEyebrow>
                             <h2 className="font-erstoria text-3xl md:text-4xl text-[#0a0100]">
                                 See It In Action
                             </h2>
@@ -224,35 +200,43 @@ const ProjectDetailPage = () => {
                             {project.screenshots.length > 1 && (
                                 <>
                                     <button
+                                        type="button"
+                                        aria-label="Previous screenshot"
                                         onClick={() => setActiveScreenshot(prev => prev === 0 ? project.screenshots.length - 1 : prev - 1)}
-                                        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors cursor-pointer"
+                                        className="focus-ring absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors duration-300 cursor-pointer active:scale-95"
                                     >
-                                        <ChevronLeft className="w-5 h-5" />
+                                        <ChevronLeft aria-hidden="true" className="w-5 h-5" />
                                     </button>
                                     <button
+                                        type="button"
+                                        aria-label="Next screenshot"
                                         onClick={() => setActiveScreenshot(prev => prev === project.screenshots.length - 1 ? 0 : prev + 1)}
-                                        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors cursor-pointer"
+                                        className="focus-ring absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 border border-[#0a0100]/10 flex items-center justify-center hover:bg-[#0a0100] hover:text-white transition-colors duration-300 cursor-pointer active:scale-95"
                                     >
-                                        <ChevronRight className="w-5 h-5" />
+                                        <ChevronRight aria-hidden="true" className="w-5 h-5" />
                                     </button>
                                 </>
                             )}
                         </div>
 
                         {/* Thumbnail Navigation */}
-                        <div className="flex gap-3 justify-center">
+                        <div className="flex flex-wrap gap-3 justify-center">
                             {project.screenshots.map((screenshot, index) => (
                                 <button
-                                    key={index}
+                                    key={screenshot}
+                                    type="button"
                                     onClick={() => setActiveScreenshot(index)}
-                                    className={`relative w-20 h-14 overflow-hidden border-2 transition-all cursor-pointer ${activeScreenshot === index
+                                    aria-label={`Show screenshot ${index + 1}`}
+                                    aria-current={activeScreenshot === index}
+                                    className={`focus-ring relative w-20 h-14 overflow-hidden border-2 transition-all duration-300 cursor-pointer active:scale-95 ${activeScreenshot === index
                                             ? 'border-[#e61f00]'
                                             : 'border-[#0a0100]/10 hover:border-[#0a0100]/30'
                                         }`}
                                 >
                                     <img
                                         src={screenshot}
-                                        alt={`Thumbnail ${index + 1}`}
+                                        alt=""
+                                        aria-hidden="true"
                                         className="w-full h-full object-cover"
                                     />
                                 </button>
@@ -264,19 +248,16 @@ const ProjectDetailPage = () => {
             <section className="py-16 md:py-20 bg-white/50">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
                     <div className="mb-12">
-                        <div className="inline-flex items-center gap-3 text-[#0a0100]/50 uppercase tracking-widest text-xs mb-4">
-                            <div className="w-8 h-px bg-[#0a0100]/30" />
-                            <span className="font-erstoria">Key Features</span>
-                        </div>
+                        <SectionEyebrow>Key Features</SectionEyebrow>
                         <h2 className="font-erstoria text-3xl md:text-4xl text-[#0a0100]">
                             What Makes It Special
                         </h2>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
+                    <RevealGroup className="grid md:grid-cols-2 gap-6">
                         {project.features.map((feature, index) => (
-                            <div
-                                key={index}
+                            <RevealItem
+                                key={feature.title}
                                 className="p-6 bg-white border border-[#0a0100]/10 hover:border-[#e61f00]/30 transition-colors duration-300"
                             >
                                 <div className="flex items-start gap-4">
@@ -287,14 +268,14 @@ const ProjectDetailPage = () => {
                                         <h3 className="font-erstoria text-lg text-[#0a0100] mb-2">
                                             {feature.title}
                                         </h3>
-                                        <p className="text-sm text-[#0a0100]/60 leading-relaxed">
+                                        <p className="text-sm text-[#0a0100]/70 leading-relaxed">
                                             {feature.description}
                                         </p>
                                     </div>
                                 </div>
-                            </div>
+                            </RevealItem>
                         ))}
-                    </div>
+                    </RevealGroup>
                 </div>
             </section>
 
@@ -302,18 +283,15 @@ const ProjectDetailPage = () => {
             <section className="py-16 md:py-20">
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
                     <div className="mb-12">
-                        <div className="inline-flex items-center gap-3 text-[#0a0100]/50 uppercase tracking-widest text-xs mb-4">
-                            <div className="w-8 h-px bg-[#0a0100]/30" />
-                            <span className="font-erstoria">Technical Deep Dive</span>
-                        </div>
+                        <SectionEyebrow>Technical Deep Dive</SectionEyebrow>
                         <h2 className="font-erstoria text-3xl md:text-4xl text-[#0a0100]">
                             Challenges & Solutions
                         </h2>
                     </div>
 
-                    <div className="space-y-8">
-                        {project.challenges.map((item, index) => (
-                            <div key={index} className="relative">
+                    <RevealGroup className="space-y-8" stagger={0.1}>
+                        {project.challenges.map((item) => (
+                            <RevealItem key={item.challenge} className="relative">
                                 <div className="absolute left-0 top-0 bottom-0 w-px bg-[#e61f00]/30" />
                                 <div className="pl-8">
                                     <h3 className="font-erstoria text-xl text-[#0a0100] mb-3">
@@ -323,30 +301,35 @@ const ProjectDetailPage = () => {
                                         {item.solution}
                                     </p>
                                 </div>
-                            </div>
+                            </RevealItem>
                         ))}
-                    </div>
+                    </RevealGroup>
                 </div>
             </section>
 
             {/* Simple CTA */}
             <section className="py-16 md:py-20 border-t border-[#0a0100]/10">
                 <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16 text-center">
-                    <p className="text-[#0a0100]/60 mb-6">
+                    <p className="text-[#0a0100]/70 mb-6">
                         Interested in the technical details or want to discuss similar projects?
                     </p>
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <Link to="/contact">
-                            <button className="group inline-flex items-center justify-center gap-3 px-6 py-3 bg-[#0a0100] text-white hover:bg-[#e61f00] transition-colors duration-300 cursor-pointer">
-                                <span className="font-erstoria text-sm tracking-wide">Get in Touch</span>
-                                <ArrowUpRight className="w-4 h-4" />
-                            </button>
-                        </Link>
-                        <Link to="/portfolio">
-                            <button className="group inline-flex items-center justify-center gap-3 px-6 py-3 border border-[#0a0100]/20 text-[#0a0100] hover:border-[#0a0100] transition-colors duration-300 cursor-pointer">
-                                <span className="font-erstoria text-sm tracking-wide">View More Work</span>
-                                <ChevronRight className="w-4 h-4" />
-                            </button>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <Magnetic>
+                            <Link
+                                to="/contact"
+                                className="focus-ring group relative inline-flex items-center justify-center gap-4 px-8 py-4 bg-[#0a0100] text-white overflow-hidden transition-all duration-500 hover:bg-[#e61f00] active:scale-95 min-w-[200px] cursor-pointer"
+                            >
+                                <span className="font-erstoria text-base tracking-wide">GET IN TOUCH</span>
+                                <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
+                            </Link>
+                        </Magnetic>
+                        <Link
+                            to="/portfolio"
+                            className="focus-ring group inline-flex items-center justify-center gap-4 px-8 py-4 border border-[#0a0100] text-[#0a0100] hover:bg-[#0a0100] hover:text-white transition-all duration-300 active:scale-95 min-w-[200px] cursor-pointer"
+                        >
+                            <span className="font-erstoria text-base tracking-wide">VIEW MORE WORK</span>
+                            <ArrowUpRight aria-hidden="true" className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1" />
                         </Link>
                     </div>
                 </div>
