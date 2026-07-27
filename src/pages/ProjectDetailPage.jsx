@@ -17,6 +17,7 @@ const ProjectDetailPage = () => {
     const { slug } = useParams();
 
     const project = caseStudies[slug];
+    const isPortraitGallery = project?.screenshotFit === 'contain';
 
     if (!project) {
         return (
@@ -125,7 +126,7 @@ const ProjectDetailPage = () => {
 
                         {/* Right - Hero Image */}
                         <div className="relative isolate">
-                            <div className="relative aspect-[4/3] bg-white border border-[#0a0100]/10 overflow-hidden">
+                            <div className={`relative ${isPortraitGallery ? 'aspect-[4/3] bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4]' : 'aspect-[4/3] bg-white'} border border-[#0a0100]/10 overflow-hidden`}>
                                 {/* Fallback sits behind the screenshot */}
                                 <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-[#e61f00]/10 to-[#e61f00]/5">
                                     <span className="font-erstoria text-4xl text-[#0a0100]/20">{project.title}</span>
@@ -135,7 +136,7 @@ const ProjectDetailPage = () => {
                                     <img
                                         src={project.screenshot}
                                         alt={`${project.title} preview`}
-                                        className="relative w-full h-full object-cover object-top"
+                                        className={`relative w-full h-full ${isPortraitGallery ? 'object-contain p-4' : 'object-cover object-top'}`}
                                         onError={(e) => {
                                             e.target.style.display = 'none';
                                         }}
@@ -183,6 +184,29 @@ const ProjectDetailPage = () => {
                             </h2>
                         </div>
 
+                        {/*
+                          Portrait captures (phone screens) are shown all at
+                          once in their own aspect ratio. Letterboxing a 1:2
+                          screen inside a 16:9 carousel renders it postage-stamp
+                          sized, which is worse than no gallery at all.
+                        */}
+                        {isPortraitGallery ? (
+                            <RevealGroup className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                                {project.screenshots.map((screenshot, index) => (
+                                    <RevealItem key={screenshot}>
+                                        <div className="relative aspect-[9/19] bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4] border border-[#0a0100]/10 overflow-hidden">
+                                            <img
+                                                src={screenshot}
+                                                alt={`${project.title} screenshot ${index + 1}`}
+                                                loading="lazy"
+                                                className="w-full h-full object-contain"
+                                            />
+                                        </div>
+                                    </RevealItem>
+                                ))}
+                            </RevealGroup>
+                        ) : (
+                        <>
                         {/* Main Image Display */}
                         <div className="relative mb-6">
                             <div className="relative aspect-video bg-white border border-[#0a0100]/10 overflow-hidden">
@@ -239,6 +263,8 @@ const ProjectDetailPage = () => {
                                 </button>
                             ))}
                         </div>
+                        </>
+                        )}
                     </div>
                 </section>
             )}

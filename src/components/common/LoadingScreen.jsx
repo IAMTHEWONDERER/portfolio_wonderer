@@ -18,11 +18,16 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
 
     detectSafari();
 
-    // Ensure scrolling is disabled while the loader is up. Restored in
-    // this component's own cleanup so an unmount by any other path
-    // cannot strand the page in `overflow: hidden`.
-    const previousBodyOverflow = document.body.style.overflow;
-    const previousRootOverflow = document.documentElement.style.overflow;
+    /*
+     * The loader is the SOLE owner of the scroll lock.
+     *
+     * It must not capture-and-restore the previous overflow. The mounting
+     * parent had already set `hidden`, so "restoring" it on unmount put the
+     * lock straight back after the parent had released it — leaving a fully
+     * rendered page that could not be scrolled. The loader locks on mount and
+     * unconditionally unlocks on unmount, which is the only invariant that
+     * makes sense: if the loader is gone, the page scrolls.
+     */
     document.body.style.overflow = 'hidden';
     document.documentElement.style.overflow = 'hidden';
     
@@ -51,13 +56,39 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
     };
     
     animationRef.current = requestAnimationFrame(updateProgress);
-    
+
+    /*
+     * Fail-safe.
+     *
+     * The loop above advances on requestAnimationFrame, which browsers
+     * suspend in a background or throttled tab. Because the loader gates all
+     * content AND holds `overflow: hidden` on body and html, a stalled frame
+     * loop does not merely freeze an animation — it leaves the visitor on a
+     * blank page they cannot scroll, with no way out.
+     *
+     * setTimeout keeps running where rAF does not, so it forces completion if
+     * the frame loop has not finished on its own. Setting the same state
+     * twice is a no-op, so this is harmless when the loop did finish.
+     */
+    const failSafe = window.setTimeout(() => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      setProgress(100);
+      if (onProgressUpdate) {
+        onProgressUpdate(100);
+      }
+      setIsComplete(true);
+      setShowReveal(true);
+    }, duration + 2000);
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
-      document.body.style.overflow = previousBodyOverflow;
-      document.documentElement.style.overflow = previousRootOverflow;
+      window.clearTimeout(failSafe);
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
     };
   }, []);
 

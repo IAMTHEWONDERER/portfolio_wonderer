@@ -11,7 +11,16 @@ const SURFACE =
  * Screenshot with a small scroll-driven parallax offset, replacing the
  * old `hover:scale-105`. Compositor-only: `transform` and nothing else.
  */
-const ParallaxScreenshot = ({ src, alt }) => {
+/**
+ * `fit` follows the shape of the source image.
+ *
+ * Landscape captures fill the frame ('cover'). Portrait phone screenshots
+ * must not — cropping a 1:2 screen into a 3:2 card leaves a meaningless
+ * sliver — so they are contained and sit on the card's own gradient, which
+ * reads as a device on a surface. Contained images also skip the 1.08 scale,
+ * since scaling would crop back the padding that makes them legible.
+ */
+const ParallaxScreenshot = ({ src, alt, fit = 'cover' }) => {
   const ref = useRef(null);
   const reduced = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -19,15 +28,25 @@ const ParallaxScreenshot = ({ src, alt }) => {
     offset: ['start end', 'end start'],
   });
   const y = useTransform(scrollYProgress, [0, 1], ['-2.5%', '2.5%']);
+  const contain = fit === 'contain';
 
   return (
-    <div ref={ref} className="absolute inset-0 overflow-hidden">
+    <div
+      ref={ref}
+      className={`absolute inset-0 overflow-hidden ${
+        contain ? 'bg-gradient-to-br from-[#f5f5f0] to-[#e9e9e4]' : ''
+      }`}
+    >
       <motion.img
         src={src}
         alt={alt}
         loading="lazy"
-        className="w-full h-full object-cover object-top"
-        style={reduced ? undefined : { y, scale: 1.08 }}
+        className={
+          contain
+            ? 'w-full h-full object-contain p-4'
+            : 'w-full h-full object-cover object-top'
+        }
+        style={reduced ? undefined : contain ? { y } : { y, scale: 1.08 }}
       />
     </div>
   );
@@ -68,6 +87,7 @@ const ProjectCard = ({ project }) => {
               <ParallaxScreenshot
                 src={project.screenshot}
                 alt={`${project.title} preview`}
+                fit={project.screenshotFit}
               />
             </div>
 

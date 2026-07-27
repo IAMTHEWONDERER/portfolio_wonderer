@@ -25,10 +25,14 @@ const AppWithLoading = () => {
       // First time visitor - show loading screen
       setIsLoading(true);
       
-      // Prevent scrolling during loading
-      document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-      
+      /*
+       * The scroll lock belongs to LoadingScreen alone — it locks on mount and
+       * unlocks on unmount. Locking here as well meant LoadingScreen captured
+       * `hidden` as the value to restore, and restored it on unmount right
+       * after this component had released it, silently re-locking a page that
+       * was fully rendered.
+       */
+
       // Mark as seen in session storage
       sessionStorage.setItem('hasSeenLoading', 'true');
       
@@ -79,11 +83,7 @@ const AppWithLoading = () => {
   }, []);
 
   const handleLoadingComplete = () => {
-    // Re-enable scrolling
-    document.body.style.overflow = '';
-    document.documentElement.style.overflow = '';
-    
-    // Remove loading screen - page will be revealed
+    // Unmounting LoadingScreen releases the scroll lock in its own cleanup.
     setIsLoading(false);
   };
 

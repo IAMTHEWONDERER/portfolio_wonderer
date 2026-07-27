@@ -181,7 +181,9 @@ export const webProjects = [
     tech: ['Flutter', 'React', 'TypeScript', 'FastAPI', 'PyTorch', 'Supabase'],
     category: 'Personal Business',
     type: 'website',
-    screenshot: null,
+    screenshot: '/imgs/screenshots/trcks/home.png',
+    // Portrait phone capture — contained rather than cropped. See ProjectCard.
+    screenshotFit: 'contain',
   },
   {
     slug: 'asanada-lms',
@@ -529,8 +531,13 @@ export const caseStudies = {
     longDescription: `TRCKS turns raw session data into sports science that a coach can actually act on. GPS traces are smoothed with a Kalman filter before anything is derived from them, then broken down into a 7-zone speed profile alongside PlayerLoad and ACWR injury-risk flags. Custom PyTorch models, trained and integrated into the same pipeline, handle movement classification and performance trend prediction.
 
 The product also ships Elis, an AI coaching assistant running on a self-hosted, fine-tuned Qwen 2.5 3B model, GGUF-quantized through llama.cpp, with a cloud provider kept behind a swappable interface as a fallback. The complete UX — onboarding, dashboards, team management and the AI coach flows — was designed in Figma, and the mobile experience is offline-first with background sync, notifications, JWT auth and row-level security. It runs on a freemium model: Pro at €6/month, a Founding Member tier at €29 for two years capped at 500 users, and Club at €35/month.`,
-    screenshot: null,
-    screenshots: [],
+    screenshot: '/imgs/screenshots/trcks/home.png',
+    screenshotFit: 'contain',
+    screenshots: [
+      '/imgs/screenshots/trcks/home.png',
+      '/imgs/screenshots/trcks/train.png',
+      '/imgs/screenshots/trcks/analytics.png',
+    ],
     color: '#e61f00',
     technologies: [
       { name: 'Flutter', category: 'Mobile' },
