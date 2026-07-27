@@ -256,7 +256,9 @@ const ProjectCarousel = ({
 
       {/* Counter */}
       <div className="text-center mt-4">
-        <span className="text-sm text-[#0a0100]/60 font-erstoria tracking-widest uppercase">
+        {/* tabular-nums: the index ticks every 5s, and proportional digits
+            made the counter shift width as it counted. */}
+        <span className="text-sm text-[#0a0100]/60 font-erstoria tracking-widest uppercase tabular-nums">
           {String(activeIndex + 1).padStart(2, '0')} /{' '}
           {String(total).padStart(2, '0')}
         </span>

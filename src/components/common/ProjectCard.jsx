@@ -140,7 +140,9 @@ const ProjectCard = ({ project }) => {
             <div className="inline-block px-3 py-1 mb-3 text-xs font-erstoria tracking-widest uppercase bg-[#0a0100]/5 text-[#0a0100]/60 border border-[#0a0100]/10">
               {project.category}
             </div>
-            <h4 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 group-hover:text-[#e61f00] transition-colors duration-300">
+            {/* text-balance evens the rag on titles that wrap, e.g.
+                "Confidential Frontend / Design System". */}
+            <h4 className="font-erstoria text-lg sm:text-xl md:text-2xl text-[#0a0100] tracking-wide mb-2 text-balance group-hover:text-[#e61f00] transition-colors duration-300">
               {project.title}
             </h4>
             <p className="text-sm text-[#0a0100]/60 mb-3">{project.subtitle}</p>

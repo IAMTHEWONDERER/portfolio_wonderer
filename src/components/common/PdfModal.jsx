@@ -149,7 +149,9 @@ const PdfModal = ({
 
             {/* Viewer */}
             <div className="flex-1 bg-[#f5f5f0] p-2 sm:p-6 pt-2 sm:pt-4 overflow-hidden">
-              <div className="w-full h-full bg-white shadow-inner overflow-auto">
+              {/* overscroll-contain: without it, reaching the end of the PDF
+                  chains the scroll through to the page behind the modal. */}
+              <div className="w-full h-full bg-white shadow-inner overflow-auto overscroll-contain">
                 {isSafari ? (
                   <div className="w-full h-full flex flex-col items-center justify-center space-y-6 p-8">
                     <div className="text-center space-y-4">

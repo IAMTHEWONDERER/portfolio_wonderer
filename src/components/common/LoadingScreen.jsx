@@ -269,7 +269,9 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
                   lineHeight: 1,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  // Counts 0→100; proportional digits made it wobble.
+                  fontVariantNumeric: 'tabular-nums',
                 }}
               >
                 {Math.floor(progress)}%
@@ -285,10 +287,10 @@ const LoadingScreen = ({ onLoadingComplete, onProgressUpdate }) => {
             className="space-y-3"
           >
             <p className="text-[#0a0100]/70 text-sm md:text-base tracking-wide">
-              {Math.floor(progress) < 30 && "Initializing experience..."}
-              {Math.floor(progress) >= 30 && Math.floor(progress) < 60 && "Loading creative assets..."}
-              {Math.floor(progress) >= 60 && Math.floor(progress) < 90 && "Preparing portfolio..."}
-              {Math.floor(progress) >= 90 && Math.floor(progress) < 100 && "Almost ready..."}
+              {Math.floor(progress) < 30 && "Initializing experience…"}
+              {Math.floor(progress) >= 30 && Math.floor(progress) < 60 && "Loading creative assets…"}
+              {Math.floor(progress) >= 60 && Math.floor(progress) < 90 && "Preparing portfolio…"}
+              {Math.floor(progress) >= 90 && Math.floor(progress) < 100 && "Almost ready…"}
               {Math.floor(progress) >= 100 && "Welcome!"}
             </p>
             

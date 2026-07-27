@@ -46,9 +46,45 @@
   font-display: swap;
 }
 
+/* ------------------------------------------------------------------ */
+/* Base — Web Interface Guidelines                                     */
+/* ------------------------------------------------------------------ */
+
+:root {
+  /* Tells the UA to render form controls and scrollbars for a light page. */
+  color-scheme: light;
+}
+
+html {
+  /* Removes the ~300ms double-tap-to-zoom delay on touch devices, so taps
+     on cards and buttons register immediately. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Anchored headings clear the fixed navbar instead of hiding under it. */
+:is(h1, h2, h3, h4)[id],
+[id]:target {
+  scroll-margin-top: 7rem;
+}
+
 @layer utilities {
   .font-erstoria {
     font-family: 'Erstoria', sans-serif;
+  }
+
+  /* Headings set their own rag rather than leaving a one-word last line. */
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Digits share a fixed advance width, so counters and percentages do not
+     jitter as they tick. */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 
   /* Single keyboard focus treatment for every interactive element. */
