@@ -14,8 +14,8 @@ import { Magnetic, MaskedLines, Reveal, SectionLabel } from '../../utils/motion'
 const artisticImages = [
   {
     id: 1,
-    src: '/imgs/im2.jpeg',
-    alt: 'A workspace mid-project',
+    src: '/imgs/oussama-presenting.jpeg',
+    alt: 'Oussama Alouche presenting to a room',
     position: 'top-8 left-12',
     size: 'w-72 h-96',
     delay: '0.5s',
@@ -113,7 +113,7 @@ const AboutLanding = () => {
             <div className="relative w-full h-full">
               <img
                 src={image.src}
-                alt=""
+                alt={image.alt}
                 loading="lazy"
                 className="w-full h-full object-cover shadow-md transition-[filter] duration-700 ease-out"
                 style={{ filter: getImageFilter(image.id) }}
