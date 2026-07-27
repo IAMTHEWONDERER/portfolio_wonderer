@@ -94,20 +94,16 @@ const AppWithLoading = () => {
     }
   };
 
-  // Generate Safari-specific height styles
-  const getSafariHeightStyles = () => {
-    if (isSafari) {
-      return {
-        minHeight: '100vh',
-        maxHeight: '100vh',
-        height: '100vh'
-      };
-    }
-    return {
-      minHeight: '100vh',
-      maxHeight: '100dvh'
-    };
-  };
+  /*
+   * The app shell may only ever set a MINIMUM height.
+   *
+   * This previously returned `maxHeight: '100dvh'` — and on Safari a hard
+   * `height: '100vh'` with a matching `maxHeight` — on the wrapper around
+   * the entire router. That caps the whole site at one viewport, which is
+   * why `document.body` computed to the viewport height while its content
+   * was ~22000px tall, and why the page could not be scrolled.
+   */
+  const getShellHeightStyles = () => ({ minHeight: '100vh' });
 
   const getSafariLoadingStyles = () => {
     if (isSafari) {
@@ -131,10 +127,10 @@ const AppWithLoading = () => {
   };
 
   return (
-    <div className="relative" style={getSafariHeightStyles()}>
+    <div className="relative" style={getShellHeightStyles()}>
       {/* Main content - show when loading is complete OR when progress hits 80% */}
       {(!isLoading || showContent) && (
-        <div style={getSafariHeightStyles()}>
+        <div style={getShellHeightStyles()}>
           <AppRouter />
         </div>
       )}

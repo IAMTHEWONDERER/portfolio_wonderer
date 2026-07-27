@@ -4,10 +4,8 @@ import HeroPortfolio from '../components/portfoliopage/HeroPortfolio';
 import ThinkPortfolio from '../components/portfoliopage/ThinkPortfolio';
 import ExperienceTimeline from '../components/portfoliopage/ExperienceTimeline';
 import DisplayPortfolio from '../components/portfoliopage/DisplayPortfolio';
-import { useLenis } from '../utils/hooks';
 
 const PortfolioPage = () => {
-  useLenis();
 
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">

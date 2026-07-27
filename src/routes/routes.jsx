@@ -6,6 +6,7 @@ import LandingPage from '../pages/LandingPage';
 import ContactPage from '../pages/ContactPage';
 import PortfolioPage from '../pages/PortfolioPage';
 import ProjectDetailPage from '../pages/ProjectDetailPage';
+import { useLenis } from '../utils/hooks';
 
 // Component to scroll to top on route change
 const ScrollToTop = () => {
@@ -52,6 +53,17 @@ const DocumentTitle = () => {
 };
 
 const AppRouter = () => {
+  /*
+   * Mounted exactly once, for the lifetime of the app.
+   *
+   * Lenis used to be started per page. Because it calls preventDefault() on
+   * wheel events at the window, an instance that outlived its page kept
+   * swallowing them everywhere — so visiting one smooth-scrolled route left
+   * the whole site unscrollable, including routes that never started Lenis.
+   * One owner means there is nothing to leak.
+   */
+  useLenis();
+
   return (
     <Router>
       <div className='bg-[#f5f5f0]' style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}>

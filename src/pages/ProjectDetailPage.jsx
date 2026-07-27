@@ -3,7 +3,6 @@ import { ArrowUpRight, ArrowLeft, Calendar, ChevronRight, ChevronLeft } from 'lu
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../components/common/Footer';
 import { caseStudies } from '../data/projects';
-import { useLenis } from '../utils/hooks';
 import { Magnetic, Reveal, RevealGroup, RevealItem } from '../utils/motion';
 
 const SectionEyebrow = ({ children }) => (
@@ -16,8 +15,6 @@ const SectionEyebrow = ({ children }) => (
 const ProjectDetailPage = () => {
     const [activeScreenshot, setActiveScreenshot] = useState(0);
     const { slug } = useParams();
-
-    useLenis();
 
     const project = caseStudies[slug];
 

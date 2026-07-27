@@ -3,7 +3,6 @@ import { ArrowUpRight, Mail, Github, Linkedin, MapPin, Clock } from 'lucide-reac
 import Footer from '../components/common/Footer';
 import { CONTACT, CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../data/projects';
 import PdfModal from '../components/common/PdfModal';
-import { useLenis } from '../utils/hooks';
 import {
   Magnetic,
   MaskedLines,
@@ -15,8 +14,6 @@ import {
 
 const ContactPage = () => {
   const [showCV, setShowCV] = useState(false);
-
-  useLenis();
 
   useEffect(() => {
     const handleNavbarMenuOpen = () => setShowCV(false);

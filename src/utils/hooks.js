@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import Lenis from 'lenis';
+// Required. Lenis needs `html.lenis, html.lenis body { height: auto }`; without
+// it the shell keeps whatever height the document had and scrolling misbehaves.
+import 'lenis/dist/lenis.css';
 
 /* ------------------------------------------------------------------ */
 /* Motion constants                                                    */
@@ -158,26 +161,57 @@ export const useBodyScrollLock = (locked) => {
  */
 export const useLenis = () => {
   useEffect(() => {
+    // Smooth scroll is precisely the kind of motion reduced-motion users turn
+    // off. Native scrolling is also the safer default, so bail out entirely.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return undefined;
+    }
+
+    /*
+     * `smooth`, `direction`, `gestureDirection`, `mouseMultiplier` and
+     * `smoothTouch` are Lenis v0 options. This project is on v1, where they
+     * are ignored in favour of the names below.
+     */
     const lenis = new Lenis({
       lerp: 0.1,
       duration: 1.2,
       smoothWheel: true,
-      smoothTouch: false,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      wheelMultiplier: 1,
       touchMultiplier: 2,
     });
 
-    let frameId = requestAnimationFrame(function raf(time) {
+    let disposed = false;
+    let frames = 0;
+    let frameId;
+
+    const dispose = () => {
+      if (disposed) return;
+      disposed = true;
+      cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
+
+    frameId = requestAnimationFrame(function raf(time) {
       lenis.raf(time);
+      frames += 1;
       frameId = requestAnimationFrame(raf);
     });
 
+    /*
+     * Watchdog. Lenis calls preventDefault() on wheel events and then owns
+     * scrolling itself, so if this frame loop never advances the page cannot
+     * be scrolled at all. Rather than trap the visitor, tear Lenis down and
+     * let the browser scroll natively — the cost is the easing, not the page.
+     */
+    const watchdog = window.setTimeout(() => {
+      if (frames === 0) dispose();
+    }, 1000);
+
     return () => {
-      cancelAnimationFrame(frameId);
-      lenis.destroy();
+      window.clearTimeout(watchdog);
+      dispose();
     };
   }, []);
 };
