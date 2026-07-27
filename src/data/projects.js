@@ -110,7 +110,7 @@ export const webProjects = [
     title: 'BuildwellAI.com',
     subtitle: 'Company Platform & Brand Site',
     description:
-      'The public BuildwellAI platform — brand identity, design system and marketing experience for a UK construction technology company, built as a Next.js application with a motion-led interface.',
+      'The public platform for a UK construction compliance intelligence company — brand identity, design system and a motion-led marketing experience, built as a Next.js application.',
     period: 'Sept 2025 – Present',
     role: 'Design Systems & Frontend Experience Lead',
     url: 'https://buildwellai.com',
@@ -118,23 +118,7 @@ export const webProjects = [
     tech: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GSAP'],
     category: 'BuildwellAI',
     type: 'website',
-    screenshot: null,
-  },
-  {
-    slug: 'buildwell-thread-chat',
-    title: 'BuildwellTHREAD & BuildwellCHAT',
-    subtitle: 'PropTech Communication Suite',
-    description:
-      'UI/UX lead on two complementary products — a threaded project communication tool and an AI-assisted chat interface for property teams — covering conversation flows, notification systems and role-based access views.',
-    period: 'Sept 2025 – Present',
-    role: 'UI/UX Lead & Frontend Developer',
-    linkNote: 'Internal Product',
-    url: null,
-    to: null,
-    tech: ['React', 'Next.js', 'TypeScript', 'Figma', 'Tailwind CSS'],
-    category: 'BuildwellAI Product',
-    type: 'website',
-    screenshot: null,
+    screenshot: '/imgs/screenshots/buildwellai/site.png',
   },
   {
     slug: 'competency-ledger',
@@ -364,7 +348,6 @@ export const flagshipProjects = pickProjects(
   'trcks',
   'competency-ledger',
   'buildwellai-com',
-  'buildwell-thread-chat',
   'nda-design-system',
 );
 
