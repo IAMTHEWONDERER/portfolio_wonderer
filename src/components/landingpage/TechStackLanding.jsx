@@ -205,7 +205,7 @@ const TechStackLanding = () => {
     <>
       <section
         id="tech-stack"
-        className="relative overflow-hidden bg-[#f5f5f0] py-20 md:py-32"
+        className="relative overflow-hidden bg-[#f5f5f0] py-16 md:py-24"
       >
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
           <div

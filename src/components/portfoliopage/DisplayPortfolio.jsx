@@ -20,8 +20,17 @@ import {
 
 const GRID = 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8';
 
+/*
+ * Products & Ventures holds exactly four items, which left a single orphan
+ * card in a three-column row — and the orphan was the imageless NDA card, so
+ * the flagship section ended on a mostly empty box. Two columns give a clean
+ * 2x2 and make the current work the largest cards on the page, which is the
+ * right emphasis for the section that opens the portfolio.
+ */
+const FLAGSHIP_GRID = 'grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8';
+
 const SubsectionHeader = ({ icon: Icon, title, children }) => (
-  <Reveal className="mb-16">
+  <Reveal className="mb-10">
     <div className="flex items-center gap-4 mb-6">
       <Icon className="w-8 h-8 text-[#e61f00]" aria-hidden="true" />
       <h3 className="font-erstoria text-3xl md:text-4xl text-[#0a0100] tracking-wide">
@@ -47,7 +56,7 @@ const DisplayPortfolio = () => {
     <>
       <section
         data-section="display-portfolio"
-        className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden"
+        className="relative py-16 md:py-24 bg-[#f5f5f0] overflow-hidden"
       >
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
@@ -65,7 +74,7 @@ const DisplayPortfolio = () => {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           {/* Section Header */}
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-12 md:mb-14">
             <SectionLabel className="mb-8">Selected Works</SectionLabel>
 
             <MaskedLines
@@ -83,29 +92,29 @@ const DisplayPortfolio = () => {
           </div>
 
           {/* Products & Ventures */}
-          <div className="mb-32">
+          <div className="mb-20">
             <SubsectionHeader icon={Sparkles} title="PRODUCTS & VENTURES">
               Current work — the products I design and engineer at BuildwellAI, my own
               venture, and the platform behind my master&apos;s thesis.
             </SubsectionHeader>
 
-            <RevealGroup className={GRID}>
-              {flagshipProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
+            <RevealGroup className={FLAGSHIP_GRID}>
+              {flagshipProjects.map((project, i) => (
+                <ProjectCard key={project.slug} project={project} index={i} />
               ))}
             </RevealGroup>
           </div>
 
           {/* Web Development */}
-          <div className="mb-32">
+          <div className="mb-20">
             <SubsectionHeader icon={Code} title="WEB DEVELOPMENT">
               Live web applications showcasing modern development practices, performance
               optimisation and exceptional user experiences.
             </SubsectionHeader>
 
             <RevealGroup className={GRID}>
-              {portfolioWebProjects.map((project) => (
-                <ProjectCard key={project.slug} project={project} />
+              {portfolioWebProjects.map((project, i) => (
+                <ProjectCard key={project.slug} project={project} index={i} />
               ))}
             </RevealGroup>
           </div>

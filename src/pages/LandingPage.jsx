@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import Lenis from 'lenis';
+import React from 'react';
 import HeroLanding from '../components/landingpage/HeroLanding';
 import AboutLanding from '../components/landingpage/AboutLanding';
 import TechStackLanding from '../components/landingpage/TechStackLanding';
@@ -8,33 +7,14 @@ import PortfolioLanding from '../components/landingpage/PorftolioLanding';
 import Footer from '../components/common/Footer';
 import ContactLanding from '../components/landingpage/ContactLanding';
 
+/*
+ * Smooth scroll is owned app-wide by `useLenis()` in AppRouter. This page used
+ * to start a SECOND instance, which (a) skipped the reduced-motion bail-out in
+ * the shared hook, so the home page ignored `prefers-reduced-motion`,
+ * (b) leaked a self-perpetuating rAF loop that cleanup never cancelled, and
+ * (c) passed Lenis v0 option names that v1 ignores. Deleted, not fixed.
+ */
 const LandingPage = () => {
-  useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.2,
-      smoothWheel: true,
-      smoothTouch: false,
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Cleanup function
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
-
   return (
     <div className="min-h-screen bg-[#f5f5f0] relative overflow-hidden">
     

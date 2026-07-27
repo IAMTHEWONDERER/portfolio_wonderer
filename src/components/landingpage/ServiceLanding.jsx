@@ -89,7 +89,7 @@ const ServiceLanding = () => {
   ];
 
   return (
-    <section className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden">
+    <section className="relative py-16 md:py-24 bg-[#f5f5f0] overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
         <div
@@ -105,7 +105,7 @@ const ServiceLanding = () => {
       </div>
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
         {/* Section Header */}
-        <div className="text-center mb-16 md:mb-24">
+        <div className="text-center mb-12 md:mb-14">
           <SectionLabel className="mb-8">Services</SectionLabel>
 
           <MaskedLines

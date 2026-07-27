@@ -60,14 +60,14 @@ const ContactPage = () => {
     {
       icon: MapPin,
       label: "Location",
-      value: "Morocco",
-      description: "Based in North Africa"
+      value: CONTACT.location,
+      description: CONTACT.locationNote
     },
     {
       icon: Clock,
       label: "Availability",
-      value: "GMT+1 Timezone",
-      description: "Available for any inquiries"
+      value: CONTACT.timezone,
+      description: CONTACT.timezoneNote
     }
   ];
 

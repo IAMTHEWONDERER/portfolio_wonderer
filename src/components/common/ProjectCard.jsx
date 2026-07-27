@@ -68,7 +68,7 @@ const ParallaxScreenshot = ({ src, alt, fit = 'cover' }) => {
  * via `failed` state rather than the old `nextElementSibling` handler
  * (which dereferenced null and threw on every image error).
  */
-const ProjectCard = ({ project }) => {
+const ProjectCard = ({ project, index }) => {
   const [failed, setFailed] = useState(false);
   const hasCaseStudy = Boolean(project.to);
   const hasLink = hasCaseStudy || Boolean(project.url);
@@ -118,17 +118,25 @@ const ProjectCard = ({ project }) => {
             )}
           </>
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center px-6">
-              <div className="w-16 h-16 bg-white/80 backdrop-blur-sm flex items-center justify-center mb-4 shadow-lg border border-[#0a0100]/10 mx-auto">
-                <Globe className="w-8 h-8 text-[#0a0100]/70" aria-hidden="true" />
-              </div>
-              {/*
-                Icon only. The card body directly below already states the
-                title and subtitle, so repeating them here printed every
-                imageless card's name twice, one above the other.
-              */}
-            </div>
+          /*
+            No capture available. A lone icon on a flat panel read as a
+            missing asset rather than a designed state, and it is ~180px of
+            the card. Instead the panel becomes a typographic plate: the
+            project's index set large in the display face, ghosted, with a
+            rule and the link status. It repeats nothing from the body below,
+            and it looks intentional rather than broken.
+          */
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-[repeating-linear-gradient(135deg,transparent,transparent_11px,rgba(10,1,0,0.035)_11px,rgba(10,1,0,0.035)_12px)]">
+            <span
+              aria-hidden="true"
+              className="font-erstoria text-6xl md:text-7xl leading-none text-[#0a0100]/15 select-none"
+            >
+              {String((index ?? 0) + 1).padStart(2, '0')}
+            </span>
+            <span aria-hidden="true" className="mt-4 w-10 h-px bg-[#0a0100]/20" />
+            <span className="mt-4 text-[11px] uppercase tracking-widest text-[#0a0100]/50 font-erstoria">
+              {project.linkNote ?? 'No public preview'}
+            </span>
           </div>
         )}
       </div>

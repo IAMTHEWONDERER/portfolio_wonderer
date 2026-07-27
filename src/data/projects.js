@@ -23,6 +23,17 @@ export const CONTACT = {
   githubLabel: 'github.com/IAMTHEWONDERER',
   linkedin: 'https://linkedin.com/in/oussama-alouche',
   linkedinLabel: 'linkedin.com/in/oussama-alouche',
+  /*
+   * Based in Morocco, working remotely for a London company. Both are true and
+   * both appear elsewhere on the site, so they are stated together here —
+   * "Morocco" alone next to a London role reads as a contradiction.
+   * These were hardcoded in ContactPage while every other contact value came
+   * from this module.
+   */
+  location: 'Salé, Morocco',
+  locationNote: 'Working remotely with UK-based teams',
+  timezone: 'GMT+1',
+  timezoneNote: 'Overlaps a full UK working day',
 };
 
 /* ------------------------------------------------------------------ */

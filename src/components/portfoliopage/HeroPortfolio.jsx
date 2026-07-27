@@ -43,7 +43,10 @@ const HeroPortfolio = () => {
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16 py-16 sm:py-24 md:py-32">
         <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-20 items-center">
           {/* Left Content */}
-          <div className="space-y-6 md:space-y-8 order-2 lg:order-1">
+          {/* No order-* overrides: they put the carousel above the <h1> below
+              lg, so a phone opened on an unlabelled slider. DOM order is
+              already correct for both layouts. */}
+          <div className="space-y-6 md:space-y-8">
             <Reveal className="overflow-hidden">
               <div className="inline-flex items-center gap-3 text-[#0a0100]/60 uppercase tracking-widest text-sm mb-2">
                 <div className="w-12 h-px bg-[#0a0100]/30" />
@@ -94,7 +97,7 @@ const HeroPortfolio = () => {
           </div>
 
           {/* Right Content - Projects Carousel */}
-          <Reveal className="relative order-1 lg:order-2" delay={0.15}>
+          <Reveal className="relative" delay={0.15}>
             <div className="relative w-full max-w-md mx-auto lg:max-w-none">
               <ProjectCarousel projects={portfolioHeroProjects} />
             </div>

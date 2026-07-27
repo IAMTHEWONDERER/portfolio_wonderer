@@ -158,18 +158,22 @@ const ThinkPortfolio = () => {
     return () => window.removeEventListener('hamburgerMenuOpen', handleNavbarMenuOpen);
   }, []);
 
-  // Auto-rotate through phases, unless the reader prefers reduced motion.
-  useEffect(() => {
-    if (reduced) return undefined;
-    const interval = setInterval(() => {
-      setActivePhase((prev) => (prev + 1) % thinkingPhases.length);
-    }, 3000);
-    return () => clearInterval(interval);
-  }, [reduced]);
+  /*
+   * The phases used to auto-rotate every 3s. Removed.
+   *
+   * These cards are real <button>s carrying `aria-pressed`, and the interval's
+   * dependency array did not include the selection — so a click did not reset
+   * the timer. A reader who selected DEVELOP lost it after 0–3s (1.5s on
+   * average) and was moved to the *next* phase, not held. A control that
+   * reports a pressed state the reader cannot hold is broadcasting incorrect
+   * state to assistive tech, and on a page whose whole premise is editorial
+   * stillness, a red highlight crawling across five cards forever fights the
+   * design. Selection is now the reader's alone.
+   */
 
   return (
     <>
-      <section className="relative py-20 md:py-32 bg-[#f5f5f0] overflow-hidden">
+      <section className="relative py-16 md:py-24 bg-[#f5f5f0] overflow-hidden">
         {/* Background Grid */}
         <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
           <div
@@ -201,7 +205,7 @@ const ThinkPortfolio = () => {
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 md:px-12 lg:px-16">
           {/* Section Header */}
-          <div className="text-center mb-16 md:mb-24">
+          <div className="text-center mb-12 md:mb-14">
             <SectionLabel className="mb-8">Philosophy</SectionLabel>
 
             <MaskedLines
@@ -257,26 +261,24 @@ const ThinkPortfolio = () => {
               </p>
             </Reveal>
 
+            {/*
+              One grid, not two.
+              The five phases used to be hand-split into a max-w-5xl 3-column
+              grid and a max-w-3xl 2-column grid. Because the second container
+              was narrower but held fewer columns, row 2's cards came out WIDER
+              than row 1's (~384px vs ~341px at lg) and their edges aligned to
+              nothing above them — the one place the column structure visibly
+              broke on a site built on alignment. A single grid gives 3 + 2 at
+              a consistent width.
+            */}
             <div className="mb-12">
-              <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6 max-w-5xl mx-auto">
-                {thinkingPhases.slice(0, 3).map((phase, index) => (
+              <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                {thinkingPhases.map((phase, index) => (
                   <PhaseCard
                     key={phase.title}
                     phase={phase}
                     index={index}
                     isActive={activePhase === index}
-                    onSelect={setActivePhase}
-                  />
-                ))}
-              </RevealGroup>
-
-              <RevealGroup className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-                {thinkingPhases.slice(3).map((phase, index) => (
-                  <PhaseCard
-                    key={phase.title}
-                    phase={phase}
-                    index={index + 3}
-                    isActive={activePhase === index + 3}
                     onSelect={setActivePhase}
                   />
                 ))}
