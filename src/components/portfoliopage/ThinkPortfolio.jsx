@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Brain, Target, Users, Lightbulb, Code, Palette, Circle, ArrowUpRight, Zap } from 'lucide-react';
-import { useReducedMotion } from 'framer-motion';
 import { CV_FILE, CV_DOWNLOAD_NAME, CV_LAST_UPDATED } from '../../data/projects';
 import PdfModal from '../common/PdfModal';
 import {
@@ -148,7 +147,6 @@ const PhaseCard = ({ phase, index, isActive, onSelect }) => {
 const ThinkPortfolio = () => {
   const [activePhase, setActivePhase] = useState(0);
   const [showCV, setShowCV] = useState(false);
-  const reduced = useReducedMotion();
 
   /* Close the CV when the navbar menu opens. Navbar now actually
      dispatches this — before, nothing ever did. */
